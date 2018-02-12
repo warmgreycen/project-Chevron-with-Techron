@@ -34,7 +34,7 @@ public class subsystemDrive extends Subsystem {
 	    	public void DriveWithJoystick(Joystick joy) {
 	    		
 	    		double JoystickLeftVal = Xbox.LEFT_Y(joy);
-	    		double JoystickRightVal = Xbox.RIGHT_X(joy);
+	    		double JoystickRightVal = Xbox.RIGHT_Y(joy);
 	    		
 	    		
 	    		
