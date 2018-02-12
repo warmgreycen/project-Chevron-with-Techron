@@ -1,113 +1,87 @@
-package org.usfirst.frc.team6530.robot.subsystems;
-
+package org.usfirst.frc.team6530.robot.subsystems
+	   /** TalonSRX leftMotor1 = new TalonSRX(Constants.LEFT_SLAVE1);
+	    TalonSRX leftMotor2 = new TalonSRX(Constants.LEFT_SLAVE2);
+	    TalonSRX leftMotor3 = new TalonSRX(Constants.LEFT_MASTER);
+	    TalonSRX rightMotor1 = new TalonSRX(Constants.RIGHT_SLAVE1);
+	    TalonSRX rightMotor2 = new TalonSRX(Constants.RIGHT_SLAVE2);
+	    TalonSRX rightMotor3 = new TalonSRX(Constants.RIGHT_MASTER);
+	    package org.usfirst.frc.team3360.robot.subsystems;
+*/
+import org.usfirst.frc.team6530.robot.Robot;
 import org.usfirst.frc.team6530.robot.Constants;
+import org.usfirst.frc.team6530.robot.OI;
 import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.kauailabs.navx.frc.AHRS;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
-/**    finally a 6 cim tank drive
- *				that	WOOOORKS
- */			
-
-public class subsystemDrive extends Subsystem{
-	
-	WPI_TalonSRX leftMotor1;
-	WPI_TalonSRX leftMotor2;
-	WPI_TalonSRX leftMotor3;
-	WPI_TalonSRX rightMotor1;
-	WPI_TalonSRX rightMotor2;
-	WPI_TalonSRX rightMotor3;
-	
-	
-	DifferentialDrive tankDrive;
-	
-	private boolean leftInverted = true;
-    private boolean rightInverted = false;
-    public boolean isPrecision = false;
-    
-	public AHRS navX;
-	
-	
-	public subsystemDrive(){
-		
-	    WPI_TalonSRX leftMotor1 = new WPI_TalonSRX(Constants.LEFT_SLAVE1);
-	    WPI_TalonSRX leftMotor2 = new WPI_TalonSRX(Constants.LEFT_SLAVE2);
-	    WPI_TalonSRX leftMotor3 = new WPI_TalonSRX(Constants.LEFT_MASTER);
-	    WPI_TalonSRX rightMotor1 = new WPI_TalonSRX(Constants.RIGHT_SLAVE1);
-	    WPI_TalonSRX rightMotor2 = new WPI_TalonSRX(Constants.RIGHT_SLAVE2);
-	    WPI_TalonSRX rightMotor3 = new WPI_TalonSRX(Constants.RIGHT_MASTER);
-	    
-	    leftMotor1.setInverted(leftInverted);
-	    leftMotor2.setInverted(leftInverted);
-	    leftMotor3.setInverted(leftInverted);
-	    rightMotor1.setInverted(rightInverted);
-	    rightMotor2.setInverted(rightInverted);
-	    rightMotor3.setInverted(rightInverted);
-		
-	    rightMotor2.follow(rightMotor3);
-		leftMotor2.follow(leftMotor3);
-		rightMotor1.follow(rightMotor3);
-		leftMotor1.follow(leftMotor3);
-		
-		rightMotor2.setNeutralMode(NeutralMode.Brake);
-		rightMotor1.setNeutralMode(NeutralMode.Brake);
-		rightMotor3.setNeutralMode(NeutralMode.Brake);
-		leftMotor3.setNeutralMode(NeutralMode.Brake);
-		leftMotor2.setNeutralMode(NeutralMode.Brake);
-		leftMotor1.setNeutralMode(NeutralMode.Brake);
-		
-	    /**leftMotor2.set(ControlMode.Follower,Constants.LEFT_MASTER);
-    	leftMotor1.set(ControlMode.Follower,Constants.LEFT_MASTER);
-    	rightMotor2.set(ControlMode.Follower, Constants.RIGHT_MASTER);
-    	rightMotor1.set(ControlMode.Follower, Constants.RIGHT_MASTER);*/
-	    
-	        
-    	//tankDrive = new DifferentialDrive(leftMotor3, rightMotor3);	// Main Drive Train, add DifferentialDrive to beginning if build doesnt run to rio
-		
-    	
-    	//subsystemGyro.initialize();	
-		//ahrs = subsystemGyro.getAHRS();
-	}
-	/**
-	 * Tank drive for automated driving
-	 * @param left - Speed for left motor
-	 * @param right - Speed for right motor
-	 */
-	public void autonTankDrive(double left, double right){
-		leftMotor3.set(ControlMode.PercentOutput, (left));
-		rightMotor3.set(ControlMode.PercentOutput, (right));
-	}
-	
-	public void gyroStraight(double speed, double angle){
-		autonTankDrive(speed - .01*(navX.getYaw() - angle), speed + .01*(navX.getYaw() - angle));
-	}
-	
 
 
-	private void rotate(double rotMot){
-	leftMotor3.set(ControlMode.PercentOutput, rotMot);
-	rightMotor3.set(ControlMode.PercentOutput, rotMot);
-	
-}
 
-// moves robot with left and right drive sticks
-	public void tankDrive(double leftSpeed, double rightSpeed) {
-	leftMotor3.set(ControlMode.PercentOutput, -leftSpeed);
-	rightMotor3.set(ControlMode.PercentOutput, rightSpeed);
-	
-}
+	    /**
+	     * An example subsystem.  You can replace me with your own Subsystem.
+	     */
+public class subsystemDrive extends Subsystem {
+	    	// Put methods for controlling this subsystem
+	    	// here. Call these from Commands.
+	    	/TalonSRX leftMotor1 = new TalonSRX(Constants.LEFT_SLAVE1);
+		    TalonSRX leftMotor2 = new TalonSRX(Constants.LEFT_SLAVE2);
+		    TalonSRX leftMotor3 = new TalonSRX(Constants.LEFT_MASTER);
+		    TalonSRX rightMotor1 = new TalonSRX(Constants.RIGHT_SLAVE1);
+		    TalonSRX rightMotor2 = new TalonSRX(Constants.RIGHT_SLAVE2);
+		    TalonSRX rightMotor3 = new TalonSRX(Constants.RIGHT_MASTER);
+		    
+	    	TalonSRX TankDriveR1 = Constants.LEFT_SLAVE1;
+	    	TalonSRX TankDriveR2 = RobotMap.TankDriveR2;
+	    	TalonSRX TankDriveR3 = RobotMap.TankDriveR3;
+	    	
+	    	TalonSRX TankDriveL1 = Constants.LEFT_SLAVE1;
+	    	TalonSRX TankDriveL2 = Constants.LEFT_SLAVE1;
+	    	TalonSRX TankDriveL3 = Constants.LEFT_SLAVE1;
+	    	
+	    	
+	    	public void initDefaultCommand() {
+	    		// Set the default command for a subsystem here.
+	    		setDefaultCommand(new ManualCommandDrive());
+	    	}
 
-	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new ManualCommandDrive());
-		
-	}
+	    	public void DriveWithJoystick() {
+	    		
+	    		double JoystickLeftVal = OI.DRIVER.getLJoystick().getRawAxis(1);
+	    		double JoystickRightVal = OI.DRIVER.getRJoystick().getRawAxis(1);
+	    		
+	    		
+	    		
+	    		// set Joystick to 0 if they are between -0.1 and 0.1
+	    		if(JoystickLeftVal > -0.1 && JoystickLeftVal < 0.1) {
+	    			JoystickLeftVal = 0;
+	    		}
+	    		if(JoystickRightVal > -0.1 && JoystickRightVal < 0.1) {
+	    			JoystickRightVal = 0;
+	    		}
+	    		
+	    		
+	    		TankDriveR1.set(ControlMode.PercentOutput, -JoystickRightVal);
+	    		TankDriveR2.set(ControlMode.PercentOutput, -JoystickRightVal);
+	    		TankDriveR3.set(ControlMode.PercentOutput, -JoystickRightVal);
+	    		
+	    		TankDriveL1.set(ControlMode.PercentOutput, JoystickLeftVal);
+	    		TankDriveL2.set(ControlMode.PercentOutput, JoystickLeftVal);
+	    		TankDriveL3.set(ControlMode.PercentOutput, JoystickLeftVal);
+	    		
+	    		
+	    		
+	    	}
+	    	
+	    	public void setDriveValue(double RightVal, double LeftVal) {
+	    		TankDriveR1.set(ControlMode.Position, -RightVal);
+	    		TankDriveR2.set(ControlMode.Position, -RightVal);
+	    		TankDriveR3.set(ControlMode.Position, -RightVal);
+	    		
+	    		TankDriveL1.set(ControlMode.Position, -LeftVal);
+	    		TankDriveL2.set(ControlMode.Position, -LeftVal);
+	    		TankDriveL3.set(ControlMode.Position, -LeftVal);
+	    	}
 
-}
+
+	    }	   
