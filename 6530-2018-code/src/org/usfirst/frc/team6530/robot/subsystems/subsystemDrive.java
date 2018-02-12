@@ -1,22 +1,22 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
 import org.usfirst.frc.team6530.robot.Constants;
-import org.usfirst.frc.team6530.robot.util.Xbox;
-import org.usfirst.frc.team6530.robot.subsystems.subsystemGyro;
+import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**    finally a 6 cim tank drive
  *				that	WOOOORKS
  */			
-@SuppressWarnings("deprecation")
-public class subsystemDrive {
+
+public class subsystemDrive extends Subsystem{
 	
 	WPI_TalonSRX leftMotor1;
 	WPI_TalonSRX leftMotor2;
@@ -34,16 +34,7 @@ public class subsystemDrive {
     
 	public AHRS navX;
 	
-	/**
-	 * Init for drive train
-	 * 
-	 * @param leftID - CAN ID of left main Talon SRX
-	 * @param leftSID - CAN ID of left slave Talon SRX
-	 * @param rightID - CAN ID of right main Talon SRX
-	 * @param rightSID - CAN ID of right slave Talon SRX
-	 * 
-	 * @author Nic A
-	 */
+	
 	public subsystemDrive(){
 		
 	    WPI_TalonSRX leftMotor1 = new WPI_TalonSRX(Constants.LEFT_SLAVE1);
@@ -60,37 +51,30 @@ public class subsystemDrive {
 	    rightMotor2.setInverted(rightInverted);
 	    rightMotor3.setInverted(rightInverted);
 		
-	    leftMotor2.set(ControlMode.Follower,Constants.LEFT_MASTER);
+	    rightMotor2.follow(rightMotor3);
+		leftMotor2.follow(leftMotor3);
+		rightMotor1.follow(rightMotor3);
+		leftMotor1.follow(leftMotor3);
+		
+		rightMotor2.setNeutralMode(NeutralMode.Brake);
+		rightMotor1.setNeutralMode(NeutralMode.Brake);
+		rightMotor3.setNeutralMode(NeutralMode.Brake);
+		leftMotor3.setNeutralMode(NeutralMode.Brake);
+		leftMotor2.setNeutralMode(NeutralMode.Brake);
+		leftMotor1.setNeutralMode(NeutralMode.Brake);
+		
+	    /**leftMotor2.set(ControlMode.Follower,Constants.LEFT_MASTER);
     	leftMotor1.set(ControlMode.Follower,Constants.LEFT_MASTER);
     	rightMotor2.set(ControlMode.Follower, Constants.RIGHT_MASTER);
-    	rightMotor1.set(ControlMode.Follower, Constants.RIGHT_MASTER);
-    	
-    	tankDrive = new DifferentialDrive(leftMotor3, rightMotor3);	// Main Drive Train, add DifferentialDrive to beginning if build doesnt run to rio
+    	rightMotor1.set(ControlMode.Follower, Constants.RIGHT_MASTER);*/
+	    
+	        
+    	//tankDrive = new DifferentialDrive(leftMotor3, rightMotor3);	// Main Drive Train, add DifferentialDrive to beginning if build doesnt run to rio
 		
     	
     	//subsystemGyro.initialize();	
 		//ahrs = subsystemGyro.getAHRS();
 	}
-	
-		public void setTankDrive(double leftSpeed, double rightSpeed) {
-			tankDrive.tankDrive(leftSpeed, rightSpeed, true); //3rd argument is squaredInputs; 'true' means controls are less sensitive at	
-	}
-
-
-		public void setRightMotorSpeed(double speed){
-			rightMotor3.set(speed);
-}
-
-		public void setLeftMotorSpeed(double speed){
-			leftMotor3.set(speed);
-}
-
-//public void initDefaultCommand() { //If nothing else is running and it's in Operator part of match, run Joystick input
-		//if (DriverStation.getInstance().isOperatorControl() ) {
-//			setDefaultCommand(new JoystickDrive() );
-		//}
-
-
 	/**
 	 * Tank drive for automated driving
 	 * @param left - Speed for left motor
@@ -105,4 +89,25 @@ public class subsystemDrive {
 		autonTankDrive(speed - .01*(navX.getYaw() - angle), speed + .01*(navX.getYaw() - angle));
 	}
 	
+
+
+	private void rotate(double rotMot){
+	leftMotor3.set(ControlMode.PercentOutput, rotMot);
+	rightMotor3.set(ControlMode.PercentOutput, rotMot);
+	
+}
+
+// moves robot with left and right drive sticks
+	public void tankDrive(double leftSpeed, double rightSpeed) {
+	leftMotor3.set(ControlMode.PercentOutput, -leftSpeed);
+	rightMotor3.set(ControlMode.PercentOutput, rightSpeed);
+	
+}
+
+	@Override
+	protected void initDefaultCommand() {
+		setDefaultCommand(new ManualCommandDrive());
+		
+	}
+
 }
