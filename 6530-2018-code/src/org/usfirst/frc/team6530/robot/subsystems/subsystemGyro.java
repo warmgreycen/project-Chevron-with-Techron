@@ -2,12 +2,12 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class subsystemGyro {
+public class subsystemGyro extends Subsystem {
 	
 	private static boolean initialized = false;
     
@@ -24,7 +24,7 @@ public class subsystemGyro {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
         }
 
-		reset();
+		//reset();
 		
 		initialized = true;
 	}
@@ -40,7 +40,7 @@ public class subsystemGyro {
 		float yaw = 0f;
 	}
 				
-	public static void reset()
+	public void reset()
 	{
 		System.out.println("NavXSensor::reset called!");
 				
@@ -93,7 +93,7 @@ public class subsystemGyro {
 	}
 	
 	// returns yaw angle (-180 deg to +180 deg)
-	public static float getYaw() 
+	public float getYaw() 
 	{
 		float yaw = 0f;
 		
@@ -106,7 +106,7 @@ public class subsystemGyro {
 	}
 	
 	// returns absolute yaw angle (can be larger than 360 deg)
-	public static double getAngle() 
+	public double getAngle() 
 	{
 		double yaw = 0f;
 		
@@ -116,6 +116,12 @@ public class subsystemGyro {
 		}			
 		
 		return yaw;
+		
+	}
+
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
 		
 	}
 	

@@ -4,5 +4,5 @@
 
 ### Contributors
  * **Greycen Robson** - [*WarmGreycen*](https://github.com/WarmGreycen)
- * Cole Blakley - [*?*](https://github.com/?)
+ * Cole Blakley - [*csb6*](https://github.com/csb6)
  * Josh Rum-Ham - [*?*](https://github.com/?)

@@ -127,6 +127,3 @@ public void testPeriodic() {
 	LiveWindow.run(); 
 	}
 }
-
-
-
