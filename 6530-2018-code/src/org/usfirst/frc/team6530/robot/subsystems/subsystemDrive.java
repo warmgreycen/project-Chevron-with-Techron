@@ -122,6 +122,9 @@ public class subsystemDrive extends Subsystem {
 		//leftSpeed = getLeftMotorSpeed();
 		//rightError = finalDistance - rightDistance;
 		//leftError = finalDistance - leftDistance;
+		kP = SmartDashboard.getNumber("kP", 0);
+		kI = SmartDashboard.getNumber("kI", 0);
+		kD = SmartDashboard.getNumber("kD", 0);
 		
 		error = finalDistance - distance;
 		lastError = finalDistance - lastDistance;
