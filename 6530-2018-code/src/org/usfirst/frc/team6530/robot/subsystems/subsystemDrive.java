@@ -24,7 +24,10 @@ public class subsystemDrive extends Subsystem {
 		    TalonSRX rightMotor3 = new TalonSRX(Constants.RIGHT_MASTER);
 		    
 	    	
-	    	
+		    private boolean leftInverted = false;
+		    private boolean rightInverted = true;
+		    
+	
 	    	
 	    	public void initDefaultCommand() {
 	    		// Set the default command for a subsystem here.
@@ -36,13 +39,14 @@ public class subsystemDrive extends Subsystem {
 	    		double JoystickLeftVal = Xbox.RIGHT_Y(joy);
 	    		double JoystickRightVal = Xbox.LEFT_Y(joy);
 	    		
+	    
 	    		
 	    		
-	    		// set Joystick to 0 if they are between -0.1 and 0.1
-	    		if(JoystickLeftVal > -0.2 && JoystickLeftVal < 0.2) {
+	    		// set Joystick to 0 if they are between -0.2 and 0.2
+	    		if(JoystickLeftVal > -0.1 && JoystickLeftVal < 0.1) {
 	    			JoystickLeftVal = 0;
 	    		}
-	    		if(JoystickRightVal > -0.2 && JoystickRightVal < 0.2) {
+	    		if(JoystickRightVal > -0.1 && JoystickRightVal < 0.1) {
 	    			JoystickRightVal = 0;
 	    		}
 	    		
@@ -55,18 +59,24 @@ public class subsystemDrive extends Subsystem {
 	    		leftMotor2.set(ControlMode.PercentOutput, JoystickLeftVal);
 	    		leftMotor3.set(ControlMode.PercentOutput, JoystickLeftVal);
 	    		
-	    		
-	    		
+	    		leftMotor1.setInverted(leftInverted);
+	    	    leftMotor2.setInverted(leftInverted);
+	    	    leftMotor3.setInverted(leftInverted);
+	    	    rightMotor1.setInverted(rightInverted);
+	    	    rightMotor2.setInverted(rightInverted);
+	    	    rightMotor3.setInverted(rightInverted);
 	    	}
+	    		
+	    	
 	    	
 	    	public void setDriveValue(double RightVal, double LeftVal) {
 	    		rightMotor1.set(ControlMode.Position, RightVal);
 	    		rightMotor2.set(ControlMode.Position, RightVal);
 	    		rightMotor3.set(ControlMode.Position, RightVal);
 	    		
-	    		leftMotor1.set(ControlMode.Position, -LeftVal);
-	    		leftMotor2.set(ControlMode.Position, -LeftVal);
-	    		leftMotor3.set(ControlMode.Position, -LeftVal);
+	    		leftMotor1.set(ControlMode.Position, LeftVal);
+	    		leftMotor2.set(ControlMode.Position, LeftVal);
+	    		leftMotor3.set(ControlMode.Position, LeftVal);
 	    	}
 
 
