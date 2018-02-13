@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutonomousMove extends Command {
 	
-	private double leftDistance, rightDistance, lastLeftDistance, lastRightDistance, finalDistance;
+	private double leftDistance, rightDistance, lastLeftDistance, lastRightDistance;
 	private double leftSpeed, rightSpeed;
 	private boolean isRightStopped = false; 
 	private boolean isLeftStopped = false;
 
-    public AutonomousMove(double finalDistance) { //This arguments is the distances we want the robot to move.
-    		this.finalDistance = finalDistance; //Makes local copies of these arguments to use during execute()
+    public AutonomousMove() { //This arguments is the distances we want the robot to move.
+    		//this.finalDistance = finalDistance; //Makes local copies of these arguments to use during execute()
     		requires(Robot.SUB_DRIVE);
     		requires(Robot.SUB_ENCODERS);
     		requires(Robot.SUB_GYRO);
@@ -36,8 +36,8 @@ public class AutonomousMove extends Command {
     		leftSpeed = Robot.SUB_DRIVE.getLeftMotorSpeed();
     		rightSpeed = Robot.SUB_DRIVE.getRightMotorSpeed();
     		
-    		isLeftStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, lastLeftDistance, finalDistance, leftSpeed);
-    		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, finalDistance, rightSpeed);
+    		isLeftStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, lastLeftDistance, leftSpeed);
+    		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, rightSpeed);
     }
     
     /*public void driveStraight(double speed, String side){ //Use gyro to correct any drifts to left or right
@@ -67,6 +67,5 @@ public class AutonomousMove extends Command {
     protected void interrupted() {
     		Robot.SUB_DRIVE.setDriveValue(0, 0);
     		isRightStopped = true;
-    		isLeftStopped = true;
     }
 }

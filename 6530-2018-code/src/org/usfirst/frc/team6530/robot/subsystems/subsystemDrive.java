@@ -12,16 +12,19 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**    finally a 6 cim tank drive
  *				that	WOOOORKS
  */			
 //@SuppressWarnings("deprecation")
 public class subsystemDrive extends Subsystem {
-    double kP = 1.2;
-    double kI = 0;
-    double kD = 0;
+    double kP;
+    double kI;
+    double kD;
+    double finalDistance;
     
     //double rightSpeed, leftSpeed, leftError, rightError, lastLeftError, lastRightError, leftProportion, rightProportion;
     //double leftIntegral, rightIntegral, leftDeriv, rightDeriv;
@@ -40,7 +43,12 @@ public class subsystemDrive extends Subsystem {
     TalonSRX rightMotor2 = new TalonSRX(Constants.RIGHT_SLAVE2);
     TalonSRX rightMotor3 = new TalonSRX(Constants.RIGHT_MASTER);
     
-	
+	public subsystemDrive() {
+		SmartDashboard.putNumber("Final Distance", finalDistance);
+		SmartDashboard.putNumber("kP", kP);
+		SmartDashboard.putNumber("kI", kI);
+		SmartDashboard.putNumber("kD", kD);
+	}
 	
 	
 	public void initDefaultCommand() {
@@ -109,11 +117,12 @@ public class subsystemDrive extends Subsystem {
 	}
 	
 	
-	public boolean autoDrive(double distance, double lastDistance, double finalDistance, double speed) {
+	public boolean autoDrive(double distance, double lastDistance, double speed) {
 		//rightSpeed = getRightMotorSpeed();
 		//leftSpeed = getLeftMotorSpeed();
 		//rightError = finalDistance - rightDistance;
 		//leftError = finalDistance - leftDistance;
+		
 		error = finalDistance - distance;
 		lastError = finalDistance - lastDistance;
 	//Total Error Calculations	
