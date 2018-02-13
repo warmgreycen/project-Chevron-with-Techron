@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj.command.Command;
  *This command moves the robot in a straight line forward or backwards, slowing it down as it is
  *within 3 ft of the way through its intended distance and course-correcting with the gyro as needed.
  */
-public class StraightToBalance extends Command {
+public class DiagonalToSide extends Command {
 	
 	private double leftDistance, leftSpeed, rightDistance, rightSpeed, finalDistance;
 	private boolean isStopped = false; 
 
-    public StraightToBalance(double finalDistance) { //This arguments is the distances we want the robot to move.
+    public DiagonalToSide(double finalDistance) { //This arguments is the distances we want the robot to move.
     		this.finalDistance = finalDistance; //Makes local copies of these arguments to use during execute()
     		requires(Robot.SUB_DRIVE);
     		requires(Robot.SUB_ENCODERS);

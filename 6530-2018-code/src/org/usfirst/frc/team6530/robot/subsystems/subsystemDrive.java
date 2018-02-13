@@ -35,6 +35,18 @@ public class subsystemDrive extends Subsystem {
 	private boolean leftInverted = true;
     private boolean rightInverted = false;
     public boolean isPrecision = false;
+    private boolean isStopped = false;
+    
+    double kP = 1.2;
+    double kI = 0;
+    double kD = 0;
+    
+    //double rightSpeed, leftSpeed, leftError, rightError, lastLeftError, lastRightError, leftProportion, rightProportion;
+    //double leftIntegral, rightIntegral, leftDeriv, rightDeriv;
+    //double totalRightError, totalLeftError = 0;
+    double error, proportion, integral, deriv, lastError;
+    double totalError = 0;
+    double deadZone = 24; //24in
     
 	public AHRS navX;
 	
@@ -65,11 +77,11 @@ public class subsystemDrive extends Subsystem {
 	    rightMotor3.setInverted(rightInverted);
 		
 	    leftMotor2.set(ControlMode.Follower,Constants.LEFT_MASTER);
-    	leftMotor1.set(ControlMode.Follower,Constants.LEFT_MASTER);
-    	rightMotor2.set(ControlMode.Follower, Constants.RIGHT_MASTER);
-    	rightMotor1.set(ControlMode.Follower, Constants.RIGHT_MASTER);
-    	
-    	tankDrive = new DifferentialDrive(leftMotor3, rightMotor3);	// Main Drive Train, add DifferentialDrive to beginning if build doesnt run to rio
+	    leftMotor1.set(ControlMode.Follower,Constants.LEFT_MASTER);
+    		rightMotor2.set(ControlMode.Follower, Constants.RIGHT_MASTER);
+    		rightMotor1.set(ControlMode.Follower, Constants.RIGHT_MASTER);
+    		
+    		tankDrive = new DifferentialDrive(leftMotor3, rightMotor3);	// Main Drive Train, add DifferentialDrive to beginning if build doesnt run to rio
 		
     	
     	//subsystemGyro.initialize();	
@@ -110,21 +122,48 @@ public class subsystemDrive extends Subsystem {
 		autonTankDrive(speed - .01*(navX.getYaw() - angle), speed + .01*(navX.getYaw() - angle));
 	}
 	
-	public boolean autoDrive(double currentDistance, double finalDistance, double speed, double angle) {
-		if(currentDistance < finalDistance) {//If the wheels haven't reached their intended distance, check to see how close robot is to final distance
-			if( (finalDistance - currentDistance) <= 36 ) {//If wheels are within 3 ft of final distance, slow them down
-				gyroStraight( (.999*speed), angle);
-				return false;
-			}
-			else {//If not within 3 ft of final distance, go full speed
-				Robot.SUB_DRIVE.gyroStraight(speed, angle);
-				return false;
-			}
+	
+	public boolean autoDrive(double distance, double lastDistance, double finalDistance, double speed) {
+		//rightSpeed = getRightMotorSpeed();
+		//leftSpeed = getLeftMotorSpeed();
+		//rightError = finalDistance - rightDistance;
+		//leftError = finalDistance - leftDistance;
+		error = finalDistance - distance;
+		lastError = finalDistance - lastDistance;
+	//Total Error Calculations	
+		if(error < deadZone && error != 0) {//Left motors
+			totalError += error;
 		}
-		else {//If robot is at or a bit past final distance, stop it, then end the entire command
-			setTankDrive(0, 0);
-			return true;
+		else {
+			totalError = 0;
+			isStopped = true;
 		}
+		/*if(rightError < deadZone && rightError != 0) {//Right Motors
+			totalRightError += rightError;
+		}
+		else {
+			totalRightError = 0;
+			isRightStopped = true;
+		}
+		if(totalLeftError > 50/kI) {//Integral limiting
+			totalLeftError = 0;
+		}
+		totalRightError += rightError;*/
+	//P, I, and D Calculations
+		proportion = error * kP;
+		//rightProportion = rightError * kP;
+		integral = totalError * kI;
+		//rightIntegral = totalRightError * kI;
+		deriv = (error-lastError) * kD;
+		//rightDeriv = (rightError-lastRightError) * kD;
+		
+		//lastLeftError = leftError; //Move these 2 into AutonMove after calling this function for both sides.
+		//lastRightError = rightError;
+		
+		speed += proportion + integral + deriv;
+		//rightSpeed += rightProportion + rightIntegral + rightDeriv;
+		return isStopped;
+		
 	}
 
 	@Override

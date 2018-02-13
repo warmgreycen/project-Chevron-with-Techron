@@ -1,7 +1,10 @@
 package org.usfirst.frc.team6530.robot.auto;
 
+import java.util.concurrent.TimeUnit;
+
 import org.usfirst.frc.team6530.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 //import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -11,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutonomousMove extends Command {
 	
-	private double leftDistance, leftSpeed, rightDistance, rightSpeed, finalDistance;
+	private double leftDistance, rightDistance, finalDistance;
 	private boolean isStopped = false; 
 
     public AutonomousMove(double finalDistance) { //This arguments is the distances we want the robot to move.
@@ -31,11 +34,10 @@ public class AutonomousMove extends Command {
     protected void execute() {
     		leftDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance(); //Find distances traveled so far
     		rightDistance = Robot.SUB_ENCODERS.getRightEncoderDistance();
-    		leftSpeed = Robot.SUB_DRIVE.getLeftMotorSpeed(); //Find current speeds
-    		rightSpeed = Robot.SUB_DRIVE.getRightMotorSpeed();
+    		//leftSpeed = Robot.SUB_DRIVE.getLeftMotorSpeed(); //Find current speeds
+    		//rightSpeed = Robot.SUB_DRIVE.getRightMotorSpeed();
     		
-    		isStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, finalDistance, leftSpeed, 0); //Drive at this angle for this distance
-    		isStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, finalDistance, rightSpeed, 0);
+    		isStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, rightDistance, finalDistance, 0);
     }
     
     /*public void driveStraight(double speed, String side){ //Use gyro to correct any drifts to left or right
