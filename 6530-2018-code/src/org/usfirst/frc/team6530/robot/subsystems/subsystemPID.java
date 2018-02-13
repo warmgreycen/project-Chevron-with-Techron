@@ -1,8 +1,9 @@
 
 package org.usfirst.frc.team6530.robot.subsystems;
 
-import com.kauailabs.navx.frc.AHRS;
+import org.usfirst.frc.team6530.robot.Robot;
 
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -73,7 +74,7 @@ public class subsystemPID {
 	
 	public static void reset() {
 		disable();
-		subsystemGyro.reset();
+		Robot.SUB_GYRO.reset();
 		angleTargetDeg = 0.0;
 	}
 	
