@@ -1,10 +1,7 @@
 package org.usfirst.frc.team6530.robot.auto;
 
-import java.util.concurrent.TimeUnit;
-
 import org.usfirst.frc.team6530.robot.Robot;
 
-import edu.wpi.first.wpilibj.Timer;
 //import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -14,8 +11,10 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutonomousMove extends Command {
 	
-	private double leftDistance, rightDistance, finalDistance;
-	private boolean isStopped = false; 
+	private double leftDistance, rightDistance, lastLeftDistance, lastRightDistance, finalDistance;
+	private double leftSpeed, rightSpeed;
+	private boolean isRightStopped = false; 
+	private boolean isLeftStopped = false;
 
     public AutonomousMove(double finalDistance) { //This arguments is the distances we want the robot to move.
     		this.finalDistance = finalDistance; //Makes local copies of these arguments to use during execute()
@@ -34,10 +33,11 @@ public class AutonomousMove extends Command {
     protected void execute() {
     		leftDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance(); //Find distances traveled so far
     		rightDistance = Robot.SUB_ENCODERS.getRightEncoderDistance();
-    		//leftSpeed = Robot.SUB_DRIVE.getLeftMotorSpeed(); //Find current speeds
-    		//rightSpeed = Robot.SUB_DRIVE.getRightMotorSpeed();
+    		leftSpeed = Robot.SUB_DRIVE.getLeftMotorSpeed();
+    		rightSpeed = Robot.SUB_DRIVE.getRightMotorSpeed();
     		
-    		isStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, rightDistance, finalDistance, 0);
+    		isLeftStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, lastLeftDistance, finalDistance, leftSpeed);
+    		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, finalDistance, rightSpeed);
     }
     
     /*public void driveStraight(double speed, String side){ //Use gyro to correct any drifts to left or right
@@ -56,7 +56,7 @@ public class AutonomousMove extends Command {
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isStopped;//Stops this command when robot has gone its specified distance.
+        return (isRightStopped && isLeftStopped);//Stops this command when robot has gone its specified distance.
     }
 
     // Called once after isFinished returns true
@@ -66,6 +66,7 @@ public class AutonomousMove extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     		Robot.SUB_DRIVE.setDriveValue(0, 0);
-    		isStopped = true;
+    		isRightStopped = true;
+    		isLeftStopped = true;
     }
 }
