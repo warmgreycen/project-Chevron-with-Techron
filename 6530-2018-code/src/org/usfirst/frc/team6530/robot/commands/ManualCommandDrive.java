@@ -49,5 +49,4 @@ public class ManualCommandDrive extends Command {
 	private void exit() {
 		Robot.SUB_DRIVE.setDriveValue(0, 0);
 	}
-	
 }

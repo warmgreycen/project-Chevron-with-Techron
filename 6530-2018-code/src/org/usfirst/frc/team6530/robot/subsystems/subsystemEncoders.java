@@ -1,50 +1,64 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
-import org.usfirst.frc.team6530.robot.subsystems.common.IDisplay;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class subsystemEncoders implements org.usfirst.frc.team6530.robot.subsystems.common.IDisplay {
-	static final int LEFT_A = 3;
-	static final int LEFT_B = 4;
-	static final int RIGHT_A = 1;
-	static final int RIGHT_B = 2;
+/**
+ *Contains methods for interfacing with encoders
+ */
+public class subsystemEncoders extends Subsystem {
 	
-	//126 per rotation
-	Encoder left;
-	Encoder right;
+	//define encoders
+	Encoder rightEncoder, leftEncoder;
+	double distancePerPulse;
+
 	public subsystemEncoders() {
-		left = new Encoder(LEFT_A, LEFT_B, false, EncodingType.k1X);
-		right = new Encoder(RIGHT_A, RIGHT_B, true, EncodingType.k1X);
-		left.reset();
-		right.reset();
+		rightEncoder = new Encoder(3, 4, false, Encoder.EncodingType.k4X);
+		leftEncoder = new Encoder(1, 2, true, Encoder.EncodingType.k4X);
+		
+		distancePerPulse = (4 * Math.PI) / 256;	  //distancePerPulse: Distance in one wheel turn (which is diameter*pi or circumference) divided by the number
+		rightEncoder.setDistancePerPulse(distancePerPulse);//# of pulses in 1 revolution (256). The code then sends this number to the encoders.
+		leftEncoder.setDistancePerPulse(distancePerPulse);
+		
+		//Set encoder spin count to zero
+		rightEncoder.reset();
+		leftEncoder.reset();
 	}
 	
-	public int GetLeft() {
-		return left.get();
-	}
-	
-	public int GetRight() {
-		return right.get();
-	}
-	
-	public void ResetAll() {
-		right.reset();
-		left.reset();
-	}
-	
-	public void ResetLeft() {
-		left.reset();
-	}
-	
-	public void ResetRight() {
-		right.reset();
+	public double getRightEncoderDistance() { //Retrieves how far the right encoder has seen the right wheels go
+		//System.out.print(rightEncoder.getDistance() );
+		return rightEncoder.getDistance();
 	}
 
-	@Override
-	public void Display() {
-		SmartDashboard.putString("Left", "Left:" + Integer.toString(left.get()));
-		SmartDashboard.putString("Right", "Right:" + Integer.toString(right.get()));
+	public int getLeftEncoderCount(){ //Retrieves current encoder count of spins
+		return leftEncoder.get();
 	}
+	
+	public int getRightEncoderCount() {
+		return rightEncoder.get();
+	}
+
+	public double getLeftEncoderDistance() { //Retrieves how far the left encoder has seen the left wheels go
+		return leftEncoder.getDistance();
+	}
+
+	public void encoderReset() { //Starts over count on encoders
+		rightEncoder.reset();
+		leftEncoder.reset();
+	}
+/*	
+	public double getAngleError() { //Tells how far off (in degrees) robot is from a perfectly straight heading
+		return gyro.getAngle();
+	}
+	
+	public void resetGyro(){
+		gyro.reset();
+	}
+	
+	public double getCorrectionSpeed(double angleError) { //Converts angle error into a the additional speed we need to correct it
+		return (angleError / 760);
+	}
+	*/
+    public void initDefaultCommand() {}
 }
+

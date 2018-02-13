@@ -9,12 +9,14 @@ package org.usfirst.frc.team6530.robot;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
 
+import org.usfirst.frc.team6530.robot.auto.AutonomousMove;
 import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 
@@ -49,6 +51,7 @@ public class Robot extends IterativeRobot {
 		
 	/** autonomous */
 		private CommandGroupAuto auto;
+		Command autoMove;
 
 	
 	/**
@@ -77,6 +80,7 @@ public class Robot extends IterativeRobot {
 		for(int i = 1; i < Autonomous.values().length; i++) { 
 			autoChooser.addObject(Autonomous.values()[i].toString(), Autonomous.values()[i]); } // add each autonomous enum value to chooser
 		SmartDashboard.putData("Auto Mode", autoChooser); //display the chooser on the dash
+		autoMove = new AutonomousMove();
 
 	/** instantiate cameras */
 		 vision.startCameraThread();
@@ -95,10 +99,11 @@ public void disabledPeriodic() {
 
 /** runs when autonomous start */
 public void autonomousInit() {
-	if(autoChooser.getSelected() != null) {
-		auto = new CommandGroupAuto(autoChooser.getSelected());
-		auto.start(); 
-	} 
+	//if(autoChooser.getSelected() != null) {
+	//	auto = new CommandGroupAuto(autoChooser.getSelected());
+	//	auto.start(); 
+	//} 
+	autoMove.start();
 }
 
 
@@ -127,6 +132,3 @@ public void testPeriodic() {
 	LiveWindow.run(); 
 	}
 }
-
-
-
