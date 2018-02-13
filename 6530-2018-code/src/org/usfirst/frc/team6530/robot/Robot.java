@@ -7,18 +7,15 @@
 
 package org.usfirst.frc.team6530.robot;
 
-//import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-//import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 
-import org.usfirst.frc.team6530.robot.auto.AutonomousMove;
-import org.usfirst.frc.team6530.robot.commands.CommandGroupAuto;
+import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 
 import org.usfirst.frc.team6530.robot.subsystems.*;
@@ -39,9 +36,8 @@ public class Robot extends IterativeRobot {
 		
 		
 	/** subsystems */
-		//public static subsystemEncoders SUB_ENCODERS;
 		public static subsystemEncoders SUB_ENCODERS;
-		//public static subsystemRoller SUB_ROLLER;
+//		public static subsystemRoller SUB_ROLLER;
 		public static subsystemDrive SUB_DRIVE;
 		public static subsystemGyro SUB_GYRO;
 
@@ -49,7 +45,6 @@ public class Robot extends IterativeRobot {
 		public static subsystemPID SUB_PID;
 		public static OI oi;
 		public static Vision vision;
-		Command autoCommand;
 
 		
 	/** autonomous */
@@ -66,7 +61,7 @@ public class Robot extends IterativeRobot {
 		
 	/** instantiate subsystems */
 		SUB_ENCODERS = new subsystemEncoders();
-		//SUB_ROLLER = new subsystemRoller();
+//		SUB_ROLLER = new subsystemRoller();
 		SUB_DRIVE = new subsystemDrive();
 		SUB_GYRO = new subsystemGyro();
 
@@ -77,13 +72,11 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 	
 	/** instantiate autonomous chooser */
-		autoCommand = new AutonomousMove(60);
-		System.out.println("Command started");
-		//autoChooser = new SendableChooser<>();
-		//autoChooser.addDefault(Autonomous.NOTHING.toString(), Autonomous.NOTHING); // set default to nothing
-		//for(int i = 1; i < Autonomous.values().length; i++) { 
-		//	autoChooser.addObject(Autonomous.values()[i].toString(), Autonomous.values()[i]); } // add each autonomous enum value to chooser
-		//SmartDashboard.putData("Auto Mode", autoChooser); //display the chooser on the dash
+		autoChooser = new SendableChooser<>();
+		autoChooser.addDefault(Autonomous.NOTHING.toString(), Autonomous.NOTHING); // set default to nothing
+		for(int i = 1; i < Autonomous.values().length; i++) { 
+			autoChooser.addObject(Autonomous.values()[i].toString(), Autonomous.values()[i]); } // add each autonomous enum value to chooser
+		SmartDashboard.putData("Auto Mode", autoChooser); //display the chooser on the dash
 
 	/** instantiate cameras */
 		 vision.startCameraThread();
@@ -102,10 +95,10 @@ public void disabledPeriodic() {
 
 /** runs when autonomous start */
 public void autonomousInit() {
-	//if(autoChooser.getSelected() != null) {
-	//	auto = new CommandGroupAuto(autoChooser.getSelected());
-		autoCommand.start(); 
-	//} 
+	if(autoChooser.getSelected() != null) {
+		auto = new CommandGroupAuto(autoChooser.getSelected());
+		auto.start(); 
+	} 
 }
 
 
@@ -134,6 +127,3 @@ public void testPeriodic() {
 	LiveWindow.run(); 
 	}
 }
-
-
-

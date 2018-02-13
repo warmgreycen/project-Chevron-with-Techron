@@ -1,5 +1,5 @@
 
-package org.usfirst.frc.team6530.robot.commands;
+package org.usfirst.frc.team6530.robot.auto;
 
 //import org.usfirst.frc.team6530.robot.commands.*; // when the commands are ready, load each individually to decrease runtime
 import org.usfirst.frc.team6530.robot.enumeration.Autonomous;

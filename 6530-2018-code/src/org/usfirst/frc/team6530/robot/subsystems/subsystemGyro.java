@@ -93,7 +93,7 @@ public class subsystemGyro extends Subsystem {
 	}
 	
 	// returns yaw angle (-180 deg to +180 deg)
-	public static float getYaw() 
+	public float getYaw() 
 	{
 		float yaw = 0f;
 		
