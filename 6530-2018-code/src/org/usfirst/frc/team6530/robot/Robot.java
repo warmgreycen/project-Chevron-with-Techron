@@ -40,7 +40,7 @@ public class Robot extends IterativeRobot {
 		
 	/** subsystems */
 		//public static subsystemEncoders SUB_ENCODERS;
-		public static systemEncoders SUB_ENCODERS;
+		public static subsystemEncoders SUB_ENCODERS;
 		//public static subsystemRoller SUB_ROLLER;
 		public static subsystemDrive SUB_DRIVE;
 		public static subsystemGyro SUB_GYRO;
@@ -65,7 +65,7 @@ public class Robot extends IterativeRobot {
 //		SUB_ARDUINO = new SubsystemArduino();
 		
 	/** instantiate subsystems */
-		SUB_ENCODERS = new systemEncoders();
+		SUB_ENCODERS = new subsystemEncoders();
 		//SUB_ROLLER = new subsystemRoller();
 		SUB_DRIVE = new subsystemDrive();
 		SUB_GYRO = new subsystemGyro();

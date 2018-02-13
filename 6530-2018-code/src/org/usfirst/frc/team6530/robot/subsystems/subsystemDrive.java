@@ -3,11 +3,14 @@ package org.usfirst.frc.team6530.robot.subsystems;
 import org.usfirst.frc.team6530.robot.Constants;
 //import org.usfirst.frc.team6530.robot.util.Xbox;
 //import org.usfirst.frc.team6530.robot.subsystems.subsystemGyro;
+import org.usfirst.frc.team6530.robot.Robot;
+import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.SPI;
@@ -75,16 +78,15 @@ public class subsystemDrive extends Subsystem {
 	
 		public void setTankDrive(double leftSpeed, double rightSpeed) {
 			tankDrive.tankDrive(leftSpeed, rightSpeed, true); //3rd argument is squaredInputs; 'true' means controls are less sensitive at	
-	}
-
+		}
 
 		public void setRightMotorSpeed(double speed){
 			rightMotor3.set(speed);
-}
+		}
 
 		public void setLeftMotorSpeed(double speed){
 			leftMotor3.set(speed);
-}
+		}
 		
 		public double getRightMotorSpeed() {
 			return rightMotor3.get();
@@ -93,12 +95,6 @@ public class subsystemDrive extends Subsystem {
 		public double getLeftMotorSpeed() {
 			return leftMotor3.get();
 		}
-
-//public void initDefaultCommand() { //If nothing else is running and it's in Operator part of match, run Joystick input
-		//if (DriverStation.getInstance().isOperatorControl() ) {
-//			setDefaultCommand(new JoystickDrive() );
-		//}
-
 
 	/**
 	 * Tank drive for automated driving
@@ -113,10 +109,29 @@ public class subsystemDrive extends Subsystem {
 	public void gyroStraight(double speed, double angle){
 		autonTankDrive(speed - .01*(navX.getYaw() - angle), speed + .01*(navX.getYaw() - angle));
 	}
+	
+	public boolean autoDrive(double currentDistance, double finalDistance, double speed, double angle) {
+		if(currentDistance < finalDistance) {//If the wheels haven't reached their intended distance, check to see how close robot is to final distance
+			if( (finalDistance - currentDistance) <= 36 ) {//If wheels are within 3 ft of final distance, slow them down
+				gyroStraight( (.999*speed), angle);
+				return false;
+			}
+			else {//If not within 3 ft of final distance, go full speed
+				Robot.SUB_DRIVE.gyroStraight(speed, angle);
+				return false;
+			}
+		}
+		else {//If robot is at or a bit past final distance, stop it, then end the entire command
+			setTankDrive(0, 0);
+			return true;
+		}
+	}
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		if (DriverStation.getInstance().isOperatorControl() ) {
+			setDefaultCommand(new ManualCommandDrive() );
+		}
 		
 	}
 	
