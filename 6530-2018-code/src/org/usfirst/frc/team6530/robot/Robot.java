@@ -7,15 +7,16 @@
 
 package org.usfirst.frc.team6530.robot;
 
-import edu.wpi.first.wpilibj.I2C;
+//import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+//import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DigitalInput;
+//import edu.wpi.first.wpilibj.DigitalInput;
 
-import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
+import org.usfirst.frc.team6530.robot.commands.CommandGroupAuto;
 import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 
 import org.usfirst.frc.team6530.robot.subsystems.*;
@@ -36,7 +37,8 @@ public class Robot extends IterativeRobot {
 		
 		
 	/** subsystems */
-		public static subsystemEncoders SUB_ENCODERS;
+		//public static subsystemEncoders SUB_ENCODERS;
+		public static systemEncoders SUB_ENCODERS;
 		public static subsystemRoller SUB_ROLLER;
 		public static subsystemDrive SUB_DRIVE;
 		public static subsystemGyro SUB_GYRO;
@@ -60,7 +62,7 @@ public class Robot extends IterativeRobot {
 //		SUB_ARDUINO = new SubsystemArduino();
 		
 	/** instantiate subsystems */
-		SUB_ENCODERS = new subsystemEncoders();
+		SUB_ENCODERS = new systemEncoders();
 		SUB_ROLLER = new subsystemRoller();
 		SUB_DRIVE = new subsystemDrive();
 		SUB_GYRO = new subsystemGyro();

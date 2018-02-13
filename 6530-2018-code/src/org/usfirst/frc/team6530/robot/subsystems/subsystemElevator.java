@@ -1,7 +1,7 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
-import org.usfirst.frc.team6530.robot.commands.commandElevator;
 import org.usfirst.frc.team6530.robot.Constants;
+import org.usfirst.frc.team6530.robot.auto.commandElevator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;

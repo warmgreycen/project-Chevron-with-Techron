@@ -1,22 +1,23 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
 import org.usfirst.frc.team6530.robot.Constants;
-import org.usfirst.frc.team6530.robot.util.Xbox;
-import org.usfirst.frc.team6530.robot.subsystems.subsystemGyro;
+//import org.usfirst.frc.team6530.robot.util.Xbox;
+//import org.usfirst.frc.team6530.robot.subsystems.subsystemGyro;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.command.Subsystem;
+//import edu.wpi.first.wpilibj.Joystick;
+//import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**    finally a 6 cim tank drive
  *				that	WOOOORKS
  */			
-@SuppressWarnings("deprecation")
-public class subsystemDrive {
+//@SuppressWarnings("deprecation")
+public class subsystemDrive extends Subsystem {
 	
 	WPI_TalonSRX leftMotor1;
 	WPI_TalonSRX leftMotor2;
@@ -84,6 +85,14 @@ public class subsystemDrive {
 		public void setLeftMotorSpeed(double speed){
 			leftMotor3.set(speed);
 }
+		
+		public double getRightMotorSpeed() {
+			return rightMotor3.get();
+		}
+		
+		public double getLeftMotorSpeed() {
+			return leftMotor3.get();
+		}
 
 //public void initDefaultCommand() { //If nothing else is running and it's in Operator part of match, run Joystick input
 		//if (DriverStation.getInstance().isOperatorControl() ) {
@@ -103,6 +112,12 @@ public class subsystemDrive {
 	
 	public void gyroStraight(double speed, double angle){
 		autonTankDrive(speed - .01*(navX.getYaw() - angle), speed + .01*(navX.getYaw() - angle));
+	}
+
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
