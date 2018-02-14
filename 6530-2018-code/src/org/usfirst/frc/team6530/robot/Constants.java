@@ -65,8 +65,9 @@ public class Constants {
 			SGS_DIAGONAL = Math.pow(SGS_LONGLEG, 2) + Math.pow(SGS_SHORTLEG, 2),
 			SGS_ANGLE1 = Math.atan(SGS_SHORTLEG/SGS_LONGLEG),
 			SGS_SIDEWAYS = 132 + (SGS_SHORTLEG-16.5), //16.5 is distance marked "A" on paper
+			SGS_ANGLE2 = 90,
 		//SidesGoForward
-			SGF_LENGTH = 92,
+			SGF_LENGTH = 80,
 			SGF_ANGLE = 20;
 
 

@@ -7,7 +7,7 @@ import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ *If in left position, given 'L _ _' for gameData, go to put cube in left-hand side of switch
  */
 public class SidesGoForward extends CommandGroup {
 
@@ -16,9 +16,11 @@ public class SidesGoForward extends CommandGroup {
     		
     		if(side == "left") {
     			addSequential(new AutoTurn(Constants.SGF_ANGLE) );
+    			//addSequential(new dump cube);
     		}
     		else {
     			addSequential(new AutoTurn(Constants.SGF_ANGLE) );
+    			//addSequential(new dump cube);
     		}
     }
 }
