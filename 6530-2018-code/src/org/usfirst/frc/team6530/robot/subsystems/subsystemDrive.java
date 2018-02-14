@@ -21,15 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */			
 //@SuppressWarnings("deprecation")
 public class subsystemDrive extends Subsystem {
-    double kP;
-    double kI;
-    double kD;
-    double finalDistance;
-    
-    //double rightSpeed, leftSpeed, leftError, rightError, lastLeftError, lastRightError, leftProportion, rightProportion;
-    //double leftIntegral, rightIntegral, leftDeriv, rightDeriv;
-    //double totalRightError, totalLeftError = 0;
-    double error, proportion, integral, deriv, lastError;
+    double kP, kI, kD, error, proportion, integral, deriv, lastError;
     double totalError = 0;
     double deadZone = 24; //24in
     boolean isStopped = false;
@@ -44,7 +36,6 @@ public class subsystemDrive extends Subsystem {
     TalonSRX rightMotor3 = new TalonSRX(Constants.RIGHT_MASTER);
     
 	public subsystemDrive() {
-		SmartDashboard.putNumber("Final Distance", finalDistance);
 		SmartDashboard.putNumber("kP", kP);
 		SmartDashboard.putNumber("kI", kI);
 		SmartDashboard.putNumber("kD", kD);
@@ -108,21 +99,13 @@ public class subsystemDrive extends Subsystem {
 	 * @param left - Speed for left motor
 	 * @param right - Speed for right motor
 	 */
-	//public void autonTankDrive(double left, double right){
-	//	leftMotor3.set(ControlMode.PercentOutput, (left));
-	//	rightMotor3.set(ControlMode.PercentOutput, (right));
-	//}
 	
 	public void gyroStraight(double speed, double angle){
 		setDriveValue(speed - .01*(Robot.SUB_GYRO.getYaw() - angle), speed + .01*(Robot.SUB_GYRO.getYaw() - angle));
 	}
 	
 	
-	public boolean autoDrive(double distance, double lastDistance, double speed) {
-		//rightSpeed = getRightMotorSpeed();
-		//leftSpeed = getLeftMotorSpeed();
-		//rightError = finalDistance - rightDistance;
-		//leftError = finalDistance - leftDistance;
+	public boolean autoDrive(double distance, double lastDistance, double finalDistance, double speed) {
 		kP = SmartDashboard.getNumber("kP", 0);
 		kI = SmartDashboard.getNumber("kI", 0);
 		kD = SmartDashboard.getNumber("kD", 0);
@@ -140,31 +123,14 @@ public class subsystemDrive extends Subsystem {
 		else {
 			isStopped = true;
 		}
-		/*if(rightError < deadZone && rightError != 0) {//Right Motors
-			totalRightError += rightError;
-		}
-		else {
-			totalRightError = 0;
-			isRightStopped = true;
-		}
-		if(totalLeftError > 50/kI) {//Integral limiting
-			totalLeftError = 0;
-		}
-		totalRightError += rightError;*/
+
 	//P, I, and D Calculations
 		proportion = error * kP;
-		//rightProportion = rightError * kP;
 		integral = totalError * kI;
-		//rightIntegral = totalRightError * kI;
 		deriv = (error-lastError) * kD;
-		//rightDeriv = (rightError-lastRightError) * kD;
-		
-		//lastLeftError = leftError; //Move these 2 into AutonMove after calling this function for both sides.
-		//lastRightError = rightError;
 		
 		speed += proportion + integral + deriv;
 		gyroStraight(speed, 0);
-		//rightSpeed += rightProportion + rightIntegral + rightDeriv;
 		return isStopped;
 		
 	}

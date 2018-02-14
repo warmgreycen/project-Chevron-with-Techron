@@ -4,20 +4,21 @@ import org.usfirst.frc.team6530.robot.Robot;
 
 //import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *This command moves the robot in a straight line forward or backwards, slowing it down as it is
- *within 3 ft of the way through its intended distance and course-correcting with the gyro as needed.
+ *within 2 ft of its intended distance and course-correcting with the gyro as needed.
  */
-public class AutonomousMove extends Command {
+public class AutoForward extends Command {
 	
-	private double leftDistance, rightDistance, lastLeftDistance, lastRightDistance;
+	private double leftDistance, rightDistance, lastLeftDistance, lastRightDistance, finalDistance;
 	private double leftSpeed, rightSpeed;
 	private boolean isRightStopped = false; 
 	private boolean isLeftStopped = false;
 
-    public AutonomousMove() { //This arguments is the distances we want the robot to move.
-    		//this.finalDistance = finalDistance; //Makes local copies of these arguments to use during execute()
+    public AutoForward(double finalDistance) { //This arguments is the distances we want the robot to move.
+    		this.finalDistance = finalDistance; //Makes local copies of these arguments to use during execute()
     		requires(Robot.SUB_DRIVE);
     		requires(Robot.SUB_ENCODERS);
     		requires(Robot.SUB_GYRO);
@@ -25,6 +26,7 @@ public class AutonomousMove extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+		SmartDashboard.putNumber("Final Distance", finalDistance);
     		Robot.SUB_ENCODERS.encoderReset(); //Sets encoder count to zero
     		Robot.SUB_GYRO.reset();
     }
@@ -36,25 +38,11 @@ public class AutonomousMove extends Command {
     		leftSpeed = Robot.SUB_DRIVE.getLeftMotorSpeed();
     		rightSpeed = Robot.SUB_DRIVE.getRightMotorSpeed();
     		
-    		isLeftStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, lastLeftDistance, leftSpeed);
-    		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, rightSpeed);
+    		isLeftStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, lastLeftDistance, finalDistance, leftSpeed);
+    		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, finalDistance, rightSpeed);
     		lastLeftDistance = leftDistance;
     		lastRightDistance = rightDistance;
     }
-    
-    /*public void driveStraight(double speed, String side){ //Use gyro to correct any drifts to left or right
-    		angleError = Robot.SUB_GYRO.getAngle();
-    		//System.out.println(angleError);
-    		
-    		if(side == "left" && (angleError > 0) ){
-    			speed = Robot.SUB_DRIVE.gyroStraight(speed, 0);
-    			Robot.SUB_DRIVE.setLeftMotorSpeed(speed);
-    		}
-    		else if(side == "right" && (angleError < 0) ){
-    			speed *= ( 1+Robot.sensorSystem.getCorrectionSpeed(speed) );
-    			Robot.SUB_DRIVE.setRightMotorSpeed(speed);
-    		}
-    }*/
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
