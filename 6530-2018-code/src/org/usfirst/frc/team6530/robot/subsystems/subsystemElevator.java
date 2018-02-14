@@ -1,56 +1,28 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
 import org.usfirst.frc.team6530.robot.Constants;
-import org.usfirst.frc.team6530.robot.auto.commandElevator;
+import org.usfirst.frc.team6530.robot.commands.commandElevator;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
-import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.VictorSP;
 
 /**
- * @purpose: Sets base system for raising the robot
- * @author Maddie Lanham
- * @version 1/20/2017
+ * Controls the two motors on the elevator to lift and drop.
  */
 public class subsystemElevator extends Subsystem {
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+	VictorSP leftElevatorMotor = new VictorSP(Constants.PWM_ELEVATOR);
 	
-	// adds Victor
-	public static VictorSP elevatorMotor;
-	
-	Servo shifter;
-	
-	public subsystemElevator(){
-		elevatorMotor = new VictorSP(Constants.PWM_ELEVATOR);
-		
-		
-		
+
+	// Since the movement of the motors will be simultaneous, we can group them.
+	SpeedControllerGroup elevatorMotorGroup = new SpeedControllerGroup(leftElevatorMotor);
+
+	public void initDefaultCommand() {
+		setDefaultCommand(new commandElevator());
 	}
-	
-	// moves elevator using left stick
-	//forward up, backwards down
-	public void elevator(double speed) {
-		elevatorMotor.set(speed);
-			
+
+	public void moveElevator(double speed) {
+		elevatorMotorGroup.set(speed);
 	}
-	
-
-		
-	
-
-		
-	
-
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new commandElevator());
-    	
-    }
 }

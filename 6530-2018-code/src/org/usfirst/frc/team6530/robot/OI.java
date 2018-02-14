@@ -23,7 +23,9 @@ public class OI {
 	public double getRightInput() { //Retrieves speed needed for right drive
 		return DRIVER.getRawAxis(5);
 	}
-
+	public double getRightInputOperator() { //Retrieves speed needed for right drive
+		return OPERATOR.getRawAxis(5);
+	}
 
 	}
 

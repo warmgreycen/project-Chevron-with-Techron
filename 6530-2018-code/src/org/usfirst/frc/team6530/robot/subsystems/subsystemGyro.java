@@ -1,6 +1,9 @@
 
 package org.usfirst.frc.team6530.robot.subsystems;
 
+import org.usfirst.frc.team6530.robot.commands.commandElevator;
+import org.usfirst.frc.team6530.robot.commands.getNavX;
+
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
@@ -121,7 +124,7 @@ public class subsystemGyro extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		setDefaultCommand(new getNavX());
 		
 	}
 	

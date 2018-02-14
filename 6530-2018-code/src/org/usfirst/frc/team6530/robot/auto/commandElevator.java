@@ -21,18 +21,18 @@ public class commandElevator extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		speed = OI.OPERATOR.getRawAxis(1);
+		speed = OI.OPERATOR.getRawAxis(2);
 
-		if (Math.abs 		(OI.OPERATOR.getRawAxis(1)) < 0) {
-			speed =  		(OI.OPERATOR.getRawAxis(1)); 		
+		if (Math.abs 		(OI.OPERATOR.getRawAxis(2)) < 0) {
+			speed =  		(OI.OPERATOR.getRawAxis(2)); 		
 		} else if (Math.abs 
-				     		(OI.OPERATOR.getRawAxis(1))  > 0){
-    		speed = 	   -(OI.OPERATOR.getRawAxis(1));
+				     		(OI.OPERATOR.getRawAxis(2))  > 0){
+    		speed = 	   -(OI.OPERATOR.getRawAxis(2));
     	} else{
     		speed = 0; 
     	}
 	
-		Robot.SUB_ELEVATOR.elevator(speed);
+		Robot.SUB_ELEVATOR.moveElevator(speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
