@@ -38,6 +38,8 @@ public class AutonomousMove extends Command {
     		
     		isLeftStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, lastLeftDistance, leftSpeed);
     		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, rightSpeed);
+    		lastLeftDistance = leftDistance;
+    		lastRightDistance = rightDistance;
     }
     
     /*public void driveStraight(double speed, String side){ //Use gyro to correct any drifts to left or right

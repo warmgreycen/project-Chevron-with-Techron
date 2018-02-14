@@ -48,6 +48,7 @@ public class subsystemDrive extends Subsystem {
 		SmartDashboard.putNumber("kP", kP);
 		SmartDashboard.putNumber("kI", kI);
 		SmartDashboard.putNumber("kD", kD);
+		SmartDashboard.putNumber("deadZone", deadZone);
 	}
 	
 	
@@ -95,11 +96,11 @@ public class subsystemDrive extends Subsystem {
 	}
 		
 		public double getRightMotorSpeed() {
-			return ((WPI_TalonSRX) rightMotor3).get();
+			return Robot.SUB_ENCODERS.getRightEncoderDistance();
 		}
 		
 		public double getLeftMotorSpeed() {
-			return ((WPI_TalonSRX) leftMotor3).get();
+			return Robot.SUB_ENCODERS.getLeftEncoderDistance();
 		}
 
 	/**
@@ -125,6 +126,7 @@ public class subsystemDrive extends Subsystem {
 		kP = SmartDashboard.getNumber("kP", 0);
 		kI = SmartDashboard.getNumber("kI", 0);
 		kD = SmartDashboard.getNumber("kD", 0);
+		deadZone = SmartDashboard.getNumber("deadZone", 0);
 		
 		error = finalDistance - distance;
 		lastError = finalDistance - lastDistance;
@@ -132,8 +134,10 @@ public class subsystemDrive extends Subsystem {
 		if(error < deadZone && error != 0) {//Left motors
 			totalError += error;
 		}
-		else {
+		else if(error != 0){
 			totalError = 0;
+		}
+		else {
 			isStopped = true;
 		}
 		/*if(rightError < deadZone && rightError != 0) {//Right Motors
@@ -159,6 +163,7 @@ public class subsystemDrive extends Subsystem {
 		//lastRightError = rightError;
 		
 		speed += proportion + integral + deriv;
+		gyroStraight(speed, 0);
 		//rightSpeed += rightProportion + rightIntegral + rightDeriv;
 		return isStopped;
 		
