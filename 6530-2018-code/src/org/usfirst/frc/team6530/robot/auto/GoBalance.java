@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6530.robot.auto;
 
+import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
 import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
 
@@ -16,25 +17,21 @@ public class GoBalance extends CommandGroup {
         // e.g. addParallel(new Command1());
         //      addSequential(new Command2());
         // Command1 and Command2 will run in parallel.
-    		double turnAngle1 = 30;
-    		double distance1 = 60;
-    		double distance2 = 15;
-    		double turnAngle2 = 90;
     		
     		if(side == "left") {
-    			addSequential(new AutoTurn(-turnAngle1) );
-    			addSequential(new AutoForward(distance1) );
-    			addSequential(new AutoTurn(-turnAngle1) );
-    			addSequential(new AutoForward(distance2) );
-    			addSequential(new AutoTurn(turnAngle2) );
+    			addSequential(new AutoTurn(-Constants.GB_ANGLE1) );
+    			addSequential(new AutoForward(Constants.GB_DIAGONAL) );
+    			addSequential(new AutoTurn(Constants.GB_ANGLE1) );
+    			addSequential(new AutoForward(Constants.GB_FORWARD) );
+    			addSequential(new AutoTurn(Constants.GB_ANGLE2) );
     			//addSequential(new dump cube);
     		}
     		else {
-    			addSequential(new AutoTurn(turnAngle1) );
-    			addSequential(new AutoForward(distance1) );
-    			addSequential(new AutoTurn(turnAngle1) );
-    			addSequential(new AutoForward(distance2) );
-    			addSequential(new AutoTurn(-turnAngle2) );
+    			addSequential(new AutoTurn(Constants.GB_ANGLE1) );
+    			addSequential(new AutoForward(Constants.GB_DIAGONAL) );
+    			addSequential(new AutoTurn(-Constants.GB_ANGLE1) );
+    			addSequential(new AutoForward(Constants.GB_FORWARD) );
+    			addSequential(new AutoTurn(-Constants.GB_ANGLE2) );
     			//addSequential(new dump cube);
     		}
 

@@ -47,8 +47,27 @@ public class Constants {
 			LEFT_MOTOR_INVERT         = false,
 			RIGHT_MOTOR_INVERT        = true;
 			
-;
-			
+	//Auto constants (all in inches or degrees)
+		public static final double
+		//GoBalance
+			GB_LONGLEG = 130,
+			GB_SHORTLEG = 30,
+			GB_DIAGONAL = Math.pow(GB_LONGLEG, 2) + Math.pow(GB_SHORTLEG, 2),
+			GB_FORWARD = 299.65 - GB_LONGLEG,
+			GB_ANGLE1 = Math.atan(GB_SHORTLEG/GB_LONGLEG),
+			GB_ANGLE2 = 90,
+		//MiddleGoSwitch
+			M_LONGLEG = 0,
+			M_SHORTLEG = 0,
+		//SidesGoSwitch
+			SGS_LONGLEG = 166,
+			SGS_SHORTLEG = 40,
+			SGS_DIAGONAL = Math.pow(SGS_LONGLEG, 2) + Math.pow(SGS_SHORTLEG, 2),
+			SGS_ANGLE1 = Math.atan(SGS_SHORTLEG/SGS_LONGLEG),
+			SGS_SIDEWAYS = 132 + (SGS_SHORTLEG-16.5), //16.5 is distance marked "A" on paper
+		//SidesGoForward
+			SGF_LENGTH = 92,
+			SGF_ANGLE = 20;
 
 
 }
