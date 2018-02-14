@@ -21,14 +21,12 @@ public class AutoForward extends Command {
     		this.finalDistance = finalDistance; //Makes local copies of these arguments to use during execute()
     		requires(Robot.SUB_DRIVE);
     		requires(Robot.SUB_ENCODERS);
-    		requires(Robot.SUB_GYRO);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
 		SmartDashboard.putNumber("Final Distance", finalDistance);
     		Robot.SUB_ENCODERS.encoderReset(); //Sets encoder count to zero
-    		Robot.SUB_GYRO.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run

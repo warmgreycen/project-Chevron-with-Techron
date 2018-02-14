@@ -23,7 +23,7 @@ public class GoBalance extends CommandGroup {
     			addSequential(new AutoForward(Constants.GB_DIAGONAL) );
     			addSequential(new AutoTurn(Constants.GB_ANGLE1) );
     			addSequential(new AutoForward(Constants.GB_FORWARD) );
-    			addSequential(new AutoTurn(Constants.GB_ANGLE2) );
+    			addSequential(new AutoTurn(Constants.GB_ANGLE1 + 90) );
     			//addSequential(new dump cube);
     		}
     		else {
@@ -31,7 +31,7 @@ public class GoBalance extends CommandGroup {
     			addSequential(new AutoForward(Constants.GB_DIAGONAL) );
     			addSequential(new AutoTurn(-Constants.GB_ANGLE1) );
     			addSequential(new AutoForward(Constants.GB_FORWARD) );
-    			addSequential(new AutoTurn(-Constants.GB_ANGLE2) );
+    			addSequential(new AutoTurn(-Constants.GB_ANGLE2 - 90) );
     			//addSequential(new dump cube);
     		}
 

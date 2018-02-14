@@ -21,9 +21,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */			
 //@SuppressWarnings("deprecation")
 public class subsystemDrive extends Subsystem {
-    double kP, kI, kD, error, proportion, integral, deriv, lastError;
+    double kPDrive, kIDrive, kDDrive, error, proportion, integral, deriv, lastError;
     double totalError = 0;
-    double deadZone = 24; //24in
+    double deadZoneDrive = 24; //24in
     boolean isStopped = false;
 	
 	// Put methods for controlling this subsystem
@@ -36,10 +36,10 @@ public class subsystemDrive extends Subsystem {
     TalonSRX rightMotor3 = new TalonSRX(Constants.RIGHT_MASTER);
     
 	public subsystemDrive() {
-		SmartDashboard.putNumber("kP", kP);
-		SmartDashboard.putNumber("kI", kI);
-		SmartDashboard.putNumber("kD", kD);
-		SmartDashboard.putNumber("deadZone", deadZone);
+		SmartDashboard.putNumber("kP", kPDrive);
+		SmartDashboard.putNumber("kI", kIDrive);
+		SmartDashboard.putNumber("kD", kDDrive);
+		SmartDashboard.putNumber("deadZone", deadZoneDrive);
 	}
 	
 	
@@ -106,15 +106,20 @@ public class subsystemDrive extends Subsystem {
 	
 	
 	public boolean autoDrive(double distance, double lastDistance, double finalDistance, double speed) {
-		kP = SmartDashboard.getNumber("kP", 0);
-		kI = SmartDashboard.getNumber("kI", 0);
-		kD = SmartDashboard.getNumber("kD", 0);
-		deadZone = SmartDashboard.getNumber("deadZone", 0);
+
+		
+	}
+	
+	public double pidCalc() {
+		kPDrive = SmartDashboard.getNumber("kP", 0);
+		kIDrive = SmartDashboard.getNumber("kI", 0);
+		kDDrive = SmartDashboard.getNumber("kD", 0);
+		deadZoneDrive = SmartDashboard.getNumber("deadZone", 0);
 		
 		error = finalDistance - distance;
 		lastError = finalDistance - lastDistance;
 	//Total Error Calculations	
-		if(error < deadZone && error != 0) {//Left motors
+		if(error < deadZoneDrive && error != 0) {//Left motors
 			totalError += error;
 		}
 		else if(error != 0){
@@ -125,15 +130,17 @@ public class subsystemDrive extends Subsystem {
 		}
 
 	//P, I, and D Calculations
-		proportion = error * kP;
-		integral = totalError * kI;
-		deriv = (error-lastError) * kD;
+		proportion = error * kPDrive;
+		integral = totalError * kIDrive;
+		deriv = (error-lastError) * kDDrive;
 		
 		speed += proportion + integral + deriv;
 		gyroMove(speed, 0);
 		return isStopped;
 		
 	}
+	
+	
 	
 }
 
