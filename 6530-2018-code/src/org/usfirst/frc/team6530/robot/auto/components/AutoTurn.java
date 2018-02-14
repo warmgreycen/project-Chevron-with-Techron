@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6530.robot.auto;
+package org.usfirst.frc.team6530.robot.auto.components;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -7,9 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutoTurn extends Command {
 
-    public AutoTurn() {
+	double finalAngle;
+	
+    public AutoTurn(double finalAngle) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    		this.finalAngle = finalAngle;
     }
 
     // Called just before this Command runs the first time

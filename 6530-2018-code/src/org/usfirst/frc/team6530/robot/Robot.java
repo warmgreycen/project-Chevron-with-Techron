@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
 
-import org.usfirst.frc.team6530.robot.auto.AutoForward;
 import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
+import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
 import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 
 import org.usfirst.frc.team6530.robot.subsystems.*;

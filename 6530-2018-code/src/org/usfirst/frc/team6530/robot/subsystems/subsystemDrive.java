@@ -100,7 +100,7 @@ public class subsystemDrive extends Subsystem {
 	 * @param right - Speed for right motor
 	 */
 	
-	public void gyroStraight(double speed, double angle){
+	public void gyroMove(double speed, double angle){
 		setDriveValue(speed - .01*(Robot.SUB_GYRO.getYaw() - angle), speed + .01*(Robot.SUB_GYRO.getYaw() - angle));
 	}
 	
@@ -130,7 +130,7 @@ public class subsystemDrive extends Subsystem {
 		deriv = (error-lastError) * kD;
 		
 		speed += proportion + integral + deriv;
-		gyroStraight(speed, 0);
+		gyroMove(speed, 0);
 		return isStopped;
 		
 	}
