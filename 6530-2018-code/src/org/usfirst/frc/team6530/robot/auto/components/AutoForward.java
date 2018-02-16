@@ -52,7 +52,7 @@ public class AutoForward extends Command {
     		
     		//lastLeftDistance = leftDistance;
     		//lastRightDistance = rightDistance;
-    		Robot.SUB_DRIVE.getPosition();
+    		System.out.println("Position: "+Robot.SUB_DRIVE.getPosition() );
     }
     
     // Make this return true when this Command no longer needs to run execute()

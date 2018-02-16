@@ -158,7 +158,7 @@ public class subsystemDrive extends PIDSubsystem {
 	@Override
 	protected void usePIDOutput(double output) {
 		// TODO Auto-generated method stub
-		gyroMove(output/100, 0);
+		gyroMove(output, 0);
 	}
 	
 }
