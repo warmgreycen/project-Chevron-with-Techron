@@ -66,9 +66,7 @@ public class Logitech extends Joystick {
   /**
    * Returns the Y position of the right stick.
    */
-  public double getRightY() {
-    return getRawAxis(AXIS_RIGHT_Y);
-  }
+  public static double RIGHT_Y(Joystick joy) {return (joy.getRawAxis(5));}
 
   /**
    * Checks whether Button A is being pressed and returns true if it is.
