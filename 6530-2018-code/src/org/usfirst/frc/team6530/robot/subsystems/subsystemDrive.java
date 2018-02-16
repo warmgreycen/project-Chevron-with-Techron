@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -20,10 +21,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *				that	WOOOORKS
  */			
 //@SuppressWarnings("deprecation")
-public class subsystemDrive extends Subsystem {
-    double kPDrive, kIDrive, kDDrive, error, proportion, integral, deriv, lastError, targetSpeed;
-    double totalError = 0;
-    double deadZoneDrive = 24; //24in
+public class subsystemDrive extends PIDSubsystem {
+    //double kPDrive, kIDrive, kDDrive, error, proportion, integral, deriv, lastError, targetSpeed;
+   // double totalError = 0;
+    //double deadZoneDrive = 24; //24in
+	double kP, kI, kD;
     boolean isStopped = false;
 	
 	// Put methods for controlling this subsystem
@@ -36,10 +38,11 @@ public class subsystemDrive extends Subsystem {
     TalonSRX rightMotor3 = new TalonSRX(Constants.RIGHT_MASTER);
     
 	public subsystemDrive() {
-		SmartDashboard.putNumber("kP", kPDrive);
-		SmartDashboard.putNumber("kI", kIDrive);
-		SmartDashboard.putNumber("kD", kDDrive);
-		SmartDashboard.putNumber("deadZone", deadZoneDrive);
+		super("Drive", 1, 0, 0);
+		//SmartDashboard.putNumber("kP", kP);
+		//SmartDashboard.putNumber("kI", kI);
+		//SmartDashboard.putNumber("kD", kD);
+		//SmartDashboard.putNumber("deadZone", deadZoneDrive);
 	}
 	
 	
@@ -86,14 +89,6 @@ public class subsystemDrive extends Subsystem {
 		leftMotor3.set(ControlMode.Position, -LeftVal);
 		System.out.println("RightVal after being plugged in: "+RightVal);
 	}
-		
-		public double getRightMotorSpeed() {
-			return Robot.SUB_ENCODERS.getRightEncoderDistance();
-		}
-		
-		public double getLeftMotorSpeed() {
-			return Robot.SUB_ENCODERS.getLeftEncoderDistance();
-		}
 
 	/**
 	 * Tank drive for automated driving
@@ -103,29 +98,28 @@ public class subsystemDrive extends Subsystem {
 	
 	public void gyroMove(double speed, double angle){
 		//System.out.println("Gyro offset:"+Robot.SUB_GYRO.getYaw());
-		//setDriveValue(speed - .01*(Robot.SUB_GYRO.getYaw() - angle), speed + .01*(Robot.SUB_GYRO.getYaw() - angle));
-		setDriveValue(speed, speed);
+		setDriveValue(speed - .01*(Robot.SUB_GYRO.getYaw() - angle), speed + .01*(Robot.SUB_GYRO.getYaw() - angle));
 	}
 	
 	
-	public boolean autoDrive(double distance, double lastDistance, double finalDistance, double speed) {
+	/*public boolean autoDrive(double distance, double lastDistance, double finalDistance, double speed) {
 		targetSpeed = pidCalc(distance, lastDistance, finalDistance, speed);
 		gyroMove(targetSpeed, 0);
-		if(targetSpeed <= 0) {
+		if(targetSpeed == 0) {
 			return true;
 		}
 		else {
 			return false;
 		}
-	}
+	}*/
 	
 	//public boolean autoRotate(double currentAngle, double lastAngle, double finalAngle, double turnSpeed) {
 	//	targetSpeed = pidCalc(currentAngle);
 	//}
 	
-	public double pidCalc(double currentVal, double lastVal, double finalVal, double speed) {
+	/*public double pidCalc(double currentVal, double lastVal, double finalVal, double speed) {
 		kPDrive = 1;
-		kIDrive = 0;
+		kIDrive = 0.1;
 		kDDrive = 0;
 		deadZoneDrive = 24;
 		
@@ -151,10 +145,21 @@ public class subsystemDrive extends Subsystem {
 		speed /= 100;
 		System.out.println("Adjusted speed:"+speed);
 		return speed;
-		
+	}*/
+
+
+	@Override
+	protected double returnPIDInput() {
+		// TODO Auto-generated method stub
+		return Robot.SUB_ENCODERS.getLeftEncoderDistance();
 	}
-	
-	
+
+
+	@Override
+	protected void usePIDOutput(double output) {
+		// TODO Auto-generated method stub
+		gyroMove(output/100, 0);
+	}
 	
 }
 

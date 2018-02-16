@@ -28,17 +28,19 @@ public class AutoForward extends Command {
     protected void initialize() {
 		SmartDashboard.putNumber("Final Distance", finalDistance);
     		Robot.SUB_ENCODERS.encoderReset(); //Sets encoder count to zero
+    		Robot.SUB_DRIVE.enable();
+    		Robot.SUB_DRIVE.setOutputRange(0, 1);
+    		Robot.SUB_DRIVE.setSetpoint(finalDistance);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		System.out.println("Executing");
-    		leftDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance(); //Find distances traveled so far
+    		/*leftDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance(); //Find distances traveled so far
     		rightDistance = Robot.SUB_ENCODERS.getRightEncoderDistance();
-    		leftSpeed = Robot.SUB_DRIVE.getLeftMotorSpeed();
-    		rightSpeed = Robot.SUB_DRIVE.getRightMotorSpeed();
+    		leftSpeed = Robot.SUB_ENCODERS.getLeftMotorSpeed();
+    		rightSpeed = Robot.SUB_ENCODERS.getRightMotorSpeed();*/
     		//System.out.println(leftSpeed);
-    		if(leftSpeed == 0.0) {
+    		/*if(leftSpeed == 0.0) {
     			leftSpeed = 0.5;
     		}
     		if(rightSpeed == 0.0) {
@@ -46,10 +48,11 @@ public class AutoForward extends Command {
     		}
     		
     		isLeftStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, lastLeftDistance, finalDistance, leftSpeed);
-    		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, finalDistance, rightSpeed);
+    		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, finalDistance, rightSpeed);*/
     		
-    		lastLeftDistance = leftDistance;
-    		lastRightDistance = rightDistance;
+    		//lastLeftDistance = leftDistance;
+    		//lastRightDistance = rightDistance;
+    		Robot.SUB_DRIVE.getPosition();
     }
     
     // Make this return true when this Command no longer needs to run execute()

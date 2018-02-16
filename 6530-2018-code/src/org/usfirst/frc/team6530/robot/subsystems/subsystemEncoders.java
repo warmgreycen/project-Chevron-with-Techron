@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
+import org.usfirst.frc.team6530.robot.Robot;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -29,7 +31,11 @@ public class subsystemEncoders extends Subsystem {
 		//System.out.print(rightEncoder.getDistance() );
 		return rightEncoder.getDistance();
 	}
-
+	
+	public double getLeftEncoderDistance() { //Retrieves how far the left encoder has seen the left wheels go
+		return leftEncoder.getDistance();
+	}
+	
 	public int getLeftEncoderCount(){ //Retrieves current encoder count of spins
 		return leftEncoder.get();
 	}
@@ -37,11 +43,14 @@ public class subsystemEncoders extends Subsystem {
 	public int getRightEncoderCount() {
 		return rightEncoder.get();
 	}
-
-	public double getLeftEncoderDistance() { //Retrieves how far the left encoder has seen the left wheels go
-		return leftEncoder.getDistance();
+	
+	public double getRightEncoderSpeed() {
+		return rightEncoder.getRate();
 	}
-
+	
+	public double getLeftEncoderSpeed() {
+		return leftEncoder.getRate();
+	}
 	public void encoderReset() { //Starts over count on encoders
 		rightEncoder.reset();
 		leftEncoder.reset();
