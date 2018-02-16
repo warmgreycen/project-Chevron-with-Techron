@@ -12,8 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class AutoForward extends Command {
 	
-	private double leftDistance, rightDistance, lastLeftDistance, lastRightDistance, finalDistance;
+	private double leftDistance, rightDistance, finalDistance;
 	private double leftSpeed, rightSpeed;
+	private double lastLeftDistance, lastRightDistance = 0;
 	private boolean isRightStopped = false; 
 	private boolean isLeftStopped = false;
 
@@ -31,13 +32,22 @@ public class AutoForward extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    		System.out.println("Executing");
     		leftDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance(); //Find distances traveled so far
     		rightDistance = Robot.SUB_ENCODERS.getRightEncoderDistance();
     		leftSpeed = Robot.SUB_DRIVE.getLeftMotorSpeed();
     		rightSpeed = Robot.SUB_DRIVE.getRightMotorSpeed();
+    		//System.out.println(leftSpeed);
+    		if(leftSpeed == 0.0) {
+    			leftSpeed = 0.5;
+    		}
+    		if(rightSpeed == 0.0) {
+    			rightSpeed = 0.5;
+    		}
     		
     		isLeftStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, lastLeftDistance, finalDistance, leftSpeed);
     		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, finalDistance, rightSpeed);
+    		
     		lastLeftDistance = leftDistance;
     		lastRightDistance = rightDistance;
     }

@@ -2,14 +2,14 @@ package org.usfirst.frc.team6530.robot.subsystems;
 
 import org.usfirst.frc.team6530.robot.Robot;
 import org.usfirst.frc.team6530.robot.Constants;
-import org.usfirst.frc.team6530.robot.OI;
+//import org.usfirst.frc.team6530.robot.OI;
 import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
 import org.usfirst.frc.team6530.robot.util.Xbox;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Sendable;
@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */			
 //@SuppressWarnings("deprecation")
 public class subsystemDrive extends Subsystem {
-    double kPDrive, kIDrive, kDDrive, error, proportion, integral, deriv, lastError;
+    double kPDrive, kIDrive, kDDrive, error, proportion, integral, deriv, lastError, targetSpeed;
     double totalError = 0;
     double deadZoneDrive = 24; //24in
     boolean isStopped = false;
@@ -84,6 +84,7 @@ public class subsystemDrive extends Subsystem {
 		leftMotor1.set(ControlMode.Position, -LeftVal);
 		leftMotor2.set(ControlMode.Position, -LeftVal);
 		leftMotor3.set(ControlMode.Position, -LeftVal);
+		System.out.println("RightVal after being plugged in: "+RightVal);
 	}
 		
 		public double getRightMotorSpeed() {
@@ -101,23 +102,35 @@ public class subsystemDrive extends Subsystem {
 	 */
 	
 	public void gyroMove(double speed, double angle){
-		setDriveValue(speed - .01*(Robot.SUB_GYRO.getYaw() - angle), speed + .01*(Robot.SUB_GYRO.getYaw() - angle));
+		//System.out.println("Gyro offset:"+Robot.SUB_GYRO.getYaw());
+		//setDriveValue(speed - .01*(Robot.SUB_GYRO.getYaw() - angle), speed + .01*(Robot.SUB_GYRO.getYaw() - angle));
+		setDriveValue(speed, speed);
 	}
 	
 	
 	public boolean autoDrive(double distance, double lastDistance, double finalDistance, double speed) {
-
-		
+		targetSpeed = pidCalc(distance, lastDistance, finalDistance, speed);
+		gyroMove(targetSpeed, 0);
+		if(targetSpeed <= 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
-	public double pidCalc() {
-		kPDrive = SmartDashboard.getNumber("kP", 0);
-		kIDrive = SmartDashboard.getNumber("kI", 0);
-		kDDrive = SmartDashboard.getNumber("kD", 0);
-		deadZoneDrive = SmartDashboard.getNumber("deadZone", 0);
+	//public boolean autoRotate(double currentAngle, double lastAngle, double finalAngle, double turnSpeed) {
+	//	targetSpeed = pidCalc(currentAngle);
+	//}
+	
+	public double pidCalc(double currentVal, double lastVal, double finalVal, double speed) {
+		kPDrive = 1;
+		kIDrive = 0;
+		kDDrive = 0;
+		deadZoneDrive = 24;
 		
-		error = finalDistance - distance;
-		lastError = finalDistance - lastDistance;
+		error = finalVal - currentVal;
+		lastError = finalVal - lastVal;
 	//Total Error Calculations	
 		if(error < deadZoneDrive && error != 0) {//Left motors
 			totalError += error;
@@ -135,8 +148,9 @@ public class subsystemDrive extends Subsystem {
 		deriv = (error-lastError) * kDDrive;
 		
 		speed += proportion + integral + deriv;
-		gyroMove(speed, 0);
-		return isStopped;
+		speed /= 100;
+		System.out.println("Adjusted speed:"+speed);
+		return speed;
 		
 	}
 	
