@@ -21,10 +21,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *				that	WOOOORKS
  */			
 //@SuppressWarnings("deprecation")
-public class subsystemDrive extends PIDSubsystem {
-    //double kPDrive, kIDrive, kDDrive, error, proportion, integral, deriv, lastError, targetSpeed;
-   // double totalError = 0;
-    //double deadZoneDrive = 24; //24in
+public class subsystemDrive extends Subsystem {
+    double kPDrive, kIDrive, kDDrive, error, proportion, integral, deriv, lastError, targetSpeed;
+    double totalError = 0;
+    double deadZoneDrive = 24; //24in
 	double kP, kI, kD;
     boolean isStopped = false;
 	
@@ -38,7 +38,7 @@ public class subsystemDrive extends PIDSubsystem {
     TalonSRX rightMotor3 = new TalonSRX(Constants.RIGHT_MASTER);
     
 	public subsystemDrive() {
-		super("Drive", 1, 0, 0);
+		//super("Drive", 1, 0, 0);
 		//SmartDashboard.putNumber("kP", kP);
 		//SmartDashboard.putNumber("kI", kI);
 		//SmartDashboard.putNumber("kD", kD);
@@ -67,9 +67,9 @@ public class subsystemDrive extends PIDSubsystem {
 		}
 		
 		
-		rightMotor1.set(ControlMode.PercentOutput, JoystickRightVal);
-		rightMotor2.set(ControlMode.PercentOutput, JoystickRightVal);
-		rightMotor3.set(ControlMode.PercentOutput, JoystickRightVal);
+		rightMotor1.set(ControlMode.PercentOutput, -JoystickRightVal);
+		rightMotor2.set(ControlMode.PercentOutput, -JoystickRightVal);
+		rightMotor3.set(ControlMode.PercentOutput, -JoystickRightVal);
 		
 		leftMotor1.set(ControlMode.PercentOutput, JoystickLeftVal);
 		leftMotor2.set(ControlMode.PercentOutput, JoystickLeftVal);
@@ -80,13 +80,13 @@ public class subsystemDrive extends PIDSubsystem {
 	}
 	
 	public void setDriveValue(double RightVal, double LeftVal) {
-		rightMotor1.set(ControlMode.Position, RightVal);
-		rightMotor2.set(ControlMode.Position, RightVal);
-		rightMotor3.set(ControlMode.Position, RightVal);
+		rightMotor1.set(ControlMode.PercentOutput, RightVal);
+		rightMotor2.set(ControlMode.PercentOutput, RightVal);
+		rightMotor3.set(ControlMode.PercentOutput, RightVal);
 		
-		leftMotor1.set(ControlMode.Position, -LeftVal);
-		leftMotor2.set(ControlMode.Position, -LeftVal);
-		leftMotor3.set(ControlMode.Position, -LeftVal);
+		leftMotor1.set(ControlMode.PercentOutput, -LeftVal);
+		leftMotor2.set(ControlMode.PercentOutput, -LeftVal);
+		leftMotor3.set(ControlMode.PercentOutput, -LeftVal);
 		System.out.println("RightVal after being plugged in: "+RightVal);
 	}
 
@@ -98,26 +98,28 @@ public class subsystemDrive extends PIDSubsystem {
 	
 	public void gyroMove(double speed, double angle){
 		//System.out.println("Gyro offset:"+Robot.SUB_GYRO.getYaw());
-		setDriveValue(speed - .01*(Robot.SUB_GYRO.getYaw() - angle), speed + .01*(Robot.SUB_GYRO.getYaw() - angle));
+		//setDriveValue(speed - .01*(Robot.SUB_GYRO.getYaw() - angle), speed + .01*(Robot.SUB_GYRO.getYaw() - angle));
+		setDriveValue(speed, speed);
+		System.out.println(speed);
 	}
 	
 	
-	/*public boolean autoDrive(double distance, double lastDistance, double finalDistance, double speed) {
+	public boolean autoDrive(double distance, double lastDistance, double finalDistance, double speed) {
 		targetSpeed = pidCalc(distance, lastDistance, finalDistance, speed);
-		gyroMove(targetSpeed, 0);
+		setDriveValue(targetSpeed, targetSpeed);
 		if(targetSpeed == 0) {
 			return true;
 		}
 		else {
 			return false;
 		}
-	}*/
+	}
 	
 	//public boolean autoRotate(double currentAngle, double lastAngle, double finalAngle, double turnSpeed) {
 	//	targetSpeed = pidCalc(currentAngle);
 	//}
 	
-	/*public double pidCalc(double currentVal, double lastVal, double finalVal, double speed) {
+	public double pidCalc(double currentVal, double lastVal, double finalVal, double speed) {
 		kPDrive = 1;
 		kIDrive = 0.1;
 		kDDrive = 0;
@@ -142,23 +144,9 @@ public class subsystemDrive extends PIDSubsystem {
 		deriv = (error-lastError) * kDDrive;
 		
 		speed += proportion + integral + deriv;
-		speed /= 100;
+		speed /= 200;
 		System.out.println("Adjusted speed:"+speed);
 		return speed;
-	}*/
-
-
-	@Override
-	protected double returnPIDInput() {
-		// TODO Auto-generated method stub
-		return Robot.SUB_ENCODERS.getLeftEncoderDistance();
-	}
-
-
-	@Override
-	protected void usePIDOutput(double output) {
-		// TODO Auto-generated method stub
-		gyroMove(output, 0);
 	}
 	
 }

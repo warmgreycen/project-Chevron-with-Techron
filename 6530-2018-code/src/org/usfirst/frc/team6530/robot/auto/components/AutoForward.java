@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class AutoForward extends Command {
 	
-	private double leftDistance, rightDistance, finalDistance;
+	private double finalDistance;
 	private double leftSpeed, rightSpeed;
-	private double lastLeftDistance, lastRightDistance = 0;
+	double lastLeftDistance, lastRightDistance, rightDistance, leftDistance;
 	private boolean isRightStopped = false; 
 	private boolean isLeftStopped = false;
 
@@ -28,19 +28,19 @@ public class AutoForward extends Command {
     protected void initialize() {
 		SmartDashboard.putNumber("Final Distance", finalDistance);
     		Robot.SUB_ENCODERS.encoderReset(); //Sets encoder count to zero
-    		Robot.SUB_DRIVE.enable();
-    		Robot.SUB_DRIVE.setOutputRange(0, 1);
-    		Robot.SUB_DRIVE.setSetpoint(finalDistance);
+    		//Robot.SUB_DRIVE.enable();
+    		//Robot.SUB_DRIVE.setOutputRange(0, 1);
+    		//Robot.SUB_DRIVE.setSetpoint(finalDistance);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		/*leftDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance(); //Find distances traveled so far
+    		leftDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance(); //Find distances traveled so far
     		rightDistance = Robot.SUB_ENCODERS.getRightEncoderDistance();
-    		leftSpeed = Robot.SUB_ENCODERS.getLeftMotorSpeed();
-    		rightSpeed = Robot.SUB_ENCODERS.getRightMotorSpeed();*/
-    		//System.out.println(leftSpeed);
-    		/*if(leftSpeed == 0.0) {
+    		leftSpeed = Robot.SUB_ENCODERS.getLeftEncoderSpeed();
+    		rightSpeed = Robot.SUB_ENCODERS.getRightEncoderSpeed();
+    		System.out.println("Left Distance "+leftDistance);
+    		if(leftSpeed == 0.0) {
     			leftSpeed = 0.5;
     		}
     		if(rightSpeed == 0.0) {
@@ -48,11 +48,11 @@ public class AutoForward extends Command {
     		}
     		
     		isLeftStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, lastLeftDistance, finalDistance, leftSpeed);
-    		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, finalDistance, rightSpeed);*/
+    		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, finalDistance, rightSpeed);
     		
-    		//lastLeftDistance = leftDistance;
-    		//lastRightDistance = rightDistance;
-    		System.out.println("Position: "+Robot.SUB_DRIVE.getPosition() );
+    		lastLeftDistance = leftDistance;
+    		lastRightDistance = rightDistance;
+    		//System.out.println("Position: "+Robot.SUB_DRIVE.getPosition() );
     }
     
     // Make this return true when this Command no longer needs to run execute()
