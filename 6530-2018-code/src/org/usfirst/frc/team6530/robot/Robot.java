@@ -39,7 +39,7 @@ public class Robot extends IterativeRobot {
 		
 	/** subsystems */
 		public static subsystemEncoders SUB_ENCODERS;
-//		public static subsystemRoller SUB_ROLLER;
+		public static subsystemRoller SUB_ROLLER;
 		public static subsystemDrive SUB_DRIVE;
 		public static subsystemGyro SUB_GYRO;
 

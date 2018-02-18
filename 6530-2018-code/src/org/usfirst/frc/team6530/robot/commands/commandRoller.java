@@ -9,7 +9,7 @@ public class commandRoller extends Command {
 	
     public commandRoller() {
     	//Sets the required Subsystem
-        //requires(Robot.SUB_ROLLER);
+        requires(Robot.SUB_ROLLER);
     }
 
     // Called just before this Command runs the first time
@@ -33,7 +33,7 @@ public class commandRoller extends Command {
     		speed = 0;
     	}
     	
-    	//Robot.SUB_ROLLER.intake(speed);
+    	Robot.SUB_ROLLER.intake(speed);
     	
     }
 

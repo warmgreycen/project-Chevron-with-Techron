@@ -2,6 +2,7 @@ package org.usfirst.frc.team6530.robot.auto;
 
 import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -16,11 +17,11 @@ public class SidesGoForward extends CommandGroup {
     		
     		if(side == "left") {
     			addSequential(new AutoTurn(Constants.SGF_ANGLE) );
-    			//addSequential(new dump cube);
+    			addSequential(new AutoRoller() );
     		}
     		else {
     			addSequential(new AutoTurn(Constants.SGF_ANGLE) );
-    			//addSequential(new dump cube);
+    			addSequential(new AutoRoller() );
     		}
     }
 }
