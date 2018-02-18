@@ -60,11 +60,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-//		SUB_ARDUINO = new SubsystemArduino();
+
 		
 	/** instantiate subsystems */
 		SUB_ENCODERS = new subsystemEncoders();
-//		SUB_ROLLER = new subsystemRoller();
+		SUB_ROLLER = new subsystemRoller();
 		SUB_DRIVE = new subsystemDrive();
 		SUB_GYRO = new subsystemGyro();
 

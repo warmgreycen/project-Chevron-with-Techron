@@ -1,7 +1,6 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
 import org.usfirst.frc.team6530.robot.Robot;
-
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 

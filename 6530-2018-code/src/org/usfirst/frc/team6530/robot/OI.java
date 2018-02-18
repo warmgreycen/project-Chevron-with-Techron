@@ -16,14 +16,16 @@ public class OI {
 	public static final Joystick DRIVER = new Joystick(0);
 	public static final Joystick OPERATOR = new Joystick(1);
 	
-//	public double getLeftInput() { //Retrieves joystick input used
-//		return DRIVER.getRawAxis(1);
-//	}
-//	
-//	public double getRightInput() { //Retrieves speed needed for right drive
-//		return DRIVER.getRawAxis(5);
-//	}
-
+	public double getLeftInput() { //Retrieves joystick input used
+		return DRIVER.getRawAxis(1);
+	}
+	
+	public double getRightInput() { //Retrieves speed needed for right drive
+		return DRIVER.getRawAxis(5);
+	}
+	public double getRightInputOperator() { //Retrieves speed needed for right drive
+		return OPERATOR.getRawAxis(5);
+	}
 
 	}
 
