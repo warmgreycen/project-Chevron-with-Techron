@@ -24,7 +24,7 @@ public class ManualCommandDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.SUB_DRIVE.DriveWithJoystick(OI.DRIVER);
+		Robot.SUB_DRIVE.DriveWithJoystick(OI.DRIVER);  //we have 3 drive modes, DriveWithJoystick, driveForza, driveRLTank
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -98,28 +98,28 @@ public class subsystemDrive extends Subsystem { ;
     	left = (left > 1.0 ? 1.0 : (left < -1.0 ? -1.0 : left));
     	right = (right > 1.0 ? 1.0 : (right < -1.0 ? -1.0 : right));
     	    	
-    	leftMotor1.set(ControlMode.PercentOutput, leftify(left));
-    		leftMotor2.set(ControlMode.PercentOutput, leftify(left));
-    			rightMotor1.set(ControlMode.PercentOutput, rightify(right));
-    				rightMotor2.set(ControlMode.PercentOutput, rightify(right));
-    					leftMotor3.set(ControlMode.PercentOutput,leftify(left));
-    						rightMotor3.set(ControlMode.PercentOutput,rightify(right));
+    	leftMotor1.set(ControlMode.PercentOutput, rightify(left));
+    		leftMotor2.set(ControlMode.PercentOutput, rightify(left));
+    			rightMotor1.set(ControlMode.PercentOutput, leftify(right));
+    				rightMotor2.set(ControlMode.PercentOutput, leftify(right));
+    					leftMotor3.set(ControlMode.PercentOutput,rightify(left));
+    						rightMotor3.set(ControlMode.PercentOutput,leftify(right));
     }
     
     
     /** drive code where rotation is dependent on acceleration 
      * @param radius 0.00-1.00, 1 being zero radius and 0 being driving in a line */
-    public void driveForza(Joystick joy, double ramp, double radius) {
+    public void driveForza(Joystick joy) {
     	double left = 0, 
     		   right = 0;
     	double acceleration = Xbox.RT(joy) - Xbox.LT(joy);
     	
     	if (Xbox.LEFT_X(joy) < 0) {
     		right = acceleration;
-    		left = (acceleration * ((2 * (1 - Math.abs(Xbox.LEFT_X(joy)))) - 1)) / radius; 
+    		left = (acceleration * ((2 * (1 - Math.abs(Xbox.LEFT_X(joy)))) - 1)) ; 
     	} else if (Xbox.LEFT_X(joy) > 0) {
     		left = acceleration;
-    		right = (acceleration * ((2 * (1 - Math.abs(Xbox.LEFT_X(joy)))) - 1)) / radius; 
+    		right = (acceleration * ((2 * (1 - Math.abs(Xbox.LEFT_X(joy)))) - 1)) ; 
     	} else {
     		left = acceleration;
     		right = acceleration;
