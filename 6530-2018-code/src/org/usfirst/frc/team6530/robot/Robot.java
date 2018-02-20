@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+import org.usfirst.frc.team6530.robot.auto.components.OldAutoForward;
 import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 
 import org.usfirst.frc.team6530.robot.subsystems.*;
@@ -44,7 +45,7 @@ public class Robot extends IterativeRobot {
 		public static subsystemGyro SUB_GYRO;
 
 		public static subsystemElevator SUB_ELEVATOR;
-		public static subsystemPID SUB_PID;
+		//public static subsystemPID SUB_PID;
 		public static OI oi;
 		public static Vision vision;
 
@@ -60,7 +61,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-
 		
 	/** instantiate subsystems */
 		SUB_ENCODERS = new subsystemEncoders();
@@ -84,6 +84,8 @@ public class Robot extends IterativeRobot {
 
 	/** instantiate cameras */
 		 vision.startCameraThread();
+		 
+		 SUB_ENCODERS.encoderReset();
 }
 
 

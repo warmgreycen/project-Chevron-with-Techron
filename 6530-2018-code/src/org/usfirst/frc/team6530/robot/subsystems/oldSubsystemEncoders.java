@@ -29,6 +29,14 @@ public class oldSubsystemEncoders implements org.usfirst.frc.team6530.robot.subs
 		return right.get();
 	}
 	
+	public double getLeftEncoderDistance() {
+		return left.getDistance();
+	}
+	
+	public double getRightEncoderDistance() {
+		return right.getDistance();
+	}
+	
 	public void ResetAll() {
 		right.reset();
 		left.reset();

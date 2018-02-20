@@ -33,7 +33,7 @@ public class subsystemGyro extends Subsystem {
 	}
 			
 	// instance data and methods
-	private static AHRS ahrs = null;
+	private static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 	
 	private static double yawOffset = 0.0;
 	
@@ -62,7 +62,7 @@ public class subsystemGyro extends Subsystem {
 		}
 	}
 
-	public static AHRS getAHRS() {		
+	public AHRS getAHRS() {		
 		return ahrs;
 	}
 	

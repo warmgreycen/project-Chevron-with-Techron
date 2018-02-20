@@ -1,146 +1,94 @@
-<<<<<<< HEAD:6530-2018-code/src/org/usfirst/frc/team6530/robot/auto/components/AutoForward.java
 package org.usfirst.frc.team6530.robot.auto.components;
 
 import org.usfirst.frc.team6530.robot.Robot;
 
-//import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *This command moves the robot in a straight line forward or backwards, slowing it down as it is
- *within 2 ft of its intended distance and course-correcting with the gyro as needed.
+ *
  */
-public class AutoForward extends Command {
+public class AutoForward extends Command implements PIDOutput{
 	
-	private double finalDistance;
-	private double leftSpeed, rightSpeed;
-	double lastLeftDistance, lastRightDistance, rightDistance, leftDistance;
-	private boolean isRightStopped = false; 
-	private boolean isLeftStopped = false;
+	PIDController turnController;
+    double rotateToAngleRate;
+    
+    /* The following PID Controller coefficients will need to be tuned */
+    /* to match the dynamics of your drive system.  Note that the      */
+    /* SmartDashboard in Test mode has support for helping you tune    */
+    /* controllers by displaying a form where you can enter new P, I,  */
+    /* and D constants and test the mechanism.                         */
+    
+    static final double kP = 0.03;
+    static final double kI = 0.00;
+    static final double kD = 0.00;
+    static final double kF = 0.00;
+    
+    static final double kToleranceDegrees = 2.0f;
+    static final double kTargetAngleDegrees = 0;
+    
+    double leftValue, rightValue, finalDistance, currentDistance, difference, magnitude;
+    boolean isStopped = false;
 
-    public AutoForward(double finalDistance) { //This arguments is the distances we want the robot to move.
-    		this.finalDistance = finalDistance; //Makes local copies of these arguments to use during execute()
-    		requires(Robot.SUB_DRIVE);
-    		requires(Robot.SUB_ENCODERS);
+    public AutoForward(double finalDistance) {
+    	this.finalDistance = finalDistance;
+    	requires(Robot.SUB_DRIVE);
+    	requires(Robot.SUB_GYRO);
+    	requires(Robot.SUB_ENCODERS);
+    	turnController = new PIDController(kP, kI, kD, kF, Robot.SUB_GYRO.getAHRS(), this);
+        turnController.setInputRange(-180.0f,  180.0f);
+        turnController.setOutputRange(-1.0, 1.0);
+        turnController.setAbsoluteTolerance(kToleranceDegrees);
+        turnController.setContinuous(true);
+        turnController.disable();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-		SmartDashboard.putNumber("Final Distance", finalDistance);
-    		Robot.SUB_ENCODERS.encoderReset(); //Sets encoder count to zero
-    		//Robot.SUB_DRIVE.enable();
-    		//Robot.SUB_DRIVE.setOutputRange(0, 1);
-    		//Robot.SUB_DRIVE.setSetpoint(finalDistance);
+    	Robot.SUB_ENCODERS.encoderReset();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		leftDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance(); //Find distances traveled so far
-    		rightDistance = Robot.SUB_ENCODERS.getRightEncoderDistance();
-    		leftSpeed = Robot.SUB_ENCODERS.getLeftEncoderSpeed();
-    		rightSpeed = Robot.SUB_ENCODERS.getRightEncoderSpeed();
-    		System.out.println("Left Distance "+leftDistance);
-    		if(leftSpeed == 0.0) {
-    			leftSpeed = 0.5;
-    		}
-    		if(rightSpeed == 0.0) {
-    			rightSpeed = 0.5;
-    		}
-    		
-    		isLeftStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, lastLeftDistance, finalDistance, leftSpeed);
-    		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, finalDistance, rightSpeed);
-    		
-    		lastLeftDistance = leftDistance;
-    		lastRightDistance = rightDistance;
-    		//System.out.println("Position: "+Robot.SUB_DRIVE.getPosition() );
+    	currentDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance();
+    	difference = finalDistance - currentDistance;
+    	System.out.println("Difference: "+difference);
+    	
+    	if(!turnController.isEnabled()) {
+			// Acquire current yaw angle, using this as the target angle.
+			turnController.setSetpoint(Robot.SUB_GYRO.getYaw() );
+			rotateToAngleRate = 0; // This value will be updated in the pidWrite() method.
+			turnController.enable();
+		}
+		magnitude = .5;
+		leftValue = magnitude + rotateToAngleRate;
+		rightValue = magnitude - rotateToAngleRate;
+		Robot.SUB_DRIVE.setDriveValue(leftValue,  rightValue);
+		if(difference < 0.2) {
+			Robot.SUB_DRIVE.setDriveValue(0,0);
+			turnController.disable();
+			isStopped = true;
+		}
     }
-    
+
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (isRightStopped && isLeftStopped);//Stops this command when robot has gone its specified distance.
+        return isStopped;
     }
 
     // Called once after isFinished returns true
-    protected void end() {}
+    protected void end() {
+    }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    		Robot.SUB_DRIVE.setDriveValue(0, 0);
-    		isRightStopped = true;
+    	Robot.SUB_DRIVE.setDriveValue(0,0);
     }
+
+	@Override
+	public void pidWrite(double output) {
+		rotateToAngleRate = output;
+	}
 }
-=======
-package org.usfirst.frc.team6530.robot.auto;
-
-import org.usfirst.frc.team6530.robot.Robot;
-
-//import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Command;
-
-/**
- *This command moves the robot in a straight line forward or backwards, slowing it down as it is
- *within 3 ft of the way through its intended distance and course-correcting with the gyro as needed.
- */
-public class AutonomousMove extends Command {
-	
-	private double leftDistance, rightDistance, lastLeftDistance, lastRightDistance;
-	private double leftSpeed, rightSpeed;
-	private boolean isRightStopped = false; 
-	private boolean isLeftStopped = false;
-
-    public AutonomousMove() { //This arguments is the distances we want the robot to move.
-    		//this.finalDistance = finalDistance; //Makes local copies of these arguments to use during execute()
-    		requires(Robot.SUB_DRIVE);
-    		requires(Robot.SUB_ENCODERS);
-    		requires(Robot.SUB_GYRO);
-    }
-
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    		Robot.SUB_ENCODERS.encoderReset(); //Sets encoder count to zero
-    		Robot.SUB_GYRO.reset();
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    		leftDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance(); //Find distances traveled so far
-    		rightDistance = Robot.SUB_ENCODERS.getRightEncoderDistance();
-    		leftSpeed = Robot.SUB_DRIVE.getLeftMotorSpeed();
-    		rightSpeed = Robot.SUB_DRIVE.getRightMotorSpeed();
-    		
-    		isLeftStopped = Robot.SUB_DRIVE.autoDrive(leftDistance, lastLeftDistance, leftSpeed);
-    		isRightStopped = Robot.SUB_DRIVE.autoDrive(rightDistance, lastRightDistance, rightSpeed);
-    }
-    
-    /*public void driveStraight(double speed, String side){ //Use gyro to correct any drifts to left or right
-    		angleError = Robot.SUB_GYRO.getAngle();
-    		//System.out.println(angleError);
-    		
-    		if(side == "left" && (angleError > 0) ){
-    			speed = Robot.SUB_DRIVE.gyroStraight(speed, 0);
-    			Robot.SUB_DRIVE.setLeftMotorSpeed(speed);
-    		}
-    		else if(side == "right" && (angleError < 0) ){
-    			speed *= ( 1+Robot.sensorSystem.getCorrectionSpeed(speed) );
-    			Robot.SUB_DRIVE.setRightMotorSpeed(speed);
-    		}
-    }*/
-    
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return (isRightStopped && isLeftStopped);//Stops this command when robot has gone its specified distance.
-    }
-
-    // Called once after isFinished returns true
-    protected void end() {}
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    		Robot.SUB_DRIVE.setDriveValue(0, 0);
-    		isRightStopped = true;
-    }
-}
->>>>>>> 25e74701eda88e1bf24dfe240d0a4be03f40eec1:6530-2018-code/src/org/usfirst/frc/team6530/robot/auto/AutonomousMove.java

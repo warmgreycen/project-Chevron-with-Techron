@@ -14,8 +14,8 @@ public class subsystemEncoders extends Subsystem {
 	double distancePerPulse;
 
 	public subsystemEncoders() {
-		rightEncoder = new Encoder(2, 3, false, Encoder.EncodingType.k1X);
-		leftEncoder = new Encoder(0, 1, true, Encoder.EncodingType.k1X);
+		rightEncoder = new Encoder(0, 1, true, Encoder.EncodingType.k4X);
+		leftEncoder = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
 		System.out.println("Encoders initialized");
 		
 		distancePerPulse = (6 * Math.PI) / 256;	  //distancePerPulse: Distance in one wheel turn (which is diameter*pi or circumference) divided by the number
@@ -23,16 +23,17 @@ public class subsystemEncoders extends Subsystem {
 		leftEncoder.setDistancePerPulse(distancePerPulse);
 		
 		//Set encoder spin count to zero
-		rightEncoder.reset();
-		leftEncoder.reset();
+		//rightEncoder.reset();
+		//leftEncoder.reset();
 	}
 	
 	public double getRightEncoderDistance() { //Retrieves how far the right encoder has seen the right wheels go
-		//System.out.print(rightEncoder.getDistance() );
+		System.out.print("RDistance:"+rightEncoder.getDistance() );
 		return rightEncoder.getDistance();
 	}
 	
 	public double getLeftEncoderDistance() { //Retrieves how far the left encoder has seen the left wheels go
+		System.out.print("LDistance:"+leftEncoder.getDistance() );
 		return leftEncoder.getDistance();
 	}
 	
@@ -55,6 +56,7 @@ public class subsystemEncoders extends Subsystem {
 		rightEncoder.reset();
 		leftEncoder.reset();
 	}
+	
 /*	
 	public double getAngleError() { //Tells how far off (in degrees) robot is from a perfectly straight heading
 		return gyro.getAngle();

@@ -131,7 +131,7 @@ public class subsystemDrive extends Subsystem {
 		leftMotor1.set(ControlMode.PercentOutput, -LeftVal);
 		leftMotor2.set(ControlMode.PercentOutput, -LeftVal);
 		leftMotor3.set(ControlMode.PercentOutput, -LeftVal);
-		System.out.println("RightVal after being plugged in: "+RightVal);
+		//System.out.println("RightVal after being plugged in: "+RightVal);
 	}
 
 	/**

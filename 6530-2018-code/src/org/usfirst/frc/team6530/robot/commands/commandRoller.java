@@ -19,8 +19,21 @@ public class commandRoller extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
     	
-    	Robot.SUB_ROLLER.RollerDrive(OI.DRIVER);
-    	//Robot.SUB_ROLLER.intake(speed);
+    	double speed = OI.OPERATOR.getRawAxis(5);
+    	
+    	if(OI.OPERATOR.getRawAxis(2) > 0.15){
+    		speed = OI.OPERATOR.getRawAxis(2);
+    	}
+    	
+    	else if(OI.OPERATOR.getRawAxis(3) > 0.15){
+    		speed = -OI.OPERATOR.getRawAxis(3);
+    	}
+    	
+    	else{
+    		speed = 0;
+    	}
+    	
+    	Robot.SUB_ROLLER.intake();
     	
     }
 

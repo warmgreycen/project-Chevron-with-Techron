@@ -1,40 +1,36 @@
 package org.usfirst.frc.team6530.robot.auto.components;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Timer;
 import org.usfirst.frc.team6530.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class AutoRoller extends Command implements ActionListener {
+public class OldAutoTurn extends Command {
+
+	double currentAngle, lastAngle, finalAngle, turnSpeed;
 	
-	String mode;
-	Timer timer;
-	boolean isDone = false;
-	
-    public AutoRoller() {
-    	timer = new Timer(5000, this);
-        requires(Robot.SUB_ROLLER);
+    public OldAutoTurn(double finalAngle) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    		this.finalAngle = finalAngle;
+    		requires(Robot.SUB_GYRO);
+    		requires(Robot.SUB_DRIVE);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	timer.start();
-    	Robot.SUB_ROLLER.spit();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+    		
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isDone;
+        return false;
     }
 
     // Called once after isFinished returns true
@@ -45,11 +41,4 @@ public class AutoRoller extends Command implements ActionListener {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		Robot.SUB_ROLLER.spit();
-		timer.stop();
-		isDone = true;
-	}
 }
