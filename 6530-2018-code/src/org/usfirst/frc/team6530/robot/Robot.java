@@ -40,14 +40,14 @@ public class Robot extends IterativeRobot {
 		
 	/** subsystems */
 		public static subsystemEncoders SUB_ENCODERS;
-		public static subsystemRoller SUB_ROLLER;
+		//public static subsystemRoller SUB_ROLLER;
 		public static subsystemDrive SUB_DRIVE;
 		public static subsystemGyro SUB_GYRO;
 
 		public static subsystemElevator SUB_ELEVATOR;
 		//public static subsystemPID SUB_PID;
 		public static OI oi;
-		public static Vision vision;
+		//public static Vision vision;
 
 		
 	/** autonomous */
@@ -64,12 +64,12 @@ public class Robot extends IterativeRobot {
 		
 	/** instantiate subsystems */
 		SUB_ENCODERS = new subsystemEncoders();
-		SUB_ROLLER = new subsystemRoller();
+		//SUB_ROLLER = new subsystemRoller();
 		SUB_DRIVE = new subsystemDrive();
 		SUB_GYRO = new subsystemGyro();
 
 		SUB_ELEVATOR = new subsystemElevator();
-		vision = new Vision();
+		//vision = new Vision();
 
 	/** instantiate operator interface */
 		oi = new OI();
@@ -80,10 +80,10 @@ public class Robot extends IterativeRobot {
 		for(int i = 1; i < Autonomous.values().length; i++) { 
 			autoChooser.addObject(Autonomous.values()[i].toString(), Autonomous.values()[i]); } // add each autonomous enum value to chooser
 		SmartDashboard.putData("Auto Mode", autoChooser); //display the chooser on the dash
-		autoMove = new AutoForward(60);
+		autoMove = new AutoForward(120);
 
 	/** instantiate cameras */
-		 vision.startCameraThread();
+		 //vision.startCameraThread();
 		 
 		 SUB_ENCODERS.encoderReset();
 }
@@ -131,6 +131,8 @@ public void teleopPeriodic() {
 /** runs at ~50hz when in test mode */
 @SuppressWarnings("deprecation")
 public void testPeriodic() {
-	LiveWindow.run(); 
+		SUB_DRIVE.setDriveValue(.5, .5);
+		System.out.println("Right Encoder Distance:"+SUB_ENCODERS.getRightEncoderDistance() );
+		System.out.println("Left Encoder Distance:"+SUB_ENCODERS.getLeftEncoderDistance() );
 	}
 }

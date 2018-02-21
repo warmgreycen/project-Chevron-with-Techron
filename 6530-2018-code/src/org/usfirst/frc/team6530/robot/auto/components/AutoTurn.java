@@ -55,14 +55,14 @@ public class AutoTurn extends Command implements PIDOutput{
 			rotateToAngleRate = 0; // This value will be updated in the pidWrite() method.
 			turnController.enable();
 		}
-    	if(rotateToAngleRate >= -0.2 && rotateToAngleRate <= 0.2) {
-    		turnController.disable();
-    		isStopped = true;
-    	}
-    	
 		leftValue = rotateToAngleRate;
 		rightValue = rotateToAngleRate;
 		Robot.SUB_DRIVE.setDriveValue(leftValue,  rightValue);
+		
+		if(rotateToAngleRate >= -0.2 && rotateToAngleRate <= 0.2) {
+    		turnController.disable();
+    		isStopped = true;
+    	}
 		Timer.delay(0.005);
     }
 

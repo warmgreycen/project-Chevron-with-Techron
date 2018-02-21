@@ -20,8 +20,8 @@ public class AutoForward extends Command implements PIDOutput{
     /* controllers by displaying a form where you can enter new P, I,  */
     /* and D constants and test the mechanism.                         */
     
-    static final double kP = 0.03;
-    static final double kI = 0.00;
+    static final double kP = 0.001;
+    static final double kI = 0.0004;
     static final double kD = 0.00;
     static final double kF = 0.00;
     
@@ -38,7 +38,8 @@ public class AutoForward extends Command implements PIDOutput{
     	requires(Robot.SUB_ENCODERS);
     	turnController = new PIDController(kP, kI, kD, kF, Robot.SUB_GYRO.getAHRS(), this);
         turnController.setInputRange(-180.0f,  180.0f);
-        turnController.setOutputRange(-1.0, 1.0);
+        //turnController.setOutputRange(-1.0, 1.0);
+        turnController.setOutputRange(0, 1);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
         turnController.setContinuous(true);
         turnController.disable();
@@ -55,30 +56,37 @@ public class AutoForward extends Command implements PIDOutput{
     	difference = finalDistance - currentDistance;
     	System.out.println("Difference: "+difference);
     	
-    	if(!turnController.isEnabled()) {
+    	if(!turnController.isEnabled() && !isStopped) {
 			// Acquire current yaw angle, using this as the target angle.
 			turnController.setSetpoint(Robot.SUB_GYRO.getYaw() );
 			rotateToAngleRate = 0; // This value will be updated in the pidWrite() method.
 			turnController.enable();
 		}
-		magnitude = .5;
-		leftValue = magnitude + rotateToAngleRate;
-		rightValue = magnitude - rotateToAngleRate;
-		Robot.SUB_DRIVE.setDriveValue(leftValue,  rightValue);
-		if(difference < 0.2) {
-			Robot.SUB_DRIVE.setDriveValue(0,0);
-			turnController.disable();
-			isStopped = true;
-		}
+    	
+    	if(turnController.isEnabled() ) {
+    		magnitude = .4;
+    		leftValue = magnitude + rotateToAngleRate;
+    		rightValue = magnitude - rotateToAngleRate;
+    		Robot.SUB_DRIVE.setDriveValue(leftValue,  rightValue);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isStopped;
+    	if(difference < 0.2) {
+    		turnController.disable();
+			Robot.SUB_DRIVE.setDriveValue(0,0);
+			isStopped = true;
+			return isStopped;
+		}
+    	else {
+    		return false;
+    	}
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.SUB_DRIVE.setDriveValue(0,0);
     }
 
     // Called when another command which requires one or more of the same

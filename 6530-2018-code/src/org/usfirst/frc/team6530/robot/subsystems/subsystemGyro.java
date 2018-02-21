@@ -124,7 +124,7 @@ public class subsystemGyro extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new getNavX());
+		//setDefaultCommand(new getNavX());
 		
 	}
 	
