@@ -18,7 +18,7 @@ public class subsystemEncoders extends Subsystem {
 		leftEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		System.out.println("Encoders initialized");
 		
-		distancePerPulse = (6 * Math.PI) / 256 * 10.71;	  //distancePerPulse: Distance in one wheel turn (which is diameter*pi or circumference) divided by the number
+		distancePerPulse = (6 * Math.PI) / 256 * 5.95;	  //distancePerPulse: Distance in one wheel turn (which is diameter*pi or circumference) divided by the number
 		rightEncoder.setDistancePerPulse(distancePerPulse);//# of pulses in 1 revolution (256). The code then sends this number to the encoders.
 		leftEncoder.setDistancePerPulse(distancePerPulse);
 		
