@@ -80,7 +80,7 @@ public class Robot extends IterativeRobot {
 		for(int i = 1; i < Autonomous.values().length; i++) { 
 			autoChooser.addObject(Autonomous.values()[i].toString(), Autonomous.values()[i]); } // add each autonomous enum value to chooser
 		SmartDashboard.putData("Auto Mode", autoChooser); //display the chooser on the dash
-		autoMove = new AutoForward(120);
+		autoMove = new AutoForward(80);
 
 	/** instantiate cameras */
 		 //vision.startCameraThread();
