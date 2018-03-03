@@ -10,6 +10,7 @@ package org.usfirst.frc.team6530.robot;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -18,9 +19,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 
 import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
+import org.usfirst.frc.team6530.robot.auto.SidesGoForward;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
 import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
-import org.usfirst.frc.team6530.robot.auto.components.OldAutoForward;
+//import org.usfirst.frc.team6530.robot.auto.components.OldAutoForward;
 import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 
 import org.usfirst.frc.team6530.robot.subsystems.*;
@@ -51,10 +53,12 @@ public class Robot extends IterativeRobot {
 		public static OI oi;
 		//public static Vision vision;
 
-		
-	/** autonomous */
-		private CommandGroupAuto auto;
-		Command autoMove;
+		//Command autoMove;
+//		CommandGroup GoBalance;
+//		CommandGroup MiddleGoSwitch;
+		//CommandGroup SidesGoForward;
+//		CommandGroup SidesGoSwitch;
+		Command auto;
 		String gameData;
 		Character startPosition = 'l';
 
@@ -79,13 +83,14 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 	
 	/** instantiate autonomous chooser */
-		autoChooser = new SendableChooser<>();
-		autoChooser.addDefault(Autonomous.NOTHING.toString(), Autonomous.NOTHING); // set default to nothing
-		for(int i = 1; i < Autonomous.values().length; i++) { 
-			autoChooser.addObject(Autonomous.values()[i].toString(), Autonomous.values()[i]); } // add each autonomous enum value to chooser
-		SmartDashboard.putData("Auto Mode", autoChooser); //display the chooser on the dash
-		//autoMove = new AutoForward(80);
-		autoMove = new AutoTurn(-90);
+//		autoChooser = new SendableChooser<>();
+//		autoChooser.add
+////		autoChooser.addDefault(Autonomous.NOTHING.toString(), Autonomous.NOTHING); // set default to nothing
+////		for(int i = 1; i < Autonomous.values().length; i++) { 
+////			autoChooser.addObject(Autonomous.values()[i].toString(), Autonomous.values()[i]); } // add each autonomous enum value to chooser
+//		SmartDashboard.putData("Auto Mode", autoChooser); //display the chooser on the dash
+//		//autoMove = new AutoForward(80);
+		//autoMove = new AutoTurn(45);
 
 	/** instantiate cameras */
 		 //vision.startCameraThread();
@@ -100,44 +105,44 @@ public void disabledInit() { }
 
 /** runs at 50hz when bot is disabled */
 public void disabledPeriodic() {
-//	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
-//	
-//	if(startPosition == 'l') {//If robot starts on left side
-//		if(gameData.charAt(0) == 'l') {//If left of switch is ours, go there
-//			auto = SidesGoForward("left");
-//		}
-//		else {
-//			if(gameData.charAt(1) == 'l') {//If left of balance is ours, go there
-//				auto = GoBalance("left");
-//			}
-//			else {//Else, go to right of switch
-//				auto = SidesGoSwitch("left");
-//			}
-//		}
-//	}
-//	
-//	else if(startPosition == 'm') {//If robot starts in middle
-//		if(gameData.charAt(0) == 'l') {//If left of switch is ours, go there
-//			auto = MiddleGoSwitch("left");
-//		}
-//		else {//Else, go to right of switch
-//			auto = MiddleGoSwitch("right");
-//		}
-//	}
-//	
-//	else {//If robot starts on right side
-//		if(gameData.charAt(0) == 'r') {
-//			auto = SidesGoForward("right");
-//		}
-//		else {
-//			if(gameData.charAt(1) == 'r') {
-//				auto = GoBalance("right");
-//			}
-//			else {
-//				auto = SidesGoSwitch("right");
-//			}
-//		}
-//	}
+	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
+	
+	if(startPosition == 'l') {//If robot starts on left side
+		if(gameData.charAt(0) == 'l') {//If left of switch is ours, go there
+			auto = new SidesGoForward("left");
+		}
+		else {
+			if(gameData.charAt(1) == 'l') {//If left of balance is ours, go there
+				//auto = new GoBalance("left");
+			}
+			else {//Else, go to right of switch
+				//auto = new SidesGoSwitch("left");
+			}
+		}
+	}
+	
+	else if(startPosition == 'm') {//If robot starts in middle
+		if(gameData.charAt(0) == 'l') {//If left of switch is ours, go there
+			//auto = new MiddleGoSwitch("left");
+		}
+		else {//Else, go to right of switch
+			//auto = new MiddleGoSwitch("right");
+		}
+	}
+	
+	else {//If robot starts on right side
+		if(gameData.charAt(0) == 'r') {
+			auto = new SidesGoForward("right");
+		}
+		else {
+			if(gameData.charAt(1) == 'r') {
+				//auto = new GoBalance("right");
+			}
+			else {
+				//auto = new SidesGoSwitch("right");
+			}
+		}
+	}
 	//Scheduler.getInstance().run();
 }
 
@@ -148,8 +153,8 @@ public void autonomousInit() {
 	//	auto = new CommandGroupAuto(autoChooser.getSelected());
 	//	auto.start(); 
 	//}
-	//auto.start();
-	autoMove.start();
+	auto.start();
+	//autoMove.start();
 }
 
 

@@ -3,7 +3,7 @@ package org.usfirst.frc.team6530.robot.auto.components;
 import org.usfirst.frc.team6530.robot.Robot;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.Timer;
+//import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -20,8 +20,8 @@ public class AutoTurn extends Command implements PIDOutput{
     /* controllers by displaying a form where you can enter new P, I,  */
     /* and D constants and test the mechanism.                         */
     
-    static final double kP = 0.03;
-    static final double kI = 0.00;
+    static final double kP = 0.003;
+    static final double kI = 0.001;
     static final double kD = 0.00;
     static final double kF = 0.00;
     
@@ -33,13 +33,13 @@ public class AutoTurn extends Command implements PIDOutput{
     public AutoTurn(double kTargetAngleDegrees) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	kTargetAngleDegrees = this.kTargetAngleDegrees;
+    	this.kTargetAngleDegrees = kTargetAngleDegrees - 15;
     	requires(Robot.SUB_DRIVE);
     	requires(Robot.SUB_GYRO);
     	turnController = new PIDController(kP, kI, kD, kF, Robot.SUB_GYRO.getAHRS(), this);
         turnController.setInputRange(-180.0f,  180.0f);
         //turnController.setOutputRange(-1.0, 1.0);
-        turnController.setOutputRange(-0.4, 0.4);
+        turnController.setOutputRange(-0.35, 0.35);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
         //turnController.setContinuous(true);
         turnController.setContinuous(false);
@@ -48,7 +48,7 @@ public class AutoTurn extends Command implements PIDOutput{
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.SUB_GYRO.reset();
+    	Robot.SUB_GYRO.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -63,26 +63,26 @@ public class AutoTurn extends Command implements PIDOutput{
 			rotateToAngleRate = 0; // This value will be updated in the pidWrite() method.
 			turnController.enable();
 		}
-		leftValue = -rotateToAngleRate;
-		rightValue = rotateToAngleRate;
+		leftValue = rotateToAngleRate;
+		rightValue = -rotateToAngleRate;
 		Robot.SUB_DRIVE.setDriveValue(leftValue,  rightValue);
 		
 //		if(rotateToAngleRate >= -0.2 && rotateToAngleRate <= 0.2) {
 //    		turnController.disable();
 //    		isStopped = true;
 //    	}
-		Timer.delay(0.005);
+		//Timer.delay(0.005);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(Math.abs(difference) < 0.2) {
+    	if(Math.abs(difference) < 0.6) {
 			turnController.disable();
-		Robot.SUB_DRIVE.brake();
-		isStopped = true;
-		System.out.println("Done turning");
-		return isStopped;
-	}
+			Robot.SUB_DRIVE.brake();
+			isStopped = true;
+			System.out.println("Done turning");
+			return isStopped;
+    	}
 		else {
 			return false;
 		}
@@ -90,7 +90,7 @@ public class AutoTurn extends Command implements PIDOutput{
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.SUB_DRIVE.brake();
+    	//Robot.SUB_DRIVE.brake();
     }
 
     // Called when another command which requires one or more of the same
