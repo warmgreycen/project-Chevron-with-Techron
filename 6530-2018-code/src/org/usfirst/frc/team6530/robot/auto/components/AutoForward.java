@@ -65,7 +65,12 @@ public class AutoForward extends Command implements PIDOutput{
 		}
     	
     		if(turnController.isEnabled() ) {
-    			magnitude = .35;
+    			if(difference <= 36) {
+    				magnitude = Robot.SUB_DRIVE.getLeftMotorSpeed() * 0.999;
+    			}
+    			else {
+    				magnitude = .5;
+    			}
     			leftValue = magnitude + rotateToAngleRate;
     			rightValue = magnitude - rotateToAngleRate;
     			Robot.SUB_DRIVE.setDriveValue(leftValue,  rightValue);
