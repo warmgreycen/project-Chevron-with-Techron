@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 
 import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
@@ -53,6 +54,8 @@ public class Robot extends IterativeRobot {
 	/** autonomous */
 		private CommandGroupAuto auto;
 		Command autoMove;
+		String gameData;
+		Character startPosition = 'l';
 
 	
 	/**
@@ -95,7 +98,45 @@ public void disabledInit() { }
 
 /** runs at 50hz when bot is disabled */
 public void disabledPeriodic() {
-	Scheduler.getInstance().run(); 
+//	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
+//	
+//	if(startPosition == 'l') {//If robot starts on left side
+//		if(gameData.charAt(0) == 'l') {//If left of switch is ours, go there
+//			auto = SidesGoForward("left");
+//		}
+//		else {
+//			if(gameData.charAt(1) == 'l') {//If left of balance is ours, go there
+//				auto = GoBalance("left");
+//			}
+//			else {//Else, go to right of switch
+//				auto = SidesGoSwitch("left");
+//			}
+//		}
+//	}
+//	
+//	else if(startPosition == 'm') {//If robot starts in middle
+//		if(gameData.charAt(0) == 'l') {//If left of switch is ours, go there
+//			auto = MiddleGoSwitch("left");
+//		}
+//		else {//Else, go to right of switch
+//			auto = MiddleGoSwitch("right");
+//		}
+//	}
+//	
+//	else {//If robot starts on right side
+//		if(gameData.charAt(0) == 'r') {
+//			auto = SidesGoForward("right");
+//		}
+//		else {
+//			if(gameData.charAt(1) == 'r') {
+//				auto = GoBalance("right");
+//			}
+//			else {
+//				auto = SidesGoSwitch("right");
+//			}
+//		}
+//	}
+	//Scheduler.getInstance().run();
 }
 
 
@@ -104,7 +145,8 @@ public void autonomousInit() {
 	//if(autoChooser.getSelected() != null) {
 	//	auto = new CommandGroupAuto(autoChooser.getSelected());
 	//	auto.start(); 
-	//} 
+	//}
+	//auto.start();
 	autoMove.start();
 }
 

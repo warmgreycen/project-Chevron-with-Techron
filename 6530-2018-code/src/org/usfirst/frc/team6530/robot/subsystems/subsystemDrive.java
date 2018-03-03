@@ -164,6 +164,10 @@ public class subsystemDrive extends Subsystem {
 		}
 	}
 	
+	public double getLeftMotorSpeed() {
+		return leftMotor.get();
+	}
+	
 	//public boolean autoRotate(double currentAngle, double lastAngle, double finalAngle, double turnSpeed) {
 	//	targetSpeed = pidCalc(currentAngle);
 	//}
