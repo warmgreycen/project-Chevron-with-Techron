@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
 import org.usfirst.frc.team6530.robot.auto.components.OldAutoForward;
 import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 
@@ -80,7 +81,8 @@ public class Robot extends IterativeRobot {
 		for(int i = 1; i < Autonomous.values().length; i++) { 
 			autoChooser.addObject(Autonomous.values()[i].toString(), Autonomous.values()[i]); } // add each autonomous enum value to chooser
 		SmartDashboard.putData("Auto Mode", autoChooser); //display the chooser on the dash
-		autoMove = new AutoForward(80);
+		//autoMove = new AutoForward(80);
+		autoMove = new AutoTurn(-90);
 
 	/** instantiate cameras */
 		 //vision.startCameraThread();

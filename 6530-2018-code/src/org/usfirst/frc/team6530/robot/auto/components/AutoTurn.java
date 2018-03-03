@@ -27,7 +27,7 @@ public class AutoTurn extends Command implements PIDOutput{
     
     static final double kToleranceDegrees = 2.0f;    
     
-    double kTargetAngleDegrees, leftValue, rightValue;
+    double kTargetAngleDegrees, leftValue, rightValue, currentAngle, difference;
     boolean isStopped = false;
 
     public AutoTurn(double kTargetAngleDegrees) {
@@ -38,47 +38,65 @@ public class AutoTurn extends Command implements PIDOutput{
     	requires(Robot.SUB_GYRO);
     	turnController = new PIDController(kP, kI, kD, kF, Robot.SUB_GYRO.getAHRS(), this);
         turnController.setInputRange(-180.0f,  180.0f);
-        turnController.setOutputRange(-1.0, 1.0);
+        //turnController.setOutputRange(-1.0, 1.0);
+        turnController.setOutputRange(-0.4, 0.4);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
-        turnController.setContinuous(true);
+        //turnController.setContinuous(true);
+        turnController.setContinuous(false);
         turnController.disable();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	//Robot.SUB_GYRO.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	currentAngle = Robot.SUB_GYRO.getAngle();
+    	difference = kTargetAngleDegrees - currentAngle;
+    	System.out.println("Current Angle: "+currentAngle);
+    	System.out.println("Target: "+kTargetAngleDegrees);
+    	System.out.println("Difference: "+difference);
     	if (!turnController.isEnabled()) {
 			turnController.setSetpoint(kTargetAngleDegrees);
 			rotateToAngleRate = 0; // This value will be updated in the pidWrite() method.
 			turnController.enable();
 		}
-		leftValue = rotateToAngleRate;
+		leftValue = -rotateToAngleRate;
 		rightValue = rotateToAngleRate;
 		Robot.SUB_DRIVE.setDriveValue(leftValue,  rightValue);
 		
-		if(rotateToAngleRate >= -0.2 && rotateToAngleRate <= 0.2) {
-    		turnController.disable();
-    		isStopped = true;
-    	}
+//		if(rotateToAngleRate >= -0.2 && rotateToAngleRate <= 0.2) {
+//    		turnController.disable();
+//    		isStopped = true;
+//    	}
 		Timer.delay(0.005);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isStopped;
+    	if(Math.abs(difference) < 0.2) {
+			turnController.disable();
+		Robot.SUB_DRIVE.brake();
+		isStopped = true;
+		System.out.println("Done turning");
+		return isStopped;
+	}
+		else {
+			return false;
+		}
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.SUB_DRIVE.brake();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.SUB_DRIVE.setDriveValue(0, 0);
+    	Robot.SUB_DRIVE.brake();
     }
 
 	@Override
