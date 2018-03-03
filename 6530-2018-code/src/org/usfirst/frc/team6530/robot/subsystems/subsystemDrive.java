@@ -60,18 +60,18 @@ public class subsystemDrive extends Subsystem {
 		//setDefaultCommand(new ManualCommandDrive());
 	}
 
-//	public void DriveWithJoystick(Joystick joy) {
-//		
-//		double JoystickLeftVal = Xbox.RIGHT_Y(joy);
-//		double JoystickRightVal = Xbox.LEFT_Y(joy);
-//		
-//		// set Joystick to 0 if they are between -0.1 and 0.1
-//		if(JoystickLeftVal > -0.1 && JoystickLeftVal < 0.1) {
-//			JoystickLeftVal = 0;
-//		}
-//		if(JoystickRightVal > -0.1 && JoystickRightVal < 0.1) {
-//			JoystickRightVal = 0;
-//		}
+	public void DriveWithJoystick(Joystick joy) {
+		
+		double JoystickLeftVal = Xbox.RIGHT_Y(joy);
+		double JoystickRightVal = Xbox.LEFT_Y(joy);
+		
+		// set Joystick to 0 if they are between -0.1 and 0.1
+		if(JoystickLeftVal > -0.1 && JoystickLeftVal < 0.1) {
+			JoystickLeftVal = 0;
+		}
+		if(JoystickRightVal > -0.1 && JoystickRightVal < 0.1) {
+			JoystickRightVal = 0;
+		}
 //		rightMotor1.set(ControlMode.PercentOutput, -JoystickRightVal);
 //		rightMotor2.set(ControlMode.PercentOutput, -JoystickRightVal);
 //		rightMotor3.set(ControlMode.PercentOutput, -JoystickRightVal);
@@ -79,7 +79,8 @@ public class subsystemDrive extends Subsystem {
 //		leftMotor1.set(ControlMode.PercentOutput, JoystickLeftVal);
 //		leftMotor2.set(ControlMode.PercentOutput, JoystickLeftVal);
 //		leftMotor3.set(ControlMode.PercentOutput, JoystickLeftVal);
-//	}
+		setDriveValue(JoystickLeftVal, JoystickRightVal);
+	}
 //	
 //	 /** simple rocket league drive code; independent rotation and acceleration */
 //    public void driveRLTank(Joystick joy) {
@@ -135,8 +136,8 @@ public class subsystemDrive extends Subsystem {
 //		leftMotor2.set(ControlMode.PercentOutput, -LeftVal);
 //		leftMotor3.set(ControlMode.PercentOutput, -LeftVal);
 		//System.out.println("RightVal after being plugged in: "+RightVal);
-		leftMotor.set(LeftVal);
-		rightMotor.set(-RightVal);
+		leftMotor.set(-LeftVal);
+		rightMotor.set(RightVal);
 	}
 
 	/**
@@ -201,6 +202,12 @@ public class subsystemDrive extends Subsystem {
 		System.out.println("Adjusted speed:"+speed);
 		return speed;
 	}
+	
+	public void brake() {
+		leftMotor.stopMotor();
+		rightMotor.stopMotor();
+	}
+
 	
 }
 

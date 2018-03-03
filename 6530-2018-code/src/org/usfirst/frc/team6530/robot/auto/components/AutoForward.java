@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ *Moves robot forward specified distance, stops it when encoders indicate it has
+ *reached that distance. NavX used to keep robot driving pretty straight.
  */
 public class AutoForward extends Command implements PIDOutput{
 	
@@ -53,7 +54,7 @@ public class AutoForward extends Command implements PIDOutput{
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     		currentDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance();
-    		difference = finalDistance - currentDistance;
+     		difference = finalDistance - Math.abs(currentDistance);
     		System.out.println("Difference: "+difference);
     		
     		if(!turnController.isEnabled() && !isStopped) {
@@ -81,7 +82,7 @@ public class AutoForward extends Command implements PIDOutput{
     protected boolean isFinished() {
     		if(difference < 0.2) {
     			turnController.disable();
-			Robot.SUB_DRIVE.setDriveValue(0,0);
+			Robot.SUB_DRIVE.brake();
 			isStopped = true;
 			return isStopped;
 		}
@@ -92,13 +93,13 @@ public class AutoForward extends Command implements PIDOutput{
 
     // Called once after isFinished returns true
     protected void end() {
-    		//Robot.SUB_DRIVE.setDriveValue(0,0);
+    		Robot.SUB_DRIVE.brake();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    		Robot.SUB_DRIVE.setDriveValue(0,0);
+    		Robot.SUB_DRIVE.brake();
     }
 
 	@Override
