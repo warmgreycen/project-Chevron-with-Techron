@@ -19,7 +19,7 @@
 //    		addSequential(new AutoTurn(Constants.SGS_ANGLE1 + 90) );
 //    		addSequential(new AutoForward(Constants.SGS_SIDEWAYS) );
 //    		addSequential(new AutoTurn(Constants.SGS_ANGLE2) );
-//    		addSequential(new AutoRoller() );
+//    		addSequential(new AutoRoller("spit") );
 //    	}
 //    	else {
 //    		

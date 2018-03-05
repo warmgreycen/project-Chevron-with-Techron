@@ -19,11 +19,13 @@ public class SidesGoForward extends CommandGroup {
     		
     		if(side == "left") {
     			addSequential(new AutoTurn(Constants.SGF_ANGLE) );
-    			//addSequential(new AutoRoller() );
     		}
     		else {
-    			addSequential(new AutoTurn(Constants.SGF_ANGLE) );
-    			//addSequential(new AutoRoller() );
+    			addSequential(new AutoTurn(-Constants.SGF_ANGLE) );
     		}
+    		
+    		//addSequential(new AutoElevator("switch") );
+			addSequential(new AutoForward(5) );
+			//addSequential(new AutoRoller("spit") );
     }
 }

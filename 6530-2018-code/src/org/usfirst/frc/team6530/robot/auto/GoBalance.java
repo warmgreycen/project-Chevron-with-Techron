@@ -13,27 +13,21 @@
 //public class GoBalance extends CommandGroup {
 //
 //    public GoBalance(String side) {
-//        // To run multiple commands at the same time,
-//        // use addParallel()
-//        // e.g. addParallel(new Command1());
-//        //      addSequential(new Command2());
-//        // Command1 and Command2 will run in parallel.
-//    		
 //    		if(side == "left") {
-//    			addSequential(new OldAutoTurn(-Constants.GB_ANGLE1) );
-//    			addSequential(new OldAutoForward(Constants.GB_DIAGONAL) );
-//    			addSequential(new OldAutoTurn(Constants.GB_ANGLE1) );
-//    			addSequential(new OldAutoForward(Constants.GB_FORWARD) );
-//    			addSequential(new OldAutoTurn(Constants.GB_ANGLE1 + 90) );
-//    			addSequential(new AutoRoller() );
+//    			addSequential(new AutoForward(Constants.GB_DIAGONAL) );
+//    			addSequential(new AutoTurn(Constants.GB_ANGLE1) );
+//    			addSequential(new AutoForward(Constants.GB_FORWARD1) );
+//				addSequential(new AutoElevator("balance");
+//				addSequential(new AutoForward(Constants.GB_FORWARD2) );
+//    			addSequential(new AutoRoller("spit") );
 //    		}
 //    		else {
-//    			addSequential(new OldAutoTurn(Constants.GB_ANGLE1) );
-//    			addSequential(new OldAutoForward(Constants.GB_DIAGONAL) );
-//    			addSequential(new OldAutoTurn(-Constants.GB_ANGLE1) );
-//    			addSequential(new OldAutoForward(Constants.GB_FORWARD) );
-//    			addSequential(new OldAutoTurn(-Constants.GB_ANGLE2 - 90) );
-//    			addSequential(new AutoRoller() );
+//    			addSequential(new AutoForward(Constants.GB_FORWARD1) );
+//    			addSequential(new AutoTurn(-Constants.GB_ANGLE1) );
+//    			addSequential(new AutoForward(Constants.GB_FORWARD2) );
+//				addSequential(new AutoElevator("balance");
+//				addSequential(new AutoForward(Constants.GB_FORWARD3) );
+//    			addSequential(new AutoRoller("spit") );
 //    		}
 //
 //    }
