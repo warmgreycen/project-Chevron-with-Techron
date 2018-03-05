@@ -22,7 +22,6 @@ import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team6530.robot.auto.SidesGoForward;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
 import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
-//import org.usfirst.frc.team6530.robot.auto.components.OldAutoForward;
 import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 
 import org.usfirst.frc.team6530.robot.subsystems.*;
@@ -44,7 +43,7 @@ public class Robot extends IterativeRobot {
 		
 	/** subsystems */
 		public static subsystemEncoders SUB_ENCODERS;
-		//public static subsystemRoller SUB_ROLLER;
+		public static subsystemRoller SUB_ROLLER;
 		public static subsystemDrive SUB_DRIVE;
 		public static subsystemGyro SUB_GYRO;
 
@@ -54,10 +53,6 @@ public class Robot extends IterativeRobot {
 		//public static Vision vision;
 
 		//Command autoMove;
-//		CommandGroup GoBalance;
-//		CommandGroup MiddleGoSwitch;
-		//CommandGroup SidesGoForward;
-//		CommandGroup SidesGoSwitch;
 		Command auto;
 		String gameData;
 		Character startPosition = 'l';
@@ -105,41 +100,43 @@ public void disabledInit() { }
 
 /** runs at 50hz when bot is disabled */
 public void disabledPeriodic() {
-	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
-	
-	if(startPosition == 'l') {//If robot starts on left side
-		if(gameData.charAt(0) == 'l') {//If left of switch is ours, go there
-			auto = new SidesGoForward("left");
-		}
-		else {
-			if(gameData.charAt(1) == 'l') {//If left of balance is ours, go there
-				//auto = new GoBalance("left");
-			}
-			else {//Else, go to right of switch
-				//auto = new SidesGoSwitch("left");
-			}
-		}
-	}
-	
-	else if(startPosition == 'm') {//If robot starts in middle
-		if(gameData.charAt(0) == 'l') {//If left of switch is ours, go there
-			//auto = new MiddleGoSwitch("left");
-		}
-		else {//Else, go to right of switch
-			//auto = new MiddleGoSwitch("right");
-		}
-	}
-	
-	else {//If robot starts on right side
-		if(gameData.charAt(0) == 'r') {
-			auto = new SidesGoForward("right");
-		}
-		else {
-			if(gameData.charAt(1) == 'r') {
-				//auto = new GoBalance("right");
+	while (gameData == null) {
+		gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
+		
+		if(startPosition == 'l') {//If robot starts on left side
+			if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
+				auto = new SidesGoForward("left");
 			}
 			else {
-				//auto = new SidesGoSwitch("right");
+				if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
+					//auto = new GoBalance("left");
+				}
+				else {//Else, go to right of switch
+					//auto = new SidesGoSwitch("left");
+				}
+			}
+		}
+		
+		else if(startPosition == 'm') {//If robot starts in middle
+			if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
+				//auto = new MiddleGoSwitch("left");
+			}
+			else {//Else, go to right of switch
+				//auto = new MiddleGoSwitch("right");
+			}
+		}
+		
+		else {//If robot starts on right side
+			if(gameData.charAt(0) == 'R') {
+				auto = new SidesGoForward("right");
+			}
+			else {
+				if(gameData.charAt(1) == 'R') {
+					//auto = new GoBalance("right");
+				}
+				else {
+					//auto = new SidesGoSwitch("right");
+				}
 			}
 		}
 	}
