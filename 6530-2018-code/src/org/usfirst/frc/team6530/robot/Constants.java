@@ -50,20 +50,26 @@ public class Constants {
 	//Auto constants (all in inches or degrees)
 		public static final double
 		//GoBalance
-			GB_LONGLEG = 130,
-			GB_SHORTLEG = 30,
-			GB_DIAGONAL = Math.pow(GB_LONGLEG, 2) + Math.pow(GB_SHORTLEG, 2),
-			GB_FORWARD = 299.65 - GB_LONGLEG,
-			GB_ANGLE1 = Math.toDegrees (Math.atan(GB_SHORTLEG/GB_LONGLEG) ),
+//			GB_LONGLEG = 130,
+//			GB_SHORTLEG = 30,
+//			GB_DIAGONAL = Math.pow(GB_LONGLEG, 2) + Math.pow(GB_SHORTLEG, 2),
+			//GB_FORWARD = 299.65 - GB_LONGLEG,
+			//GB_ANGLE1 = Math.toDegrees (Math.atan(GB_SHORTLEG/GB_LONGLEG) ),
+			GB_FORWARD1 = 130,
+			GB_ANGLE1 = 90,
+			GB_FORWARD2 = 10,
+			GB_FORWARD3 = 10,
 			GB_ANGLE2 = 90,
 		//MiddleGoSwitch
-			M_LONGLEG = 80,
-			M_RIGHTSHORTLEG = 60,
-			M_LEFTSHORTLEG = 72,
-			M_LEFTANGLE = Math.toDegrees( Math.atan(M_LEFTSHORTLEG/M_LONGLEG) ),
-			M_RIGHTANGLE = Math.toDegrees( Math.atan(M_RIGHTSHORTLEG/M_LONGLEG) ),
-			M_RIGHTDIAGONAL = Math.pow(M_RIGHTSHORTLEG, 2) + Math.pow(M_LONGLEG, 2),
-			M_LEFTDIAGONAL = Math.pow(M_LEFTSHORTLEG, 2) + Math.pow(M_LONGLEG, 2),
+			M_LEFTDIAGONAL = 150,
+			M_RIGHTDIAGONAL = 200,
+			//M_LONGLEG = 80,
+			//M_RIGHTSHORTLEG = 60,
+			//M_LEFTSHORTLEG = 72,
+//			M_LEFTANGLE = Math.toDegrees( Math.atan(M_LEFTSHORTLEG/M_LONGLEG) ),
+//			M_RIGHTANGLE = Math.toDegrees( Math.atan(M_RIGHTSHORTLEG/M_LONGLEG) ),
+//			M_RIGHTDIAGONAL = Math.pow(M_RIGHTSHORTLEG, 2) + Math.pow(M_LONGLEG, 2),
+//			M_LEFTDIAGONAL = Math.pow(M_LEFTSHORTLEG, 2) + Math.pow(M_LONGLEG, 2),
 		//SidesGoSwitch
 			SGS_LONGLEG = 166,
 			SGS_SHORTLEG = 40,
@@ -72,8 +78,8 @@ public class Constants {
 			SGS_SIDEWAYS = 132 + (SGS_SHORTLEG-16.5), //16.5 is distance marked "A" on paper
 			SGS_ANGLE2 = 90,
 		//SidesGoForward
-			SGF_LENGTH = 80,
-			SGF_ANGLE = 20;
+			SGF_LENGTH = 90,
+			SGF_ANGLE = 90;
 
 
 }

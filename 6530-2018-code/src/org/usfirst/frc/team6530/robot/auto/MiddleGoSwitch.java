@@ -1,29 +1,31 @@
-//package org.usfirst.frc.team6530.robot.auto;
-//
-//import org.usfirst.frc.team6530.robot.Constants;
-//import org.usfirst.frc.team6530.robot.auto.components.OldAutoForward;
+package org.usfirst.frc.team6530.robot.auto;
+
+import org.usfirst.frc.team6530.robot.Constants;
+import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
 //import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
-//import org.usfirst.frc.team6530.robot.auto.components.OldAutoTurn;
-//
-//import edu.wpi.first.wpilibj.command.CommandGroup;
-//
-///**
-// *
-// */
-//public class MiddleGoSwitch extends CommandGroup {
-//
-//    public MiddleGoSwitch(String side) {
-//    	if(side == "left") {
+import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
+
+import edu.wpi.first.wpilibj.command.CommandGroup;
+
+/**
+ *
+ */
+public class MiddleGoSwitch extends CommandGroup {
+
+    public MiddleGoSwitch(String side) {
+    	if(side == "left") {
+    		
+    		addSequential(new AutoTurn(-39) );
+    		addSequential(new AutoForward(Constants.M_LEFTDIAGONAL) );
+    		//addSequential(new AutoTurn(69) );
+    		//addSequential(new AutoTurn(Constants.M_LEFTANGLE + 90) );
+    		//addSequential(new AutoRoller() );
+    	}
+    	else {
 //    		addSequential(new OldAutoTurn(Constants.M_LEFTANGLE) );
 //    		addSequential(new OldAutoForward(Constants.M_LEFTDIAGONAL) );
 //    		addSequential(new OldAutoTurn(Constants.M_LEFTANGLE + 90) );
 //    		addSequential(new AutoRoller() );
-//    	}
-//    	else {
-//    		addSequential(new OldAutoTurn(Constants.M_LEFTANGLE) );
-//    		addSequential(new OldAutoForward(Constants.M_LEFTDIAGONAL) );
-//    		addSequential(new OldAutoTurn(Constants.M_LEFTANGLE + 90) );
-//    		addSequential(new AutoRoller() );
-//    	}
-//    }
-//}
+    	}
+    }
+}

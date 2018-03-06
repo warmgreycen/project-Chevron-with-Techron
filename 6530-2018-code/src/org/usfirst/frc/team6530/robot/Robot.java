@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 
 import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
+import org.usfirst.frc.team6530.robot.auto.GoBalance;
+import org.usfirst.frc.team6530.robot.auto.MiddleGoSwitch;
 import org.usfirst.frc.team6530.robot.auto.SidesGoForward;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
 import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
@@ -43,7 +45,7 @@ public class Robot extends IterativeRobot {
 		
 	/** subsystems */
 		public static subsystemEncoders SUB_ENCODERS;
-		public static subsystemRoller SUB_ROLLER;
+		//public static subsystemRoller SUB_ROLLER;
 		public static subsystemDrive SUB_DRIVE;
 		public static subsystemGyro SUB_GYRO;
 
@@ -55,7 +57,7 @@ public class Robot extends IterativeRobot {
 		//Command autoMove;
 		Command auto;
 		String gameData;
-		Character startPosition = 'l';
+		Character startPosition = 'm';
 
 	
 	/**
@@ -100,7 +102,12 @@ public void disabledInit() { }
 
 /** runs at 50hz when bot is disabled */
 public void disabledPeriodic() {
-	while (gameData == null) {
+	
+}
+
+
+/** runs when autonomous start */
+public void autonomousInit() {
 		gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
 		
 		if(startPosition == 'l') {//If robot starts on left side
@@ -109,7 +116,7 @@ public void disabledPeriodic() {
 			}
 			else {
 				if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
-					//auto = new GoBalance("left");
+					auto = new GoBalance("left");
 				}
 				else {//Else, go to right of switch
 					//auto = new SidesGoSwitch("left");
@@ -119,7 +126,7 @@ public void disabledPeriodic() {
 		
 		else if(startPosition == 'm') {//If robot starts in middle
 			if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
-				//auto = new MiddleGoSwitch("left");
+				auto = new MiddleGoSwitch("left");
 			}
 			else {//Else, go to right of switch
 				//auto = new MiddleGoSwitch("right");
@@ -132,20 +139,14 @@ public void disabledPeriodic() {
 			}
 			else {
 				if(gameData.charAt(1) == 'R') {
-					//auto = new GoBalance("right");
+					auto = new GoBalance("right");
 				}
 				else {
 					//auto = new SidesGoSwitch("right");
 				}
 			}
 		}
-	}
 	//Scheduler.getInstance().run();
-}
-
-
-/** runs when autonomous start */
-public void autonomousInit() {
 	//if(autoChooser.getSelected() != null) {
 	//	auto = new CommandGroupAuto(autoChooser.getSelected());
 	//	auto.start(); 

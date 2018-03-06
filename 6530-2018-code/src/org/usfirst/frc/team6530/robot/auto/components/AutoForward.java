@@ -48,7 +48,7 @@ public class AutoForward extends Command implements PIDOutput{
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    		//Robot.SUB_ENCODERS.encoderReset();
+    		Robot.SUB_ENCODERS.encoderReset();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -65,11 +65,11 @@ public class AutoForward extends Command implements PIDOutput{
 		}
     	
     		if(turnController.isEnabled() ) {
-    			if(difference <= 36) {
+    			if(difference <= 36 && finalDistance > 60) {
     				magnitude = Robot.SUB_DRIVE.getLeftMotorSpeed() * 0.999;
     			}
     			else {
-    				magnitude = .5;
+    				magnitude = .6;
     			}
     			leftValue = magnitude + rotateToAngleRate;
     			rightValue = magnitude - rotateToAngleRate;
@@ -94,6 +94,7 @@ public class AutoForward extends Command implements PIDOutput{
     // Called once after isFinished returns true
     protected void end() {
     		Robot.SUB_DRIVE.brake();
+    		Robot.SUB_ENCODERS.encoderReset();
     }
 
     // Called when another command which requires one or more of the same

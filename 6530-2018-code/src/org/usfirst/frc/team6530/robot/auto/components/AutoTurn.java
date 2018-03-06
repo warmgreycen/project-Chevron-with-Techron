@@ -3,7 +3,7 @@ package org.usfirst.frc.team6530.robot.auto.components;
 import org.usfirst.frc.team6530.robot.Robot;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-//import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -20,7 +20,7 @@ public class AutoTurn extends Command implements PIDOutput{
     /* controllers by displaying a form where you can enter new P, I,  */
     /* and D constants and test the mechanism.                         */
     
-    static final double kP = 0.003;
+    static final double kP = 0.002;
     static final double kI = 0.001;
     static final double kD = 0.00;
     static final double kF = 0.00;
@@ -33,13 +33,13 @@ public class AutoTurn extends Command implements PIDOutput{
     public AutoTurn(double kTargetAngleDegrees) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.kTargetAngleDegrees = kTargetAngleDegrees - 15;
+    	this.kTargetAngleDegrees = kTargetAngleDegrees + 15;
     	requires(Robot.SUB_DRIVE);
     	requires(Robot.SUB_GYRO);
     	turnController = new PIDController(kP, kI, kD, kF, Robot.SUB_GYRO.getAHRS(), this);
         turnController.setInputRange(-180.0f,  180.0f);
         //turnController.setOutputRange(-1.0, 1.0);
-        turnController.setOutputRange(-0.35, 0.35);
+        turnController.setOutputRange(-0.25, 0.25);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
         //turnController.setContinuous(true);
         turnController.setContinuous(false);
@@ -76,7 +76,7 @@ public class AutoTurn extends Command implements PIDOutput{
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(Math.abs(difference) < 0.6) {
+    	if(Math.abs(difference) < 0.5) {
 			turnController.disable();
 			Robot.SUB_DRIVE.brake();
 			isStopped = true;
@@ -90,7 +90,7 @@ public class AutoTurn extends Command implements PIDOutput{
 
     // Called once after isFinished returns true
     protected void end() {
-    	//Robot.SUB_DRIVE.brake();
+    	Robot.SUB_DRIVE.brake();
     }
 
     // Called when another command which requires one or more of the same
