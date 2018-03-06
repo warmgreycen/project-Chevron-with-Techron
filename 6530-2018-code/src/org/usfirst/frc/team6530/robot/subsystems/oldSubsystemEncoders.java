@@ -1,8 +1,7 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Encoder;
-import org.usfirst.frc.team6530.robot.subsystems.common.IDisplay;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class oldSubsystemEncoders implements org.usfirst.frc.team6530.robot.subsystems.common.IDisplay {

@@ -14,26 +14,36 @@ public class Constants {
 	
 //	
 	public static final int
-		/// DRIVE MOTORS
-			RIGHT_MASTER   		 = 1,
-				RIGHT_SLAVE1	 = 5,
-					RIGHT_SLAVE2 = 4,
-				
-			LEFT_MASTER     	= 3,
-				LEFT_SLAVE1  	= 0,
-					LEFT_SLAVE2 = 2,
-
-					// Collector Sparks (PWM)
- 			PWM_INTAKE_LEFT = 0,
- 			PWM_INTAKE_RIGHT = 1,
- 			//ELEVATOR VICTOR SP PWM
- 			PWM_ELEVATOR = 2,
- 			
-					
-	//LIMITS
-			SPEED_LIMIT = 1;
+	//PROTO PWM
+	PROTO_LEFT = 0,
+	PROTO_RIGHT = 1,
+	/// DRIVE MOTORS CAN_BUS
+	RIGHT_MASTER   		 = 1,
+	RIGHT_SLAVE1	 = 5,
+		RIGHT_SLAVE2 = 4,
 	
-	public static final int
+	LEFT_MASTER     	= 3,
+	LEFT_SLAVE1  	= 0,
+		LEFT_SLAVE2 = 2,
+
+		//INTAKE SPARKS(PWM)
+		PWM_INTAKE_LEFT = 0,
+		PWM_INTAKE_RIGHT = 1,
+	//ELEVATOR VICTOR SP PWM
+		PWM_ELEVATOR = 2,
+	
+	//CLIMBER PWM
+		PWM_CLIMBER = 3,
+		//DIO PORTS
+				CLIMBER_BOTTOM_SWITCH = 5,
+				CLIMBER_TOP_SWITCH = 6,
+	//PITCH PWM
+				PWM_PITCH = 6,
+	
+		
+				//LIMITS
+				SPEED_LIMIT = 1;
+	static final int
 		/// CAMERA SPECS
 			CAM_HEIGHT = 1080,
 			CAM_WIDTH  = 1920,

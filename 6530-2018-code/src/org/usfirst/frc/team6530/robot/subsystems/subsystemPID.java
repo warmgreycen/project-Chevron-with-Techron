@@ -35,25 +35,11 @@ public class subsystemPID {
 	// instance data and methods
 	private static PIDController pidCtrl;
 	
-	
-	// proto.bot
-	// super-volatile (accurate, super-fast, unstable) version - 2/5/2018
-	
 	private static final double kP = 0.04;
 	private static final double kI = 0.02; 
 	private static final double kD = 0.1;
 	private static final double kF = 0;     // F not needed for PID position control
-
-	
-	// proto.bot
-	// pretty fast & stable version (works within a deg in one sec with 60% max speed) - 2/5/2018
-//	private static final double kP = 0.03;
-//	private static final double kI = 0.006; 
-//	private static final double kD = 0.065;
-//	private static final double kF = 0;     // F not needed for PID position control
-	
-	private static final double maxSpeed = 0.5;
-	
+	private static final double maxSpeed = 0.75;
 	private static double angleTargetDeg = 0.0;	
 	private static TurnOutput pidOut;
 	private static AHRS ahrs;
