@@ -2,7 +2,7 @@ package org.usfirst.frc.team6530.robot.subsystems;
 
 import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.Robot;
-import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
+//import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
 import org.usfirst.frc.team6530.robot.util.Xbox;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
