@@ -1,8 +1,7 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Encoder;
-import org.usfirst.frc.team6530.robot.subsystems.common.IDisplay;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class oldSubsystemEncoders implements org.usfirst.frc.team6530.robot.subsystems.common.IDisplay {
@@ -27,14 +26,6 @@ public class oldSubsystemEncoders implements org.usfirst.frc.team6530.robot.subs
 	
 	public int GetRight() {
 		return right.get();
-	}
-	
-	public double getLeftEncoderDistance() {
-		return left.getDistance();
-	}
-	
-	public double getRightEncoderDistance() {
-		return right.getDistance();
 	}
 	
 	public void ResetAll() {

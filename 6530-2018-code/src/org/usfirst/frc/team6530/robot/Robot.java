@@ -7,7 +7,13 @@
 
 package org.usfirst.frc.team6530.robot;
 
-import edu.wpi.first.wpilibj.I2C;
+import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
+import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+import org.usfirst.frc.team6530.robot.commands.autonomousCommands.DriveToCube;
+import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
+import org.usfirst.frc.team6530.robot.subsystems.*;
+
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -15,30 +21,16 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
-
 import org.usfirst.frc.team6530.robot.auto.GoBalance;
 import org.usfirst.frc.team6530.robot.auto.MiddleGoSwitch;
 import org.usfirst.frc.team6530.robot.auto.SidesGoForward;
-//import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
-//import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
-import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
-
-import org.usfirst.frc.team6530.robot.subsystems.*;
 
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
 public class Robot extends IterativeRobot {
 
 	/** choosers */
-//		SendableChooser<Autonomous> autoChooser;
+		SendableChooser<Autonomous> autoChooser;
 		// add choosers as needed, these put drop down options in the smart dash
 	
 	/** Important starting variables */
@@ -48,19 +40,26 @@ public class Robot extends IterativeRobot {
 		
 	/** subsystems */
 		public static subsystemEncoders SUB_ENCODERS;
-		//public static subsystemRoller SUB_ROLLER;
+		public static subsystemRoller SUB_ROLLER;
 		public static subsystemDrive SUB_DRIVE;
 		public static subsystemGyro SUB_GYRO;
-
+		public static subsystemClimber SUB_CLIMBER;
 		public static subsystemElevator SUB_ELEVATOR;
-		//public static subsystemPID SUB_PID;
+		public static subsystemPID SUB_PID;
+		public static subsystemPitch SUB_PITCH;
+		public static autoDriveTrain AUTO_DRIVE;
 		public static OI oi;
 		//public static Vision vision;
+		public static Limelight LIMELIGHT;
+
 		
-	/** Autonomous */
-		//Command autoMove;
+	/** autonomous */
+		CommandGroup m_autoCommand;
+		Command autoMove;
+		Command autoVision;
 		Command auto;
 
+		SendableChooser<CommandGroup> m_chooser = new SendableChooser<>();
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -71,12 +70,15 @@ public class Robot extends IterativeRobot {
 		
 	/** instantiate subsystems */
 		SUB_ENCODERS = new subsystemEncoders();
-		//SUB_ROLLER = new subsystemRoller();
+		SUB_ROLLER = new subsystemRoller();
 		SUB_DRIVE = new subsystemDrive();
 		SUB_GYRO = new subsystemGyro();
-
+		SUB_CLIMBER = new subsystemClimber();
 		SUB_ELEVATOR = new subsystemElevator();
-		//vision = new Vision();
+		SUB_PITCH = new subsystemPitch();
+		AUTO_DRIVE = new autoDriveTrain();
+//		vision = new Vision();
+		LIMELIGHT = new Limelight();
 
 	/** instantiate operator interface */
 		oi = new OI();
@@ -85,15 +87,16 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.setDefaultString("Starting Position (l, m, or r):", "m");
 	
 	/** instantiate autonomous chooser */
-//		autoChooser = new SendableChooser<>();
-//		autoChooser.add
-////		autoChooser.addDefault(Autonomous.NOTHING.toString(), Autonomous.NOTHING); // set default to nothing
-////		for(int i = 1; i < Autonomous.values().length; i++) { 
-////			autoChooser.addObject(Autonomous.values()[i].toString(), Autonomous.values()[i]); } // add each autonomous enum value to chooser
-//		SmartDashboard.putData("Auto Mode", autoChooser); //display the chooser on the dash
-//		//autoMove = new AutoForward(80);
-		//autoMove = new AutoTurn(45);
-
+		autoChooser = new SendableChooser<>();
+		
+//		m_chooser.addDefault("Starting on Right", new AutoRight());
+//		m_chooser.addObject("Starting on Left", new AutoLeft());
+//		m_chooser.addObject("Starting in middle ", new AutoCenter());
+//		m_chooser.addObject("Drive over the Line", new DriveOverLine());
+//		m_chooser.addObject("Limelight To Cube", new DriveToCube());
+		
+		SmartDashboard.putData("Auto mode", m_chooser);
+		autoMove = new AutoForward(60);
 	/** instantiate cameras */
 		 //vision.startCameraThread();
 		 
@@ -159,6 +162,11 @@ public void autonomousInit() {
 	//}
 	auto.start();
 	//autoMove.start();
+
+//	m_autoCommand = (CommandGroup) m_chooser.getSelected();
+//	if(m_autoCommand != null) {
+//		m_autoCommand.start(); 
+//	}
 }
 
 
@@ -170,8 +178,10 @@ public void autonomousPeriodic() {
 
 /** runs when teleop starts*/
 public void teleopInit() {
-	if (auto != null)
-		auto.cancel(); 
+//	if (auto != null)
+//		auto.cancel(); 
+	LIMELIGHT.setLEDs(Limelight.LIMELIGHT_LED_ON);
+    LIMELIGHT.setPipeline(0);
 }
 
 

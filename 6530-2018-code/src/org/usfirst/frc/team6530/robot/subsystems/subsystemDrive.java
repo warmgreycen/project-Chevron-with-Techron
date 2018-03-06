@@ -1,27 +1,21 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
-import org.usfirst.frc.team6530.robot.Robot;
 import org.usfirst.frc.team6530.robot.Constants;
-//import org.usfirst.frc.team6530.robot.OI;
-//import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
+import org.usfirst.frc.team6530.robot.Robot;
+import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
 import org.usfirst.frc.team6530.robot.util.Xbox;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**    finally a 6 cim tank drive
- *				that	WOOOORKS
+/**    
+ *		WPI doesn't support 6 cim tank drive or TalonSRX, so this is all custom	
+ *		@author @git{ WarmGreycen	}
  */			
-//@SuppressWarnings("deprecation")
 public class subsystemDrive extends Subsystem {
     double kPDrive, kIDrive, kDDrive, error, proportion, integral, deriv, lastError, targetSpeed;
     double totalError = 0;
@@ -29,16 +23,18 @@ public class subsystemDrive extends Subsystem {
 	double kP, kI, kD;
     boolean isStopped = false;
 	
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
-//	TalonSRX leftMotor1 = new TalonSRX(Constants.LEFT_SLAVE1);
-//    TalonSRX leftMotor2 = new TalonSRX(Constants.LEFT_SLAVE2);
-//    TalonSRX leftMotor3 = new TalonSRX(Constants.LEFT_MASTER);
-//    TalonSRX rightMotor1 = new TalonSRX(Constants.RIGHT_SLAVE1);
-//    TalonSRX rightMotor2 = new TalonSRX(Constants.RIGHT_SLAVE2);
-//    TalonSRX rightMotor3 = new TalonSRX(Constants.RIGHT_MASTER);
-    Victor leftMotor = new Victor(0);
-    Victor rightMotor= new Victor(1);
+/**
+ * I set up my motors here babyyy
+ * slaves follow masters. This is in the CTRE documentation, not me being a douche
+ */
+	TalonSRX leftMotor1 = new TalonSRX(Constants.LEFT_SLAVE1);
+    TalonSRX leftMotor2 = new TalonSRX(Constants.LEFT_SLAVE2);
+    TalonSRX leftMotor3 = new TalonSRX(Constants.LEFT_MASTER);
+    TalonSRX rightMotor1 = new TalonSRX(Constants.RIGHT_SLAVE1);
+    TalonSRX rightMotor2 = new TalonSRX(Constants.RIGHT_SLAVE2);
+    TalonSRX rightMotor3 = new TalonSRX(Constants.RIGHT_MASTER);
+    //Victor leftMotor = new Victor(0);
+    //Victor rightMotor= new Victor(1);
     
 	public subsystemDrive() {
 		//super("Drive", 1, 0, 0);
@@ -47,25 +43,26 @@ public class subsystemDrive extends Subsystem {
 		//SmartDashboard.putNumber("kD", kD);
 		//SmartDashboard.putNumber("deadZone", deadZoneDrive);
 	}
-	
-	/** apply left motor invert */
+	/** Create constant to apply left motor invert */
     public static final double leftify(double left) {
 		return left * (Constants.LEFT_MOTOR_INVERT ? -1.0 : 1.0);
 	}
-    /** apply right motor invert */
+    /** Create constant to apply right motor invert */
 	public static final double rightify(double right) {
 		return right * (Constants.RIGHT_MOTOR_INVERT ? -1.0 : 1.0);
 	}
 	public void initDefaultCommand() {
 		//setDefaultCommand(new ManualCommandDrive());
 	}
-
+/**
+ * DriveWithJoystick is simple, right joystick = right motors and vice versa
+ * @param joy: Input is coming from a joystick
+ */
 	public void DriveWithJoystick(Joystick joy) {
-		
 		double JoystickLeftVal = Xbox.RIGHT_Y(joy);
 		double JoystickRightVal = Xbox.LEFT_Y(joy);
 		
-		// set Joystick to 0 if they are between -0.1 and 0.1
+		// Deadzone: set Joystick to 0 if they are between -0.1 and 0.1
 		if(JoystickLeftVal > -0.1 && JoystickLeftVal < 0.1) {
 			JoystickLeftVal = 0;
 		}
@@ -81,79 +78,73 @@ public class subsystemDrive extends Subsystem {
 //		leftMotor3.set(ControlMode.PercentOutput, JoystickLeftVal);
 		setDriveValue(JoystickLeftVal, JoystickRightVal);
 	}
-//	
-//	 /** simple rocket league drive code; independent rotation and acceleration */
-//    public void driveRLTank(Joystick joy) {
-//    	double adder = Xbox.RT(joy) - Xbox.LT(joy);
-//    	double left = adder + (Xbox.LEFT_X(joy) / 1.333333);
-//    	double right = adder - (Xbox.LEFT_X(joy) / 1.333333);
-//    	
-//    	//Quick Truncate
-//    	left = (left > 1.0 ? 1.0 : (left < -1.0 ? -1.0 : left));
-//    	right = (right > 1.0 ? 1.0 : (right < -1.0 ? -1.0 : right));
-//    	    	
-//    	leftMotor1.set(ControlMode.PercentOutput, rightify(left));
-//    		leftMotor2.set(ControlMode.PercentOutput, rightify(left));
-//    			rightMotor1.set(ControlMode.PercentOutput, leftify(right));
-//    				rightMotor2.set(ControlMode.PercentOutput, leftify(right));
-//    					leftMotor3.set(ControlMode.PercentOutput,rightify(left));
-//    						rightMotor3.set(ControlMode.PercentOutput,leftify(right));
-//    }
-//    
-//    
-//    /** drive code where rotation is dependent on acceleration 
-//     * @param radius 0.00-1.00, 1 being zero radius and 0 being driving in a line */
-//    public void driveForza(Joystick joy) {
-//    	double left = 0, 
-//    		   right = 0;
-//    	double acceleration = Xbox.RT(joy) - Xbox.LT(joy);
-//    	
-//    	if (Xbox.LEFT_X(joy) < 0) {
-//    		right = acceleration;
-//    		left = (acceleration * ((2 * (1 - Math.abs(Xbox.LEFT_X(joy)))) - 1)) ; 
-//    	} else if (Xbox.LEFT_X(joy) > 0) {
-//    		left = acceleration;
-//    		right = (acceleration * ((2 * (1 - Math.abs(Xbox.LEFT_X(joy)))) - 1)) ; 
-//    	} else {
-//    		left = acceleration;
-//    		right = acceleration;
-//    		
-//    	leftMotor1.set(ControlMode.PercentOutput, leftify(left));
-//    		leftMotor2.set(ControlMode.PercentOutput, leftify(left));
-//    			rightMotor1.set(ControlMode.PercentOutput, rightify(right));
-//    				rightMotor2.set(ControlMode.PercentOutput, rightify(right));
-//    					leftMotor3.set(ControlMode.PercentOutput,leftify(left));
-//    						rightMotor3.set(ControlMode.PercentOutput,rightify(right));
-//    	}
-//    }
+	
+	 /** simple rocket league drive code; independent rotation and acceleration */
+    public void driveRLTank(Joystick joy) {
+    	double adder = Xbox.RT(joy) - Xbox.LT(joy);
+    	double left = adder + (Xbox.LEFT_X(joy) / 1.333333);
+    	double right = adder - (Xbox.LEFT_X(joy) / 1.333333);
+    	
+    	//Quick Truncate
+    	left = (left > 1.0 ? 1.0 : (left < -1.0 ? -1.0 : left));
+    	right = (right > 1.0 ? 1.0 : (right < -1.0 ? -1.0 : right));
+    	    	
+    	leftMotor1.set(ControlMode.PercentOutput, rightify(left));
+    		leftMotor2.set(ControlMode.PercentOutput, rightify(left));
+    			rightMotor1.set(ControlMode.PercentOutput, leftify(right));
+    				rightMotor2.set(ControlMode.PercentOutput, leftify(right));
+    					leftMotor3.set(ControlMode.PercentOutput,rightify(left));
+    						rightMotor3.set(ControlMode.PercentOutput,leftify(right));
+    }
+    
+    
+    /** drive code where rotation is dependent on acceleration , just like a car */
+    public void driveForza(Joystick joy) {
+    	double left = 0, 
+    		   right = 0;
+    	double acceleration = Xbox.RT(joy) - Xbox.LT(joy);
+    	
+    	if (Xbox.LEFT_X(joy) < 0) {
+    		right = acceleration;
+    		left = (acceleration * ((2 * (1 - Math.abs(Xbox.LEFT_X(joy)))) - 1)) ; 
+    	} else if (Xbox.LEFT_X(joy) > 0) {
+    		left = acceleration;
+    		right = (acceleration * ((2 * (1 - Math.abs(Xbox.LEFT_X(joy)))) - 1)) ; 
+    	} else {
+    		left = acceleration;
+    		right = acceleration;
+    		
+    	leftMotor1.set(ControlMode.PercentOutput, leftify(left));
+    		leftMotor2.set(ControlMode.PercentOutput, leftify(left));
+    			rightMotor1.set(ControlMode.PercentOutput, rightify(right));
+    				rightMotor2.set(ControlMode.PercentOutput, rightify(right));
+    					leftMotor3.set(ControlMode.PercentOutput,leftify(left));
+    						rightMotor3.set(ControlMode.PercentOutput,rightify(right));
+    	}
+    }
 	
 	public void setDriveValue(double RightVal, double LeftVal) {
-//		rightMotor1.set(ControlMode.PercentOutput, RightVal);
-//		rightMotor2.set(ControlMode.PercentOutput, RightVal);
-//		rightMotor3.set(ControlMode.PercentOutput, RightVal);
-//		
-//		leftMotor1.set(ControlMode.PercentOutput, -LeftVal);
-//		leftMotor2.set(ControlMode.PercentOutput, -LeftVal);
-//		leftMotor3.set(ControlMode.PercentOutput, -LeftVal);
-		//System.out.println("RightVal after being plugged in: "+RightVal);
-		leftMotor.set(-LeftVal);
-		rightMotor.set(RightVal);
+		rightMotor1.set(ControlMode.PercentOutput, RightVal);
+		rightMotor2.set(ControlMode.PercentOutput, RightVal);
+		rightMotor3.set(ControlMode.PercentOutput, RightVal);
+		
+		leftMotor1.set(ControlMode.PercentOutput, -LeftVal);
+		leftMotor2.set(ControlMode.PercentOutput, -LeftVal);
+		leftMotor3.set(ControlMode.PercentOutput, -LeftVal);
+		
+		//leftMotor.set(-LeftVal);
+		//rightMotor.set(RightVal);
 	}
 
-	/**
-	 * Tank drive for automated driving
-	 * @param left - Speed for left motor
-	 * @param right - Speed for right motor
-	 */
-	
+	/** drive based on the gyro input */
 	public void gyroMove(double speed, double angle){
-		//System.out.println("Gyro offset:"+Robot.SUB_GYRO.getYaw());
-		//setDriveValue(speed - .01*(Robot.SUB_GYRO.getYaw() - angle), speed + .01*(Robot.SUB_GYRO.getYaw() - angle));
+		System.out.println("Gyro offset:"+Robot.SUB_GYRO.getYaw());
+		setDriveValue(speed - .01*(Robot.SUB_GYRO.getYaw() - angle), speed + .01*(Robot.SUB_GYRO.getYaw() - angle));
 		setDriveValue(speed, speed);
 		//System.out.println(speed);
 	}
 	
-	
+	/**drive mode in code based auton */
 	public boolean autoDrive(double distance, double lastDistance, double finalDistance, double speed) {
 		targetSpeed = pidCalc(distance, lastDistance, finalDistance, speed);
 		setDriveValue(targetSpeed, targetSpeed);
@@ -165,9 +156,9 @@ public class subsystemDrive extends Subsystem {
 		}
 	}
 	
-	public double getLeftMotorSpeed() {
-		return leftMotor.get();
-	}
+//	public double getLeftMotorSpeed() {
+//		//return leftMotor.get();
+//	}
 	
 	//public boolean autoRotate(double currentAngle, double lastAngle, double finalAngle, double turnSpeed) {
 	//	targetSpeed = pidCalc(currentAngle);
@@ -204,10 +195,9 @@ public class subsystemDrive extends Subsystem {
 	}
 	
 	public void brake() {
-		leftMotor.stopMotor();
-		rightMotor.stopMotor();
+		//leftMotor.stopMotor();
+		//rightMotor.stopMotor();
 	}
-
 	
 }
 

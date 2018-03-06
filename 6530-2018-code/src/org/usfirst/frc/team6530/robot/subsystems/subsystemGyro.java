@@ -1,7 +1,6 @@
 
 package org.usfirst.frc.team6530.robot.subsystems;
 
-import org.usfirst.frc.team6530.robot.commands.commandElevator;
 import org.usfirst.frc.team6530.robot.commands.getNavX;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -13,7 +12,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class subsystemGyro extends Subsystem {
 	
 	private static boolean initialized = false;
-    
 	public static void initialize() {
 		
 		if (initialized)
@@ -27,7 +25,7 @@ public class subsystemGyro extends Subsystem {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
         }
 
-		//reset();
+		reset();
 		
 		initialized = true;
 	}
@@ -36,14 +34,12 @@ public class subsystemGyro extends Subsystem {
 	private static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 	
 	private static double yawOffset = 0.0;
-	
 	public static class Angles {
 		float roll = 0f;
 		float pitch = 0f;
 		float yaw = 0f;
-	}
-				
-	public void reset()
+	}		
+	public static void reset()
 	{
 		System.out.println("NavXSensor::reset called!");
 				
@@ -52,10 +48,8 @@ public class subsystemGyro extends Subsystem {
 			ahrs.reset();
 			ahrs.resetDisplacement();
 			ahrs.zeroYaw();
-			
-			// allow zeroing to take effect
+			// give him some time to allow zeroing to take effect
 			Timer.delay(0.1);
-			
 			// get the absolute angle after reset - Not sure why it is non-zero, but we need to record it to zero it out
 			yawOffset = ahrs.getAngle();	
 			System.out.println("yawOffset read = " + yawOffset);
@@ -65,7 +59,6 @@ public class subsystemGyro extends Subsystem {
 	public AHRS getAHRS() {		
 		return ahrs;
 	}
-	
 	public static boolean isConnected() {
 		if (ahrs != null) {
 			return ahrs.isConnected();
@@ -73,15 +66,12 @@ public class subsystemGyro extends Subsystem {
 		
 		return false;
 	}
-	
 	public static boolean isCalibrating() {
 		if (ahrs != null) {
 			return ahrs.isCalibrating();
 		}
-		
 		return false;
 	}
-	
 	public static Angles getAngles()
 	{
 		Angles angles = new Angles();
@@ -91,10 +81,8 @@ public class subsystemGyro extends Subsystem {
 			angles.pitch = ahrs.getPitch();	
 			angles.yaw = ahrs.getYaw();	
 		}			
-		
 		return angles;
 	}
-	
 	// returns yaw angle (-180 deg to +180 deg)
 	public float getYaw() 
 	{
@@ -107,7 +95,6 @@ public class subsystemGyro extends Subsystem {
 		return yaw;
 		
 	}
-	
 	// returns absolute yaw angle (can be larger than 360 deg)
 	public double getAngle() 
 	{
@@ -117,9 +104,7 @@ public class subsystemGyro extends Subsystem {
 			yaw = ahrs.getAngle();	
 			yaw -= yawOffset;  // needed to get to true angle
 		}			
-		
-		return yaw;
-		
+		return yaw;		
 	}
 
 	@Override
