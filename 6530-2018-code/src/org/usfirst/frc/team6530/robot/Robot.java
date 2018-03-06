@@ -15,15 +15,14 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DigitalInput;
+//import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 
-import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team6530.robot.auto.GoBalance;
 import org.usfirst.frc.team6530.robot.auto.MiddleGoSwitch;
 import org.usfirst.frc.team6530.robot.auto.SidesGoForward;
-import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
-import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
+//import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+//import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
 import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 
 import org.usfirst.frc.team6530.robot.subsystems.*;
@@ -39,8 +38,12 @@ import org.usfirst.frc.team6530.robot.subsystems.*;
 public class Robot extends IterativeRobot {
 
 	/** choosers */
-		SendableChooser<Autonomous> autoChooser;
+//		SendableChooser<Autonomous> autoChooser;
 		// add choosers as needed, these put drop down options in the smart dash
+	
+	/** Important starting variables */
+		String gameData;
+		Character startPosition;
 		
 		
 	/** subsystems */
@@ -53,11 +56,10 @@ public class Robot extends IterativeRobot {
 		//public static subsystemPID SUB_PID;
 		public static OI oi;
 		//public static Vision vision;
-
+		
+	/** Autonomous */
 		//Command autoMove;
 		Command auto;
-		String gameData;
-		Character startPosition = 'm';
 
 	
 	/**
@@ -78,6 +80,9 @@ public class Robot extends IterativeRobot {
 
 	/** instantiate operator interface */
 		oi = new OI();
+		
+	/** instantiate SmartDashboard*/
+		SmartDashboard.setDefaultString("Starting Position (l, m, or r):", "m");
 	
 	/** instantiate autonomous chooser */
 //		autoChooser = new SendableChooser<>();
@@ -108,44 +113,45 @@ public void disabledPeriodic() {
 
 /** runs when autonomous start */
 public void autonomousInit() {
-		gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
-		
-		if(startPosition == 'l') {//If robot starts on left side
-			if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
-				auto = new SidesGoForward("left");
-			}
-			else {
-				if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
-					auto = new GoBalance("left");
-				}
-				else {//Else, go to right of switch
-					//auto = new SidesGoSwitch("left");
-				}
-			}
+	startPosition = SmartDashboard.getString("Starting Position (l, m, or r):", "m").charAt(0);
+	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
+	
+	if(startPosition == 'l') {//If robot starts on left side
+		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
+			auto = new SidesGoForward("left");
 		}
-		
-		else if(startPosition == 'm') {//If robot starts in middle
-			if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
-				auto = new MiddleGoSwitch("left");
+		else {
+			if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
+				auto = new GoBalance("left");
 			}
 			else {//Else, go to right of switch
-				//auto = new MiddleGoSwitch("right");
+				//auto = new SidesGoSwitch("left");
 			}
 		}
-		
-		else {//If robot starts on right side
-			if(gameData.charAt(0) == 'R') {
-				auto = new SidesGoForward("right");
+	}
+	
+	else if(startPosition == 'm') {//If robot starts in middle
+		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
+			auto = new MiddleGoSwitch("left");
+		}
+		else {//Else, go to right of switch
+			//auto = new MiddleGoSwitch("right");
+		}
+	}
+	
+	else {//If robot starts on right side
+		if(gameData.charAt(0) == 'R') {
+			auto = new SidesGoForward("right");
+		}
+		else {
+			if(gameData.charAt(1) == 'R') {
+				auto = new GoBalance("right");
 			}
 			else {
-				if(gameData.charAt(1) == 'R') {
-					auto = new GoBalance("right");
-				}
-				else {
-					//auto = new SidesGoSwitch("right");
-				}
+				//auto = new SidesGoSwitch("right");
 			}
 		}
+	}
 	//Scheduler.getInstance().run();
 	//if(autoChooser.getSelected() != null) {
 	//	auto = new CommandGroupAuto(autoChooser.getSelected());
