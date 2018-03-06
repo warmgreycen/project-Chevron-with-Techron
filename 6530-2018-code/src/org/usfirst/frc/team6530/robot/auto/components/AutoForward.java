@@ -66,7 +66,7 @@ public class AutoForward extends Command implements PIDOutput{
     	
     		if(turnController.isEnabled() ) {
     			if(difference <= 36 && finalDistance > 60) {
-    				//magnitude = Robot.SUB_DRIVE.getLeftMotorSpeed() * 0.999;
+    				magnitude = Robot.SUB_DRIVE.getLeftMotorSpeed() * 0.999;
     			}
     			else {
     				magnitude = .6;

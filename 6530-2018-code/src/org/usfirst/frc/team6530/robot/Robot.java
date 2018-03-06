@@ -96,7 +96,7 @@ public class Robot extends IterativeRobot {
 //		m_chooser.addObject("Limelight To Cube", new DriveToCube());
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
-		autoMove = new AutoForward(60);
+		//autoMove = new AutoForward(60);
 	/** instantiate cameras */
 		 //vision.startCameraThread();
 		 
