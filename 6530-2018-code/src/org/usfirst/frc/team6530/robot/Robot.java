@@ -62,11 +62,11 @@ public class Robot extends IterativeRobot {
 		
 	/** instantiate subsystems */
 		SUB_ENCODERS = new subsystemEncoders();
-		//SUB_ROLLER = new subsystemRoller();
+		SUB_ROLLER = new subsystemRoller();
 		SUB_DRIVE = new subsystemDrive();
 		SUB_GYRO = new subsystemGyro();
-//		SUB_CLIMBER = new subsystemClimber();
-//		SUB_ELEVATOR = new subsystemElevator();
+		SUB_CLIMBER = new subsystemClimber();
+		SUB_ELEVATOR = new subsystemElevator();
 		SUB_PITCH = new subsystemPitch();
 		AUTO_DRIVE = new autoDriveTrain();
 //		vision = new Vision();

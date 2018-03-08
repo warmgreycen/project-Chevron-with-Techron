@@ -7,6 +7,7 @@ import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 //import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
 //import org.usfirst.frc.team6530.robot.commands.autonomousCommands.Actions.LiftElevator;
+import org.usfirst.frc.team6530.robot.commands.autonomousCommands.Actions.LiftElevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -18,7 +19,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class MiddleGoSwitch extends CommandGroup {
 
     public MiddleGoSwitch(String side) {
-    	//addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_SWITCH) );
+    	addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_SWITCH, "up") );
     	
     	if(side == "left") {
     		addSequential(new AutoTurn(-Constants.M_ANGLE1) );
