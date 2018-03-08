@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team6530.robot.auto.GoBalance;
 import org.usfirst.frc.team6530.robot.auto.MiddleGoSwitch;
 import org.usfirst.frc.team6530.robot.auto.SidesGoForward;
+import org.usfirst.frc.team6530.robot.auto.SidesGoSwitch;
 
 
 public class Robot extends IterativeRobot {
@@ -124,12 +125,12 @@ public void autonomousInit() {
 			auto = new SidesGoForward("left");
 		}
 		else {
-			if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
-				auto = new GoBalance("left");
-			}
-			else {//Else, go to right of switch
-				//auto = new SidesGoSwitch("left");
-			}
+//			if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
+//				auto = new GoBalance("left");
+//			}
+//			else {//Else, go to right of switch
+				auto = new SidesGoSwitch("left");
+			//}
 		}
 	}
 	
@@ -138,7 +139,7 @@ public void autonomousInit() {
 			auto = new MiddleGoSwitch("left");
 		}
 		else {//Else, go to right of switch
-			//auto = new MiddleGoSwitch("right");
+			auto = new MiddleGoSwitch("right");
 		}
 	}
 	
@@ -147,12 +148,12 @@ public void autonomousInit() {
 			auto = new SidesGoForward("right");
 		}
 		else {
-			if(gameData.charAt(1) == 'R') {
-				auto = new GoBalance("right");
-			}
-			else {
-				//auto = new SidesGoSwitch("right");
-			}
+//			if(gameData.charAt(1) == 'R') {
+//				auto = new GoBalance("right");
+//			}
+//			else {
+				auto = new SidesGoSwitch("right");
+			//}
 		}
 	}
 	//Scheduler.getInstance().run();
