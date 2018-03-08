@@ -71,7 +71,7 @@ public class AutoTurn extends Command implements PIDOutput{
 //    		turnController.disable();
 //    		isStopped = true;
 //    	}
-		//Timer.delay(0.005);
+		Timer.delay(0.005);
     }
 
     // Make this return true when this Command no longer needs to run execute()

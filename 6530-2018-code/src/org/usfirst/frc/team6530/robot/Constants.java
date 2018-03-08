@@ -59,7 +59,8 @@ public class Constants {
 			
 	//Auto constants (all in inches or degrees)
 		public static final double
-		//Elevator/Roller Claw Constants
+		//Elevator/Roller Claw/Pitch Constants
+			PITCH_TIMEOUT = 0.5,
 			ELEVATOR_TIMEOUT_SWITCH = 2.5,
 			ELEVATOR_TIMEOUT_BAL = 8,
 			ROLLER_CLAW_TIMEOUT = 5,

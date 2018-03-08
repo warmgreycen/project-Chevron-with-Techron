@@ -3,7 +3,7 @@ package org.usfirst.frc.team6530.robot.auto.components;
 import org.usfirst.frc.team6530.robot.Robot;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-//import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -49,6 +49,12 @@ public class AutoForward extends Command implements PIDOutput{
     // Called just before this Command runs the first time
     protected void initialize() {
     		Robot.SUB_ENCODERS.encoderReset();
+    		if (Math.abs(finalDistance) == finalDistance) {
+    			magnitude = .6;
+    		}
+    		else {
+    			magnitude = -.6;
+    		}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -68,14 +74,14 @@ public class AutoForward extends Command implements PIDOutput{
     			if(difference <= 36 && finalDistance > 60) {
     				magnitude = Robot.SUB_DRIVE.getLeftMotorSpeed() * 0.999;
     			}
-    			else {
-    				magnitude = .6;
-    			}
+//    			else {
+//    				magnitude = .6;
+//    			}
     			leftValue = magnitude + rotateToAngleRate;
     			rightValue = magnitude - rotateToAngleRate;
     			Robot.SUB_DRIVE.setDriveValue(leftValue,  rightValue);
     		}
-    		//Timer.delay(0.005);
+    		Timer.delay(0.005);
     	}
 
     // Make this return true when this Command no longer needs to run execute()
