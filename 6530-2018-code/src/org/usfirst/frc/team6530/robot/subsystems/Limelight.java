@@ -1,14 +1,21 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
+import org.usfirst.frc.team6530.robot.commands.LimelightLEDOFF;
+import org.usfirst.frc.team6530.robot.commands.commandElevator;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Class to represent a Limelight vision system.
  * Automatically retrieves values from {@link NetworkTable Network Tables} and contains wrapper methods
  * for reading the data.
  */
-public class Limelight {
+public class Limelight extends Subsystem{
+	public void initDefaultCommand() {
+		setDefaultCommand(new LimelightLEDOFF());
+	}
 	/**
 	 * Integers for use with setLED
 	 */

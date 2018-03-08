@@ -19,9 +19,9 @@ public class subsystemElevator extends Subsystem {
 		elevatorMotor.set(-speed);
 	}
 	public void up() {          /**Commands for use in auton */
-		elevatorMotor.set(1);
+		elevatorMotor.set(-.5);
 	}
 	public void down() {
-		elevatorMotor.set(-1);
+		elevatorMotor.set(.5);
 	}
 }

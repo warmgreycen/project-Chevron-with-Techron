@@ -77,7 +77,7 @@ public class subsystemDrive extends Subsystem {
 		leftMotor1.set(ControlMode.PercentOutput, JoystickLeftVal);
 		leftMotor2.set(ControlMode.PercentOutput, JoystickLeftVal);
 		leftMotor3.set(ControlMode.PercentOutput, JoystickLeftVal);
-		setDriveValue(JoystickLeftVal, JoystickRightVal);
+//		setDriveValue(JoystickLeftVal, JoystickRightVal);
 	}
 	
 	 /** simple rocket league drive code; independent rotation and acceleration */

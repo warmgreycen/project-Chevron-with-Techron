@@ -59,14 +59,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		
+//		LIMELIGHT.setLEDs(Limelight.LIMELIGHT_LED_OFF);
 	/** instantiate subsystems */
 		SUB_ENCODERS = new subsystemEncoders();
-		//SUB_ROLLER = new subsystemRoller();
+		SUB_ROLLER = new subsystemRoller();
 		SUB_DRIVE = new subsystemDrive();
 		SUB_GYRO = new subsystemGyro();
-//		SUB_CLIMBER = new subsystemClimber();
-//		SUB_ELEVATOR = new subsystemElevator();
+		SUB_CLIMBER = new subsystemClimber();
+		SUB_ELEVATOR = new subsystemElevator();
 		SUB_PITCH = new subsystemPitch();
 		AUTO_DRIVE = new autoDriveTrain();
 //		vision = new Vision();
@@ -108,63 +108,63 @@ public void disabledPeriodic() {
 
 /** runs when autonomous start */
 public void autonomousInit() {
-	startPosition = SmartDashboard.getString("Starting Position (l, m, or r):", "m").charAt(0);
-	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
-	
-	if(startPosition == 'l') {//If robot starts on left side
-		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
-			auto = new SidesGoForward("left");
-		}
-		else {
-//			if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
-//				auto = new GoBalance("left");
-//			}
-//			else {//Else, go to right of switch
-				auto = new SidesGoSwitch("left");
-			//}
-		}
-	}
-	
-	else if(startPosition == 'm') {//If robot starts in middle
-		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
-			auto = new MiddleGoSwitch("left");
-		}
-		else {//Else, go to right of switch
-			auto = new MiddleGoSwitch("right");
-		}
-	}
-	
-	else {//If robot starts on right side
-		if(gameData.charAt(0) == 'R') {
-			auto = new SidesGoForward("right");
-		}
-		else {
-//			if(gameData.charAt(1) == 'R') {
-//				auto = new GoBalance("right");
-//			}
-//			else {
-				auto = new SidesGoSwitch("right");
-			//}
-		}
-	}
-	//Scheduler.getInstance().run();
-	//if(autoChooser.getSelected() != null) {
-	//	auto = new CommandGroupAuto(autoChooser.getSelected());
-	//	auto.start(); 
-	//}
-	auto.start();
-	//autoMove.start();
-
-//	m_autoCommand = (CommandGroup) m_chooser.getSelected();
-//	if(m_autoCommand != null) {
-//		m_autoCommand.start(); 
+//	startPosition = SmartDashboard.getString("Starting Position (l, m, or r):", "m").charAt(0);
+//	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
+//	
+//	if(startPosition == 'l') {//If robot starts on left side
+//		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
+//			auto = new SidesGoForward("left");
+//		}
+//		else {
+////			if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
+////				auto = new GoBalance("left");
+////			}
+////			else {//Else, go to right of switch
+//				auto = new SidesGoSwitch("left");
+//			//}
+//		}
 //	}
+//	
+//	else if(startPosition == 'm') {//If robot starts in middle
+//		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
+//			auto = new MiddleGoSwitch("left");
+//		}
+//		else {//Else, go to right of switch
+//			auto = new MiddleGoSwitch("right");
+//		}
+//	}
+//	
+//	else {//If robot starts on right side
+//		if(gameData.charAt(0) == 'R') {
+//			auto = new SidesGoForward("right");
+//		}
+//		else {
+////			if(gameData.charAt(1) == 'R') {
+////				auto = new GoBalance("right");
+////			}
+////			else {
+//				auto = new SidesGoSwitch("right");
+//			//}
+//		}
+//	}
+//	//Scheduler.getInstance().run();
+//	//if(autoChooser.getSelected() != null) {
+//	//	auto = new CommandGroupAuto(autoChooser.getSelected());
+//	//	auto.start(); 
+//	//}
+//	auto.start();
+//	//autoMove.start();
+//
+////	m_autoCommand = (CommandGroup) m_chooser.getSelected();
+////	if(m_autoCommand != null) {
+////		m_autoCommand.start(); 
+////	}
 }
 
 
 /** runs at 50hz when in autonomous */
 public void autonomousPeriodic() {
-	Scheduler.getInstance().run(); 
+	//Scheduler.getInstance().run(); 
 }
 
 

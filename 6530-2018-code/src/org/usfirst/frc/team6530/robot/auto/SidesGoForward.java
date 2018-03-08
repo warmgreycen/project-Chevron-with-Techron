@@ -2,6 +2,7 @@ package org.usfirst.frc.team6530.robot.auto;
 
 import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+import org.usfirst.frc.team6530.robot.auto.components.AutoPitch;
 import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 //import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
@@ -26,6 +27,7 @@ public class SidesGoForward extends CommandGroup {
     		if(side == "left") {
     			addSequential(new AutoTurn(Constants.SGF_ANGLE) );
     			addSequential(new AutoForward(Constants.SGF_FORWARD2) );
+    			addSequential(new AutoPitch() );
     			addSequential(new AutoRoller("spit") );
     			addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_SWITCH, "down") );
     			addSequential(new TransitionToLimelight("switch left") );

@@ -28,7 +28,7 @@ public class LiftElevator extends Command {
         return isTimedOut();
     }
     protected void end() {
-    	Robot.SUB_ELEVATOR.elevatorMotor.set(-1);
+    	Robot.SUB_ELEVATOR.elevatorMotor.set(0);
     }
     protected void interrupted() {
     }

@@ -2,6 +2,7 @@ package org.usfirst.frc.team6530.robot.auto;
 
 import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+import org.usfirst.frc.team6530.robot.auto.components.AutoPitch;
 import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 //import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
@@ -34,6 +35,7 @@ public class SidesGoSwitch extends CommandGroup {
     	}
     	
     	addSequential(new AutoForward(Constants.SGS_FORWARD3) );
+    	addSequential(new AutoPitch() );
     	addSequential(new AutoRoller("spit") );
     	addSequential(new TransitionToLimelight("long switch") );
     }

@@ -2,6 +2,7 @@ package org.usfirst.frc.team6530.robot.auto;
 
 import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+import org.usfirst.frc.team6530.robot.auto.components.AutoPitch;
 import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 //import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 //import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
@@ -29,6 +30,7 @@ public class GoBalance extends CommandGroup {
 			addSequential(new AutoTurn(-Constants.GB_ANGLE) );
 		}
 		addSequential(new AutoForward(Constants.GB_FORWARD2) );
+		addSequential(new AutoPitch() );
 		addSequential(new AutoRoller("spit") );
 		
 		addSequential(new TransitionToLimelight("balance") );
