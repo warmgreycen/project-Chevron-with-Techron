@@ -41,13 +41,13 @@ public class Robot extends IterativeRobot {
 		
 	/** subsystems */
 		public static subsystemEncoders SUB_ENCODERS;
-		public static subsystemRoller SUB_ROLLER;
+		//public static subsystemRoller SUB_ROLLER;
 		public static subsystemDrive SUB_DRIVE;
 		public static subsystemGyro SUB_GYRO;
-		public static subsystemClimber SUB_CLIMBER;
-		public static subsystemElevator SUB_ELEVATOR;
+		//public static subsystemClimber SUB_CLIMBER;
+		//public static subsystemElevator SUB_ELEVATOR;
 		public static subsystemPID SUB_PID;
-		public static subsystemPitch SUB_PITCH;
+		//public static subsystemPitch SUB_PITCH;
 		public static autoDriveTrain AUTO_DRIVE;
 		public static OI oi;
 		//public static Vision vision;
@@ -71,15 +71,15 @@ public class Robot extends IterativeRobot {
 		
 	/** instantiate subsystems */
 		SUB_ENCODERS = new subsystemEncoders();
-		SUB_ROLLER = new subsystemRoller();
+		//SUB_ROLLER = new subsystemRoller();
 		SUB_DRIVE = new subsystemDrive();
 		SUB_GYRO = new subsystemGyro();
-		SUB_CLIMBER = new subsystemClimber();
-		SUB_ELEVATOR = new subsystemElevator();
-		SUB_PITCH = new subsystemPitch();
+//		SUB_CLIMBER = new subsystemClimber();
+//		SUB_ELEVATOR = new subsystemElevator();
+//		SUB_PITCH = new subsystemPitch();
 		AUTO_DRIVE = new autoDriveTrain();
 //		vision = new Vision();
-		LIMELIGHT = new Limelight();
+		//LIMELIGHT = new Limelight();
 
 	/** instantiate operator interface */
 		oi = new OI();
@@ -181,8 +181,8 @@ public void autonomousPeriodic() {
 public void teleopInit() {
 //	if (auto != null)
 //		auto.cancel(); 
-	LIMELIGHT.setLEDs(Limelight.LIMELIGHT_LED_ON);
-    LIMELIGHT.setPipeline(0);
+//	LIMELIGHT.setLEDs(Limelight.LIMELIGHT_LED_ON);
+//    LIMELIGHT.setPipeline(0);
 }
 
 

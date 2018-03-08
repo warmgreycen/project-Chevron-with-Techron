@@ -72,7 +72,7 @@ public class Constants {
 			M_LONGLEG = 103.5,
 			M_SHORTLEG = 49.44,
 			M_ANGLE1 = 90 - (Math.toDegrees(Math.atan(M_LONGLEG/M_SHORTLEG) ) ),
-			M_FORWARD = Math.pow(M_LONGLEG, 2) + Math.pow(M_SHORTLEG, 2),
+			M_FORWARD = Math.sqrt(Math.pow(M_LONGLEG, 2) + Math.pow(M_SHORTLEG, 2) ),
 			M_ANGLE2 = -M_ANGLE1,
 		//SidesGoSwitch
 			SGS_FORWARD1 = 196 + 13 + 2,

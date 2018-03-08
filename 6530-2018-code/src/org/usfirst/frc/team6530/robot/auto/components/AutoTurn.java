@@ -33,13 +33,13 @@ public class AutoTurn extends Command implements PIDOutput{
     public AutoTurn(double kTargetAngleDegrees) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.kTargetAngleDegrees = kTargetAngleDegrees + 15;
+    	this.kTargetAngleDegrees = kTargetAngleDegrees;
     	requires(Robot.SUB_DRIVE);
     	requires(Robot.SUB_GYRO);
     	turnController = new PIDController(kP, kI, kD, kF, Robot.SUB_GYRO.getAHRS(), this);
         turnController.setInputRange(-180.0f,  180.0f);
         //turnController.setOutputRange(-1.0, 1.0);
-        turnController.setOutputRange(-0.25, 0.25);
+        turnController.setOutputRange(-0.30, 0.30);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
         //turnController.setContinuous(true);
         turnController.setContinuous(false);
@@ -48,7 +48,7 @@ public class AutoTurn extends Command implements PIDOutput{
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.SUB_GYRO.reset();
+    	//Robot.SUB_GYRO.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
