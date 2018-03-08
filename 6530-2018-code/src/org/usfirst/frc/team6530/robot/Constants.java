@@ -61,25 +61,27 @@ public class Constants {
 		public static final double
 		//Elevator/Roller Claw Constants
 			ELEVATOR_TIMEOUT_SWITCH = 2.5,
+			ELEVATOR_TIMEOUT_BAL = 8,
 			ROLLER_CLAW_TIMEOUT = 5,
 		
 		//GoBalance
-			GB_FORWARD1 = 130,
-			GB_ANGLE1 = 90,
+			GB_FORWARD1 = 299.65 + 20,
+			GB_ANGLE = 90,
 			GB_FORWARD2 = 10,
-			GB_FORWARD3 = 10,
-			GB_ANGLE2 = 90,
 		//MiddleGoSwitch
-			M_LEFTDIAGONAL = 150,
-			M_RIGHTDIAGONAL = 200,
+			M_LONGLEG = 103.5,
+			M_SHORTLEG = 49.44,
+			M_ANGLE1 = 90 - (Math.toDegrees(Math.atan(M_LONGLEG/M_SHORTLEG) ) ),
+			M_FORWARD = Math.pow(M_LONGLEG, 2) + Math.pow(M_SHORTLEG, 2),
+			M_ANGLE2 = -M_ANGLE1,
 		//SidesGoSwitch
 			SGS_FORWARD1 = 196 + 13 + 2,
 			SGS_ANGLE = 90,
 			SGS_FORWARD2 = (24.06-2.5) + 132.88,
 			SGS_FORWARD3 = 18 - (13 + 2),
 		//SidesGoForward
-			SGF_LENGTH = 90,
-			SGF_ANGLE = 90;
-
+			SGF_FORWARD1 = 196 - 36.5,
+			SGF_ANGLE = 90,
+			SGF_FORWARD2 = 15;
 
 }

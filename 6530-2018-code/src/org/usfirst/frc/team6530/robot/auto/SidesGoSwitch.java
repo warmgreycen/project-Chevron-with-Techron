@@ -32,6 +32,6 @@ public class SidesGoSwitch extends CommandGroup {
     	}
     	
     	addSequential(new AutoForward(Constants.SGS_FORWARD3) );
-    	addSequential(new AutoRoller(Constants.ROLLER_CLAW_TIMEOUT) );
+    	addSequential(new AutoRoller("spit") );
     }
 }

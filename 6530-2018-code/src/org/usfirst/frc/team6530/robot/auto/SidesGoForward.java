@@ -2,20 +2,24 @@ package org.usfirst.frc.team6530.robot.auto;
 
 import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
 //import org.usfirst.frc.team6530.robot.auto.components.OldAutoForward;
 //import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 //import org.usfirst.frc.team6530.robot.auto.components.OldAutoTurn;
+import org.usfirst.frc.team6530.robot.commands.autonomousCommands.Actions.LiftElevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *If in left position, given 'L _ _' for gameData, go to put cube in left-hand side of switch
+ *If in left position, given 'L _ _' for gameData, go put cube in 
+ *left-hand side of switch
  */
 public class SidesGoForward extends CommandGroup {
 
     public SidesGoForward(String side) {
-    		addSequential(new AutoForward(Constants.SGF_LENGTH) );
+    		addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_SWITCH) );
+    		addSequential(new AutoForward(Constants.SGF_FORWARD1) );
     		
     		if(side == "left") {
     			addSequential(new AutoTurn(Constants.SGF_ANGLE) );
@@ -23,9 +27,7 @@ public class SidesGoForward extends CommandGroup {
     		else {
     			addSequential(new AutoTurn(-Constants.SGF_ANGLE) );
     		}
-    		
-    		//addSequential(new AutoElevator("switch") );
-			addSequential(new AutoForward(5) );
-			//addSequential(new AutoRoller("spit") );
+    		addSequential(new AutoForward(Constants.SGF_FORWARD2) );
+			addSequential(new AutoRoller("spit") );
     }
 }

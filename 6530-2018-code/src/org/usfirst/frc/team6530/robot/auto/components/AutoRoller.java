@@ -1,20 +1,27 @@
 package org.usfirst.frc.team6530.robot.auto.components;
 
+import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 
 public class AutoRoller extends Command {
+	String mode;
 
-    public AutoRoller(double timeOut) {
-
+    public AutoRoller(String mode) {
+      this.mode = mode;
       requires(Robot.SUB_ROLLER);
-      setTimeout(timeOut); 
+      setTimeout(Constants.ROLLER_CLAW_TIMEOUT);
     }
     protected void initialize() {
     }
     protected void execute() {
-    	Robot.SUB_ROLLER.spit();
+    	if(mode == "spit") {
+    		Robot.SUB_ROLLER.spit();
+    	}
+    	else {
+    		Robot.SUB_ROLLER.intake();
+    	}
     }
     protected boolean isFinished() {
         return isTimedOut();
@@ -23,5 +30,6 @@ public class AutoRoller extends Command {
     	Robot.SUB_ROLLER.stop();
     }
     protected void interrupted() {
+    	Robot.SUB_ROLLER.stop();
     }
 }
