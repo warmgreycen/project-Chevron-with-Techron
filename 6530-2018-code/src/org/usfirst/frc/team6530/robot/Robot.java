@@ -177,18 +177,12 @@ public void autonomousPeriodic() {
 
 /** runs when teleop starts*/
 public void teleopInit() {
-<<<<<<< HEAD
 	if (auto != null)
 		auto.cancel(); 
 	
 	LIMELIGHT.setLEDs(Limelight.LIMELIGHT_LED_OFF);
     LIMELIGHT.setPipeline(0);
-=======
-//	if (auto != null)
-//		auto.cancel(); 
-//	LIMELIGHT.setLEDs(Limelight.LIMELIGHT_LED_ON);
-//    LIMELIGHT.setPipeline(0);
->>>>>>> branch 'master' of https://github.com/warmgreycen/project-Chevron-with-Techron.git
+
 }
 
 

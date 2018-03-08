@@ -36,9 +36,9 @@ public class DriveToCube extends Command {
         } else {
             try {
                 if (lastTX > 0) {
-                    Robot.AUTO_DRIVE.TankDrive(.25, .25);
+                    Robot.AUTO_DRIVE.TankDrive(-.25, .25);
                 } else if (lastTX < 0) {
-                    Robot.AUTO_DRIVE.TankDrive(-.25, -.25);
+                    Robot.AUTO_DRIVE.TankDrive(.25, -.25);
                 }
             } catch (NullPointerException e) {
                 Robot.AUTO_DRIVE.TankDrive(0, 0);

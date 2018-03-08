@@ -2,6 +2,7 @@ package org.usfirst.frc.team6530.robot.subsystems;
 
 import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.Robot;
+import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
 //import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
 import org.usfirst.frc.team6530.robot.util.Xbox;
 
@@ -11,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**    
  *		WPI doesn't support 6 cim tank drive or TalonSRX, so this is all custom	
@@ -33,15 +35,15 @@ public class subsystemDrive extends Subsystem {
     TalonSRX rightMotor1 = new TalonSRX(Constants.RIGHT_SLAVE1);
     TalonSRX rightMotor2 = new TalonSRX(Constants.RIGHT_SLAVE2);
     TalonSRX rightMotor3 = new TalonSRX(Constants.RIGHT_MASTER);
-    Victor leftMotor = new Victor(0);
-    Victor rightMotor= new Victor(1);
+//    Victor leftMotor = new Victor(0);
+//    Victor rightMotor= new Victor(1);
     
 	public subsystemDrive() {
-		//super("Drive", 1, 0, 0);
-		//SmartDashboard.putNumber("kP", kP);
-		//SmartDashboard.putNumber("kI", kI);
-		//SmartDashboard.putNumber("kD", kD);
-		//SmartDashboard.putNumber("deadZone", deadZoneDrive);
+//		super("Drive", 1, 0, 0);
+//		SmartDashboard.putNumber("kP", kP);
+//		SmartDashboard.putNumber("kI", kI);
+//		SmartDashboard.putNumber("kD", kD);
+//		SmartDashboard.putNumber("deadZone", deadZoneDrive);
 	}
 	/** Create constant to apply left motor invert */
     public static final double leftify(double left) {
@@ -52,7 +54,7 @@ public class subsystemDrive extends Subsystem {
 		return right * (Constants.RIGHT_MOTOR_INVERT ? -1.0 : 1.0);
 	}
 	public void initDefaultCommand() {
-		//setDefaultCommand(new ManualCommandDrive());
+		setDefaultCommand(new ManualCommandDrive());
 	}
 /**
  * DriveWithJoystick is simple, right joystick = right motors and vice versa
@@ -132,8 +134,8 @@ public class subsystemDrive extends Subsystem {
 		leftMotor2.set(ControlMode.PercentOutput, -LeftVal);
 		leftMotor3.set(ControlMode.PercentOutput, -LeftVal);
 		
-		leftMotor.set(-LeftVal);
-		rightMotor.set(RightVal);
+//		leftMotor.set(-LeftVal);
+//		rightMotor.set(RightVal);
 	}
 
 	/** drive based on the gyro input */
