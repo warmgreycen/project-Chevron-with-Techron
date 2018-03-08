@@ -3,7 +3,6 @@ package org.usfirst.frc.team6530.robot.subsystems;
 import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.Robot;
 import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
-//import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
 import org.usfirst.frc.team6530.robot.util.Xbox;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -158,9 +157,10 @@ public class subsystemDrive extends Subsystem {
 		}
 	}
 	
-//	public double getLeftMotorSpeed() {
-//		return leftMotor.get();
-//	}
+	public double getLeftMotorSpeed() {
+		//return leftMotor.get();
+		return leftMotor1.getMotorOutputPercent();
+	}
 	
 	//public boolean autoRotate(double currentAngle, double lastAngle, double finalAngle, double turnSpeed) {
 	//	targetSpeed = pidCalc(currentAngle);
