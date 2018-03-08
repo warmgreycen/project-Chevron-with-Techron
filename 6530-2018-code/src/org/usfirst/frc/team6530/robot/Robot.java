@@ -46,11 +46,9 @@ public class Robot extends IterativeRobot {
 		public static subsystemGyro SUB_GYRO;
 		public static subsystemClimber SUB_CLIMBER;
 		public static subsystemElevator SUB_ELEVATOR;
-		public static subsystemPID SUB_PID;
 		public static subsystemPitch SUB_PITCH;
 		public static autoDriveTrain AUTO_DRIVE;
 		public static OI oi;
-		//public static Vision vision;
 		public static Limelight LIMELIGHT;
 
 		
@@ -71,11 +69,11 @@ public class Robot extends IterativeRobot {
 		
 	/** instantiate subsystems */
 		SUB_ENCODERS = new subsystemEncoders();
-		SUB_ROLLER = new subsystemRoller();
+		//SUB_ROLLER = new subsystemRoller();
 		SUB_DRIVE = new subsystemDrive();
 		SUB_GYRO = new subsystemGyro();
-		SUB_CLIMBER = new subsystemClimber();
-		SUB_ELEVATOR = new subsystemElevator();
+//		SUB_CLIMBER = new subsystemClimber();
+//		SUB_ELEVATOR = new subsystemElevator();
 		SUB_PITCH = new subsystemPitch();
 		AUTO_DRIVE = new autoDriveTrain();
 //		vision = new Vision();
@@ -179,11 +177,18 @@ public void autonomousPeriodic() {
 
 /** runs when teleop starts*/
 public void teleopInit() {
+<<<<<<< HEAD
 	if (auto != null)
 		auto.cancel(); 
 	
 	LIMELIGHT.setLEDs(Limelight.LIMELIGHT_LED_OFF);
     LIMELIGHT.setPipeline(0);
+=======
+//	if (auto != null)
+//		auto.cancel(); 
+//	LIMELIGHT.setLEDs(Limelight.LIMELIGHT_LED_ON);
+//    LIMELIGHT.setPipeline(0);
+>>>>>>> branch 'master' of https://github.com/warmgreycen/project-Chevron-with-Techron.git
 }
 
 

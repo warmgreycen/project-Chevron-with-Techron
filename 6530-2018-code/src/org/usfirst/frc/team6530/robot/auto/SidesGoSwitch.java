@@ -2,9 +2,9 @@ package org.usfirst.frc.team6530.robot.auto;
 
 import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
-import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
+//import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
-import org.usfirst.frc.team6530.robot.commands.autonomousCommands.Actions.LiftElevator;
+//import org.usfirst.frc.team6530.robot.commands.autonomousCommands.Actions.LiftElevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -21,17 +21,17 @@ public class SidesGoSwitch extends CommandGroup {
     	if(side == "left") {
     		addSequential(new AutoTurn(Constants.SGS_ANGLE) );
     		addSequential(new AutoForward(Constants.SGS_FORWARD2) );
-    		addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_SWITCH) );
+    		//addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_SWITCH) );
     		addSequential(new AutoTurn(Constants.SGS_ANGLE) );
     	}
     	else {
     		addSequential(new AutoTurn(-Constants.SGS_ANGLE) );
     		addSequential(new AutoForward(Constants.SGS_FORWARD2) );
-    		addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_SWITCH) );
+    		//addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_SWITCH) );
     		addSequential(new AutoTurn(-Constants.SGS_ANGLE) );
     	}
     	
     	addSequential(new AutoForward(Constants.SGS_FORWARD3) );
-    	addSequential(new AutoRoller("spit") );
+    	//addSequential(new AutoRoller("spit") );
     }
 }
