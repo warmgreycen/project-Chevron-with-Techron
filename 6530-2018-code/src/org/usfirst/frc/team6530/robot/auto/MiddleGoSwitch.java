@@ -2,6 +2,7 @@ package org.usfirst.frc.team6530.robot.auto;
 
 import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 //import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 //import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
 import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
@@ -29,6 +30,7 @@ public class MiddleGoSwitch extends CommandGroup {
     		addSequential(new AutoForward(Constants.M_FORWARD) );
     		addSequential(new AutoTurn(Constants.M_ANGLE2) );
     	}
-    	//addSequential(new AutoRoller("spit") );
+    	addSequential(new AutoRoller("spit") );
+    	addSequential(new TransitionToLimelight("long switch") );
     }
 }
