@@ -127,12 +127,12 @@ public class subsystemDrive extends Subsystem {
 	
 	public void setDriveValue(double RightVal, double LeftVal) {
 		rightMotor1.set(ControlMode.PercentOutput, RightVal);
-		rightMotor2.set(ControlMode.PercentOutput, RightVal);
-		rightMotor3.set(ControlMode.PercentOutput, RightVal);
+			rightMotor2.set(ControlMode.PercentOutput, RightVal);
+				rightMotor3.set(ControlMode.PercentOutput, RightVal);
 		
 		leftMotor1.set(ControlMode.PercentOutput, -LeftVal);
-		leftMotor2.set(ControlMode.PercentOutput, -LeftVal);
-		leftMotor3.set(ControlMode.PercentOutput, -LeftVal);
+			leftMotor2.set(ControlMode.PercentOutput, -LeftVal);
+				leftMotor3.set(ControlMode.PercentOutput, -LeftVal);
 		
 //		leftMotor.set(-LeftVal);
 //		rightMotor.set(RightVal);
@@ -158,9 +158,9 @@ public class subsystemDrive extends Subsystem {
 		}
 	}
 	
-	public double getLeftMotorSpeed() {
-		return leftMotor.get();
-	}
+//	public double getLeftMotorSpeed() {
+//		return leftMotor.get();
+//	}
 	
 	//public boolean autoRotate(double currentAngle, double lastAngle, double finalAngle, double turnSpeed) {
 	//	targetSpeed = pidCalc(currentAngle);
@@ -197,9 +197,15 @@ public class subsystemDrive extends Subsystem {
 	}
 	
 	public void brake() {
-		leftMotor.stopMotor();
-		rightMotor.stopMotor();
+
+		        leftMotor1.set(ControlMode.PercentOutput, 0);
+		        leftMotor2.set(ControlMode.PercentOutput, 0);
+		        leftMotor3.set(ControlMode.PercentOutput, 0);
+		       rightMotor1.set(ControlMode.PercentOutput, 0);
+		       rightMotor2.set(ControlMode.PercentOutput, 0);
+		       rightMotor3.set(ControlMode.PercentOutput, 0);
+		 
 	}
-	
+
 }
 

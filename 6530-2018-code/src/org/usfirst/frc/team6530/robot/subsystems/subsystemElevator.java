@@ -16,7 +16,7 @@ public class subsystemElevator extends Subsystem {
 		setDefaultCommand(new commandElevator());
 	}
 	public void moveElevator(double speed) {
-		elevatorMotor.set(speed);
+		elevatorMotor.set(-speed);
 	}
 	public void up() {          /**Commands for use in auton */
 		elevatorMotor.set(1);
