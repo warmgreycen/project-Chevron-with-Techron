@@ -179,9 +179,10 @@ public void autonomousPeriodic() {
 
 /** runs when teleop starts*/
 public void teleopInit() {
-//	if (auto != null)
-//		auto.cancel(); 
-	LIMELIGHT.setLEDs(Limelight.LIMELIGHT_LED_ON);
+	if (auto != null)
+		auto.cancel(); 
+	
+	LIMELIGHT.setLEDs(Limelight.LIMELIGHT_LED_OFF);
     LIMELIGHT.setPipeline(0);
 }
 
@@ -195,8 +196,8 @@ public void teleopPeriodic() {
 /** runs at ~50hz when in test mode */
 @SuppressWarnings("deprecation")
 public void testPeriodic() {
-		SUB_DRIVE.setDriveValue(.5, .5);
-		System.out.println("Right Encoder Distance:"+SUB_ENCODERS.getRightEncoderDistance() );
-		System.out.println("Left Encoder Distance:"+SUB_ENCODERS.getLeftEncoderDistance() );
+//		SUB_DRIVE.setDriveValue(.5, .5);
+//		System.out.println("Right Encoder Distance:"+SUB_ENCODERS.getRightEncoderDistance() );
+//		System.out.println("Left Encoder Distance:"+SUB_ENCODERS.getLeftEncoderDistance() );
 	}
 }
