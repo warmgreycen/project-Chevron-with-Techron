@@ -3,7 +3,7 @@ package org.usfirst.frc.team6530.robot.auto.components;
 import org.usfirst.frc.team6530.robot.Robot;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-//import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -81,7 +81,7 @@ public class AutoForward extends Command implements PIDOutput{
     			rightValue = magnitude - rotateToAngleRate;
     			Robot.SUB_DRIVE.setDriveValue(leftValue,  rightValue);
     		}
-    		//Timer.delay(0.005);
+    		Timer.delay(0.005);
     	}
 
     // Make this return true when this Command no longer needs to run execute()
