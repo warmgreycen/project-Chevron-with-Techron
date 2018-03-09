@@ -18,23 +18,25 @@ public class TransitionToLimelight extends CommandGroup {
 	        case "switch left":
 	        	addSequential(new AutoForward(-30) );
 	        	addSequential(new AutoTurn(-90) );
+	        	addSequential(new LiftElevator(0, "down") );
 	        	addSequential(new AutoForward(40) );
 	        	addSequential(new DriveToCube() );
 	        	
 	        case "switch right":
 	        	addSequential(new AutoForward(-30) );
 	        	addSequential(new AutoTurn(90) );
+	        	addSequential(new LiftElevator(0, "down") );
 	        	addSequential(new AutoForward(40) );
 	        	addSequential(new DriveToCube() );
 	        	
 	        case "long switch":
 	        	addSequential(new AutoForward(-30) );
-	        	addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_SWITCH, "down") );
+	        	addSequential(new LiftElevator(0, "down") );
 	        	addSequential(new DriveToCube() );
 	        	
 	        case "balance":
 	        	addSequential(new AutoForward(-30) );
-	        	addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_BAL, "down") );
+	        	addSequential(new LiftElevator(0, "down") );
 	        	addSequential(new DriveToCube() );
 	        	
         }
