@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+//import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -89,6 +89,7 @@ public class Robot extends IterativeRobot {
 //		m_chooser.addObject("Limelight To Cube", new DriveToCube());
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
 		//autoMove = new AutoForward(60);
 	/** instantiate cameras */
 		 //vision.startCameraThread();
@@ -109,7 +110,8 @@ public void disabledPeriodic() {
 
 /** runs when autonomous start */
 /**If auto == isScrewed, then comment out all of autoInit and autoPeriodic,
- * as well as Command auto (near line 53) and */
+ * as well as Command auto (near line 53) and uncomment autoMove = new AutoForward(60) 
+ * (near line 93), then uncomment autoMove.start() (line 162). */
 public void autonomousInit() {
 	startPosition = SmartDashboard.getString("Starting Position (l, m, or r):", "m").charAt(0);
 	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
