@@ -2,6 +2,7 @@ package org.usfirst.frc.team6530.robot;
 
 //import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 //import org.usfirst.frc.team6530.robot.commands.autonomousCommands.DriveToCube;
 //import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 import org.usfirst.frc.team6530.robot.subsystems.*;
@@ -25,7 +26,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 public class Robot extends IterativeRobot {
 
 	/** choosers */
-//		SendableChooser<Autonomous> autoChooser;
+		SendableChooser<Autonomous> autoChooser;
 		// add choosers as needed, these put drop down options in the smart dash
 	
 	/** Important starting variables */
