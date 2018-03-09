@@ -27,28 +27,28 @@ public class AutoTurn extends Command implements PIDOutput{
     
     static final double kToleranceDegrees = 2.0f;    
     
-    double kTargetAngleDegrees, leftValue, rightValue, currentAngle, difference;
+    double kTargetAngleDegrees, leftValue, rightValue;
+    double currentAngle, difference;
     boolean isStopped = false;
 
     public AutoTurn(double kTargetAngleDegrees) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	this.kTargetAngleDegrees = kTargetAngleDegrees;
     	requires(Robot.SUB_DRIVE);
     	requires(Robot.SUB_GYRO);
+    	
     	turnController = new PIDController(kP, kI, kD, kF, Robot.SUB_GYRO.getAHRS(), this);
         turnController.setInputRange(-180.0f,  180.0f);
         //turnController.setOutputRange(-1.0, 1.0);
         turnController.setOutputRange(-0.30, 0.30);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
-        //turnController.setContinuous(true);
-        turnController.setContinuous(false);
+        turnController.setContinuous(true);
+        //turnController.setContinuous(false);
         turnController.disable();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.SUB_GYRO.reset();
+    	Robot.SUB_GYRO.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -58,7 +58,8 @@ public class AutoTurn extends Command implements PIDOutput{
     	System.out.println("Current Angle: "+currentAngle);
     	System.out.println("Target: "+kTargetAngleDegrees);
     	System.out.println("Difference: "+difference);
-    	if (!turnController.isEnabled()) {
+    	
+    	if (!turnController.isEnabled() ) {
 			turnController.setSetpoint(kTargetAngleDegrees);
 			rotateToAngleRate = 0; // This value will be updated in the pidWrite() method.
 			turnController.enable();
@@ -79,6 +80,7 @@ public class AutoTurn extends Command implements PIDOutput{
     	if(Math.abs(difference) < 0.5) {
 			turnController.disable();
 			Robot.SUB_DRIVE.brake();
+			
 			isStopped = true;
 			System.out.println("Done turning");
 			return isStopped;

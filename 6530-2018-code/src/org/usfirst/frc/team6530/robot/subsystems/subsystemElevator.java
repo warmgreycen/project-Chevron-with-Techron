@@ -29,13 +29,21 @@ public class subsystemElevator extends Subsystem {
 		elevatorMotor.set(-speed);
 	}
 	public void up() {          /**Commands for use in auton */
-		elevatorMotor.set(1);
+		elevatorMotor.set(0.5);
 	}
 	public void down() {
-		elevatorMotor.set(-1);
+		elevatorMotor.set(-0.5);
+	}
+	
+	public void brake() {
+		elevatorMotor.stopMotor();
 	}
 	
 	public double getElevatorDistance() {
 		return elevatorEncoder.getDistance();
+	}
+	
+	public void resetElevatorEncoder() {
+		elevatorEncoder.reset();
 	}
 }

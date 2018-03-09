@@ -4,11 +4,12 @@ import org.usfirst.frc.team6530.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-
+//"You make elevator music I make elevating music"
 public class LiftElevator extends Command {
 	
 	String mode;
 	double height;
+	boolean isFinished;
 
     //public LiftElevator(double timeOut, String mode) {
 	public LiftElevator(double height, String mode) {
@@ -17,31 +18,35 @@ public class LiftElevator extends Command {
       //setTimeout(timeOut); 
     }
     protected void initialize() {
+    	Robot.SUB_ELEVATOR.resetElevatorEncoder();
     }
     protected void execute() {
     	if(mode == "up") {
-    		if(Robot.SUB_ELEVATOR.getElevatorDistance() >= height) {
+    		if(Robot.SUB_ELEVATOR.getElevatorDistance() < height) {
     			Robot.SUB_ELEVATOR.up();
     		}
     		else {
-    			Robot.SUB_ELEVATOR.elevatorMotor.set(0);
+    			Robot.SUB_ELEVATOR.brake();
+    			isFinished = true;
     		}
     	}
     	else {
-    		if(Robot.SUB_ELEVATOR.getElevatorDistance() <= height) {
+    		if(Robot.SUB_ELEVATOR.getElevatorDistance() > height) {
     			Robot.SUB_ELEVATOR.down();
     		}
     		else {
-    			Robot.SUB_ELEVATOR.elevatorMotor.set(0);
+    			Robot.SUB_ELEVATOR.brake();
+    			isFinished = true;
     		}
     	}
     }
     protected boolean isFinished() {
-        return isTimedOut();
+        return isFinished;
     }
     protected void end() {
-    	Robot.SUB_ELEVATOR.elevatorMotor.set(0);
+    	Robot.SUB_ELEVATOR.brake();
     }
     protected void interrupted() {
+    	Robot.SUB_ELEVATOR.brake();
     }
 }

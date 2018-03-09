@@ -47,8 +47,9 @@ public class Robot extends IterativeRobot {
 		
 	/** autonomous */
 		CommandGroup m_autoCommand;
+		Command autoPitch;
 		Command autoMove;
-		Command autoVision;
+		//Command autoVision;
 		Command auto;
 
 		SendableChooser<CommandGroup> m_chooser = new SendableChooser<>();
@@ -107,6 +108,8 @@ public void disabledPeriodic() {
 
 
 /** runs when autonomous start */
+/**If auto == isScrewed, then comment out all of autoInit and autoPeriodic,
+ * as well as Command auto (near line 53) and */
 public void autonomousInit() {
 	startPosition = SmartDashboard.getString("Starting Position (l, m, or r):", "m").charAt(0);
 	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
@@ -152,6 +155,7 @@ public void autonomousInit() {
 	//	auto = new CommandGroupAuto(autoChooser.getSelected());
 	//	auto.start(); 
 	//}
+	autoPitch.start(); //Fold down roller claw
 	auto.start();
 	//autoMove.start();
 
@@ -186,7 +190,7 @@ public void teleopPeriodic() {
 
 
 /** runs at ~50hz when in test mode */
-@SuppressWarnings("deprecation")
+//@SuppressWarnings("deprecation")
 public void testPeriodic() {
 //		SUB_DRIVE.setDriveValue(.5, .5);
 //		System.out.println("Right Encoder Distance:"+SUB_ENCODERS.getRightEncoderDistance() );

@@ -27,14 +27,14 @@ public class SidesGoForward extends CommandGroup {
     			addSequential(new AutoTurn(Constants.SGF_ANGLE) );
     			addSequential(new AutoForward(Constants.SGF_FORWARD2) );
     			addSequential(new AutoRoller("spit") );
-    			addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "down") );
+    			//addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "down") );
     			addSequential(new TransitionToLimelight("switch left") );
     		}
     		else {
     			addSequential(new AutoTurn(-Constants.SGF_ANGLE) );
     			addSequential(new AutoForward(Constants.SGF_FORWARD2) );
     			addSequential(new AutoRoller("spit") );
-    			addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "down") );
+    			//addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "down") );
     			addSequential(new TransitionToLimelight("switch right") );
     		}
     		
