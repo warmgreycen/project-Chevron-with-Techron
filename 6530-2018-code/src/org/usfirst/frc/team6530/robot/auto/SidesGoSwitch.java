@@ -24,13 +24,13 @@ public class SidesGoSwitch extends CommandGroup {
     	if(side == "left") {
     		addSequential(new AutoTurn(Constants.SGS_ANGLE) );
     		addSequential(new AutoForward(Constants.SGS_FORWARD2) );
-    		addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_SWITCH, "up") );
+    		addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "up") );
     		addSequential(new AutoTurn(Constants.SGS_ANGLE) );
     	}
     	else {
     		addSequential(new AutoTurn(-Constants.SGS_ANGLE) );
     		addSequential(new AutoForward(Constants.SGS_FORWARD2) );
-    		addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_SWITCH, "up") );
+    		addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "up") );
     		addSequential(new AutoTurn(-Constants.SGS_ANGLE) );
     	}
     	

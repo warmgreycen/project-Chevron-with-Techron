@@ -29,7 +29,8 @@ public class AutoForward extends Command implements PIDOutput{
     static final double kToleranceDegrees = 2.0f;
     static final double kTargetAngleDegrees = 0;
     
-    double leftValue, rightValue, finalDistance, currentDistance, difference, magnitude;
+    double leftValue, rightValue, finalDistance;
+    double currentDistance, difference, magnitude, slowZone;
     boolean isStopped = false;
 
     public AutoForward(double finalDistance) {
@@ -49,6 +50,8 @@ public class AutoForward extends Command implements PIDOutput{
     // Called just before this Command runs the first time
     protected void initialize() {
     		Robot.SUB_ENCODERS.encoderReset();
+    		slowZone = finalDistance * .2;
+    		
     		if (Math.abs(finalDistance) == finalDistance) {
     			magnitude = .6;
     		}
@@ -60,7 +63,7 @@ public class AutoForward extends Command implements PIDOutput{
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     		currentDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance();
-     		difference = finalDistance - Math.abs(currentDistance);
+     		difference = Math.abs(finalDistance) - Math.abs(currentDistance);
     		System.out.println("Difference: "+difference);
     		
     		if(!turnController.isEnabled() && !isStopped) {
@@ -71,7 +74,7 @@ public class AutoForward extends Command implements PIDOutput{
 		}
     	
     		if(turnController.isEnabled() ) {
-    			if(difference <= 36 && finalDistance > 60) {
+    			if(difference <= slowZone) {
     				magnitude = Robot.SUB_DRIVE.getLeftMotorSpeed() * 0.999;
     			}
 //    			else {

@@ -60,27 +60,27 @@ public class Constants {
 	//Auto constants (all in inches or degrees)
 		public static final double
 		//Elevator/Roller Claw/Pitch Constants
-			PITCH_TIMEOUT = 0.5,
-			ELEVATOR_TIMEOUT_SWITCH = 1.5,
-			ELEVATOR_TIMEOUT_BAL = 6,
-			ROLLER_CLAW_TIMEOUT = 5,
+			PITCH_TIMEOUT = 0.6, //in seconds
+			ELEVATOR_HEIGHT_SWITCH = 30, //in inches
+			ELEVATOR_HEIGHT_BAL = 11, //in inches
+			ROLLER_CLAW_TIMEOUT = 5, //in seconds
 		
-		//GoBalance
+		//GoBalance (in inches)
 			GB_FORWARD1 = 299.65 + 20,
 			GB_ANGLE = 90,
 			GB_FORWARD2 = 10,
-		//MiddleGoSwitch
+		//MiddleGoSwitch (in inches)
 			M_LONGLEG = 103.5,
 			M_SHORTLEG = 49.44,
 			M_ANGLE1 = 90 - (Math.toDegrees(Math.atan(M_LONGLEG/M_SHORTLEG) ) ),
 			M_FORWARD = Math.sqrt(Math.pow(M_LONGLEG, 2) + Math.pow(M_SHORTLEG, 2) ),
 			M_ANGLE2 = -M_ANGLE1,
-		//SidesGoSwitch
+		//SidesGoSwitch (in inches)
 			SGS_FORWARD1 = 196 + 13 + 2,
 			SGS_ANGLE = 90,
 			SGS_FORWARD2 = (24.06-2.5) + 132.88,
 			SGS_FORWARD3 = 18 - (13 + 2),
-		//SidesGoForward
+		//SidesGoForward (in inches)
 			SGF_FORWARD1 = 196 - 36.5,
 			SGF_ANGLE = 90,
 			SGF_FORWARD2 = 15;

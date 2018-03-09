@@ -25,7 +25,7 @@ public class subsystemGyro extends Subsystem {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
         }
 
-		reset();
+		//reset();
 		
 		initialized = true;
 	}
@@ -39,7 +39,7 @@ public class subsystemGyro extends Subsystem {
 		float pitch = 0f;
 		float yaw = 0f;
 	}		
-	public static void reset()
+	public void reset()
 	{
 		System.out.println("NavXSensor::reset called!");
 				

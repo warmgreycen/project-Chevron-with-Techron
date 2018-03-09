@@ -22,7 +22,7 @@ public class GoBalance extends CommandGroup {
     	addSequential(new AutoForward(Constants.GB_FORWARD1) );
     	
 		if(side == "left") {
-			addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_BAL, "up") );
+			addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_BAL, "up") );
 			addSequential(new AutoTurn(Constants.GB_ANGLE) );
 		}
 		else {

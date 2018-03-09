@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class MiddleGoSwitch extends CommandGroup {
 
     public MiddleGoSwitch(String side) {
-    	addSequential(new LiftElevator(Constants.ELEVATOR_TIMEOUT_SWITCH, "up") );
+    	addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "up") );
     	
     	if(side == "left") {
     		addSequential(new AutoTurn(-Constants.M_ANGLE1) );

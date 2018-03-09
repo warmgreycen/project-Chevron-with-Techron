@@ -1,17 +1,18 @@
 package org.usfirst.frc.team6530.robot;
 
-import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
+//import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
 //import org.usfirst.frc.team6530.robot.commands.autonomousCommands.DriveToCube;
-import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
+//import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 import org.usfirst.frc.team6530.robot.subsystems.*;
+import org.usfirst.frc.team6530.robot.OI;
 
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+//import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -24,7 +25,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 public class Robot extends IterativeRobot {
 
 	/** choosers */
-		SendableChooser<Autonomous> autoChooser;
+//		SendableChooser<Autonomous> autoChooser;
 		// add choosers as needed, these put drop down options in the smart dash
 	
 	/** Important starting variables */
@@ -48,9 +49,10 @@ public class Robot extends IterativeRobot {
 		
 	/** autonomous */
 		CommandGroup m_autoCommand;
+		Command autoPitch;
 		Command autoMove;
-//		Command autoVision;
-//		Command auto;
+		//Command autoVision;
+		Command auto;
 
 		SendableChooser<CommandGroup> m_chooser = new SendableChooser<>();
 	
@@ -91,7 +93,7 @@ public class Robot extends IterativeRobot {
 //		m_chooser.addObject("Limelight To Cube", new DriveToCube());
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
-		autoMove = new AutoForward(60);
+		//autoMove = new AutoForward(60);
 	/** instantiate cameras */
 		 //vision.startCameraThread();
 		 
@@ -110,59 +112,62 @@ public void disabledPeriodic() {
 
 
 /** runs when autonomous start */
+/**If auto == isScrewed, then comment out all of autoInit and autoPeriodic,
+ * as well as Command auto (near line 53) and uncomment autoMove = new AutoForward(60) 
+ * (near line 93), then uncomment autoMove.start() (line 162). */
 public void autonomousInit() {
 	
-//	startPosition = SmartDashboard.getString("Starting Position (l, m, or r):", "m").charAt(0);
-//	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
-//	
-//	if(startPosition == 'l') {//If robot starts on left side
-//		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
-//			auto = new SidesGoForward("left");
-//		}
-//		else {
-////			if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
-////				auto = new GoBalance("left");
-////			}
-////			else {//Else, go to right of switch
-//				auto = new SidesGoSwitch("left");
-//			//}
-//		}
-//	}
-//	
-//	else if(startPosition == 'm') {//If robot starts in middle
-//		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
-//			auto = new MiddleGoSwitch("left");
-//		}
-//		else {//Else, go to right of switch
-//			auto = new MiddleGoSwitch("right");
-//		}
-//	}
-//	
-//	else {//If robot starts on right side
-//		if(gameData.charAt(0) == 'R') {
-//			auto = new SidesGoForward("right");
-//		}
-//		else {
-////			if(gameData.charAt(1) == 'R') {
-////				auto = new GoBalance("right");
-////			}
-////			else {
-//				auto = new SidesGoSwitch("right");
-//			//}
-//		}
-//	}
-//	//Scheduler.getInstance().run();
-//	//if(autoChooser.getSelected() != null) {
-//	//	auto = new CommandGroupAuto(autoChooser.getSelected());
-//	//	auto.start(); 
-//	//}
-//	auto.start();
-	autoMove.start();
-//
-////	m_autoCommand = (CommandGroup) m_chooser.getSelected();
-////	if(m_autoCommand != null) {
-////		m_autoCommand.start(); 
-////	}
+	startPosition = SmartDashboard.getString("Starting Position (l, m, or r):", "m").charAt(0);
+	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
+	
+	if(startPosition == 'l') {//If robot starts on left side
+		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
+			auto = new SidesGoForward("left");
+		}
+		else {
+//			if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
+//				auto = new GoBalance("left");
+//			}
+//			else {//Else, go to right of switch
+				auto = new SidesGoSwitch("left");
+			//}
+		}
+	}
+	
+	else if(startPosition == 'm') {//If robot starts in middle
+		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
+			auto = new MiddleGoSwitch("left");
+		}
+		else {//Else, go to right of switch
+			auto = new MiddleGoSwitch("right");
+		}
+	}
+	
+	else {//If robot starts on right side
+		if(gameData.charAt(0) == 'R') {
+			auto = new SidesGoForward("right");
+		}
+		else {
+//			if(gameData.charAt(1) == 'R') {
+//				auto = new GoBalance("right");
+//			}
+//			else {
+				auto = new SidesGoSwitch("right");
+			//}
+		}
+	}
+	//Scheduler.getInstance().run();
+	//if(autoChooser.getSelected() != null) {
+	//	auto = new CommandGroupAuto(autoChooser.getSelected());
+	//	auto.start(); 
+	//}
+	autoPitch.start(); //Fold down roller claw
+	auto.start();
+	//autoMove.start();
+
+//	m_autoCommand = (CommandGroup) m_chooser.getSelected();
+//	if(m_autoCommand != null) {
+//		m_autoCommand.start(); 
 }
 
 
@@ -202,7 +207,7 @@ public void teleopPeriodic() {
 
 
 /** runs at ~50hz when in test mode */
-@SuppressWarnings("deprecation")
+//@SuppressWarnings("deprecation")
 public void testPeriodic() {
 //		SUB_DRIVE.setDriveValue(.5, .5);
 //		System.out.println("Right Encoder Distance:"+SUB_ENCODERS.getRightEncoderDistance() );
