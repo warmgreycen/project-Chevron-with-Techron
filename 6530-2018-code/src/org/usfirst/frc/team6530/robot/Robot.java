@@ -19,7 +19,7 @@ import org.usfirst.frc.team6530.robot.auto.GoBalance;
 import org.usfirst.frc.team6530.robot.auto.MiddleGoSwitch;
 import org.usfirst.frc.team6530.robot.auto.SidesGoForward;
 import org.usfirst.frc.team6530.robot.auto.SidesGoSwitch;
-
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 public class Robot extends IterativeRobot {
 
@@ -44,12 +44,13 @@ public class Robot extends IterativeRobot {
 		public static OI oi;
 		public static Limelight LIMELIGHT;
 
+		public static PowerDistributionPanel pdp;
 		
 	/** autonomous */
 		CommandGroup m_autoCommand;
 		Command autoMove;
-		Command autoVision;
-		Command auto;
+//		Command autoVision;
+//		Command auto;
 
 		SendableChooser<CommandGroup> m_chooser = new SendableChooser<>();
 	
@@ -71,6 +72,8 @@ public class Robot extends IterativeRobot {
 		AUTO_DRIVE = new autoDriveTrain();
 //		vision = new Vision();
 		LIMELIGHT = new Limelight();
+		pdp = new PowerDistributionPanel();
+		
 
 	/** instantiate operator interface */
 		oi = new OI();
@@ -88,7 +91,7 @@ public class Robot extends IterativeRobot {
 //		m_chooser.addObject("Limelight To Cube", new DriveToCube());
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
-		//autoMove = new AutoForward(60);
+		autoMove = new AutoForward(60);
 	/** instantiate cameras */
 		 //vision.startCameraThread();
 		 
@@ -108,6 +111,7 @@ public void disabledPeriodic() {
 
 /** runs when autonomous start */
 public void autonomousInit() {
+	
 //	startPosition = SmartDashboard.getString("Starting Position (l, m, or r):", "m").charAt(0);
 //	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
 //	
@@ -153,7 +157,7 @@ public void autonomousInit() {
 //	//	auto.start(); 
 //	//}
 //	auto.start();
-//	//autoMove.start();
+	autoMove.start();
 //
 ////	m_autoCommand = (CommandGroup) m_chooser.getSelected();
 ////	if(m_autoCommand != null) {
@@ -164,14 +168,14 @@ public void autonomousInit() {
 
 /** runs at 50hz when in autonomous */
 public void autonomousPeriodic() {
-	//Scheduler.getInstance().run(); 
+	Scheduler.getInstance().run(); 
 }
 
 
 /** runs when teleop starts*/
 public void teleopInit() {
-	if (auto != null)
-		auto.cancel(); 
+//	if (auto != null)
+//		auto.cancel(); 
 	
 	LIMELIGHT.setLEDs(Limelight.LIMELIGHT_LED_OFF);
     LIMELIGHT.setPipeline(0);
@@ -182,6 +186,18 @@ public void teleopInit() {
 /** runs at ~50hz when in teleop mode */
 public void teleopPeriodic() {
 	Scheduler.getInstance().run(); 
+	SmartDashboard.putNumber("Motor current draw 11", pdp.getCurrent(11));
+	SmartDashboard.putNumber("Motor current draw 10", pdp.getCurrent(10));
+	SmartDashboard.putNumber("Motor current draw 9", pdp.getCurrent(9));
+	SmartDashboard.putNumber("Motor current draw 8", pdp.getCurrent(8));
+	SmartDashboard.putNumber("Motor current draw 7", pdp.getCurrent(7));
+	SmartDashboard.putNumber("Motor current draw 6", pdp.getCurrent(6));
+	SmartDashboard.putNumber("Motor current draw 5", pdp.getCurrent(5));
+	SmartDashboard.putNumber("Motor current draw 4", pdp.getCurrent(4));
+	SmartDashboard.putNumber("Motor current draw 3", pdp.getCurrent(3));
+	SmartDashboard.putNumber("Motor current draw 2", pdp.getCurrent(2));
+	SmartDashboard.putNumber("Motor current draw 1", pdp.getCurrent(1));
+	SmartDashboard.putNumber("Motor current draw 12", pdp.getCurrent(12));
 }
 
 

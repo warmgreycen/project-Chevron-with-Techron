@@ -33,7 +33,7 @@ public class commandRoller extends Command {
     		speed = 0;
     	}
     	
-    	Robot.SUB_ROLLER.MoveRoller(speed*2);
+    	Robot.SUB_ROLLER.MoveRoller(speed*.8);
     	
     }
 
