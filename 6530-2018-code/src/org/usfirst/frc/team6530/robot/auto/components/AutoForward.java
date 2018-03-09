@@ -53,30 +53,31 @@ public class AutoForward extends Command implements PIDOutput{
     		slowZone = finalDistance * .2;
     		
     		if (Math.abs(finalDistance) == finalDistance) {
-    			magnitude = .6;
+    			magnitude = .5;
     		}
     		else {
-    			magnitude = -.6;
+    			magnitude = -.5;
     		}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		currentDistance = Robot.SUB_ENCODERS.getLeftEncoderDistance();
+    		currentDistance = (Robot.SUB_ENCODERS.getLeftEncoderDistance() + -Robot.SUB_ENCODERS.getRightEncoderDistance())/2;
      		difference = Math.abs(finalDistance) - Math.abs(currentDistance);
     		System.out.println("Difference: "+difference);
     		
     		if(!turnController.isEnabled() && !isStopped) {
 			// Acquire current yaw angle, using this as the target angle.
 			turnController.setSetpoint(Robot.SUB_GYRO.getYaw() );
+			System.out.println(Robot.SUB_GYRO.getYaw());
 			rotateToAngleRate = 0; // This value will be updated in the pidWrite() method.
 			turnController.enable();
 		}
     	
     		if(turnController.isEnabled() ) {
-    			if(difference <= slowZone) {
-    				magnitude = Robot.SUB_DRIVE.getLeftMotorSpeed() * 0.999;
-    			}
+//    			if(difference <= slowZone) {
+//    				magnitude = Robot.SUB_DRIVE.getLeftMotorSpeed() * 0.999;
+//    			}
 //    			else {
 //    				magnitude = .6;
 //    			}

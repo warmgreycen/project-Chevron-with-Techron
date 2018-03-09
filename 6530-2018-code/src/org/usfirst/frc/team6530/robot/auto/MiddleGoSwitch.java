@@ -34,6 +34,6 @@ public class MiddleGoSwitch extends CommandGroup {
     	}
     	addSequential(new AutoPitch() );
     	addSequential(new AutoRoller("spit") );
-    	addSequential(new TransitionToLimelight("long switch") );
+    	//addSequential(new TransitionToLimelight("long switch") );
     }
 }

@@ -19,20 +19,22 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class GoBalance extends CommandGroup {
 
     public GoBalance(String side) {
-    	addSequential(new AutoForward(Constants.GB_FORWARD1) );
+    	//addSequential(new AutoForward(Constants.GB_FORWARD1) );
+    	addSequential(new AutoForward(110) );
+    	//addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_BAL, "up") );
     	
 		if(side == "left") {
-			addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_BAL, "up") );
+			
 			addSequential(new AutoTurn(Constants.GB_ANGLE) );
 		}
 		else {
-			addSequential(new AutoForward(Constants.GB_FORWARD1) );
+			//addSequential(new AutoForward(Constants.GB_FORWARD1) );
 			addSequential(new AutoTurn(-Constants.GB_ANGLE) );
 		}
-		addSequential(new AutoForward(Constants.GB_FORWARD2) );
-		addSequential(new AutoPitch() );
-		addSequential(new AutoRoller("spit") );
+		//addSequential(new AutoForward(Constants.GB_FORWARD2) );
+		//addSequential(new AutoPitch() );
+		//addSequential(new AutoRoller("spit") );
 		
-		addSequential(new TransitionToLimelight("balance") );
+		//addSequential(new TransitionToLimelight("balance") );
     }
 }

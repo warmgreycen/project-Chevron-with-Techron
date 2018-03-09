@@ -8,40 +8,43 @@ import edu.wpi.first.wpilibj.command.Command;
 public class LiftElevator extends Command {
 	
 	String mode;
-	double height;
+	double height, timeOut;
 	boolean isFinished;
 
-    //public LiftElevator(double timeOut, String mode) {
-	public LiftElevator(double height, String mode) {
+    public LiftElevator(double timeOut, String mode) {
+	//public LiftElevator(double height, String mode) {
       requires(Robot.SUB_ELEVATOR);
-      this.height = height;
-      //setTimeout(timeOut); 
+      //this.height = height;
+      this.timeOut = timeOut;
+      setTimeout(timeOut); 
     }
     protected void initialize() {
-    	Robot.SUB_ELEVATOR.resetElevatorEncoder();
+    	//Robot.SUB_ELEVATOR.resetElevatorEncoder();
     }
     protected void execute() {
     	if(mode == "up") {
-    		if(Robot.SUB_ELEVATOR.getElevatorDistance() < height) {
-    			Robot.SUB_ELEVATOR.up();
-    		}
-    		else {
-    			Robot.SUB_ELEVATOR.brake();
-    			isFinished = true;
-    		}
+//    		if(Robot.SUB_ELEVATOR.getElevatorDistance() < height) {
+//    			Robot.SUB_ELEVATOR.up();
+//    		}
+//    		else {
+//    			Robot.SUB_ELEVATOR.brake();
+//    			isFinished = true;
+    		//}
+    		Robot.SUB_ELEVATOR.up();
     	}
-    	else {
-    		if(Robot.SUB_ELEVATOR.getElevatorDistance() > height) {
-    			Robot.SUB_ELEVATOR.down();
-    		}
-    		else {
-    			Robot.SUB_ELEVATOR.brake();
-    			isFinished = true;
-    		}
-    	}
+//    	else {
+//    		if(Robot.SUB_ELEVATOR.getElevatorDistance() > height) {
+//    			Robot.SUB_ELEVATOR.down();
+//    		}
+//    		else {
+//    			Robot.SUB_ELEVATOR.brake();
+//    			isFinished = true;
+//    		}
+//    	}
     }
     protected boolean isFinished() {
-        return isFinished;
+        //return isFinished;
+    	return isTimedOut();
     }
     protected void end() {
     	Robot.SUB_ELEVATOR.brake();

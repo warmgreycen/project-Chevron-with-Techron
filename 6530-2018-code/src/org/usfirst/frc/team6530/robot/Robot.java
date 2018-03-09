@@ -2,6 +2,7 @@ package org.usfirst.frc.team6530.robot;
 
 //import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+import org.usfirst.frc.team6530.robot.commands.autonomousCommands.Actions.LiftElevator;
 import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 //import org.usfirst.frc.team6530.robot.commands.autonomousCommands.DriveToCube;
 //import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
@@ -43,6 +44,7 @@ public class Robot extends IterativeRobot {
 		public static subsystemElevator SUB_ELEVATOR;
 		public static subsystemPitch SUB_PITCH;
 		public static autoDriveTrain AUTO_DRIVE;
+		public static subsystemDeploy SUB_DEPLOY;
 		public static OI oi;
 		public static Limelight LIMELIGHT;
 
@@ -73,6 +75,7 @@ public class Robot extends IterativeRobot {
 		SUB_ELEVATOR = new subsystemElevator();
 		SUB_PITCH = new subsystemPitch();
 		AUTO_DRIVE = new autoDriveTrain();
+		SUB_DEPLOY = new subsystemDeploy();
 //		vision = new Vision();
 		LIMELIGHT = new Limelight();
 		pdp = new PowerDistributionPanel();
@@ -94,7 +97,8 @@ public class Robot extends IterativeRobot {
 //		m_chooser.addObject("Limelight To Cube", new DriveToCube());
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
-		//autoMove = new AutoForward(60);
+		//autoMove = new AutoForward(110);
+		//autoMove = new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "up");
 	/** instantiate cameras */
 		 //vision.startCameraThread();
 		 
@@ -120,49 +124,55 @@ public void autonomousInit() {
 	
 	startPosition = SmartDashboard.getString("Starting Position (l, m, or r):", "m").charAt(0);
 	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
-	
+//	
 	if(startPosition == 'l') {//If robot starts on left side
 		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
 			auto = new SidesGoForward("left");
+			//auto = new GoBalance("left");
 		}
 		else {
 //			if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
-//				auto = new GoBalance("left");
+//				auto = new GoBalance("left");J J
+			
 //			}
 //			else {//Else, go to right of switch
-				auto = new SidesGoSwitch("left");
+				//auto = new SidesGoSwitch("left");
+			auto = new AutoForward(110);
 			//}
 		}
 	}
-	
-	else if(startPosition == 'm') {//If robot starts in middle
-		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
-			auto = new MiddleGoSwitch("left");
-		}
-		else {//Else, go to right of switch
-			auto = new MiddleGoSwitch("right");
-		}
-	}
-	
+//	
+//	else if(startPosition == 'm') {//If robot starts in middle
+//		if(gameData.charAt(0) == 'L') {//If left of switch is ours, go there
+//			auto = new MiddleGoSwitch("left");
+//		}
+//		else {//Else, go to right of switch
+//			auto = new MiddleGoSwitch("right");
+//		}
+//	}
+//	
 	else {//If robot starts on right side
 		if(gameData.charAt(0) == 'R') {
 			auto = new SidesGoForward("right");
+			//auto = new GoBalance("right");
 		}
 		else {
 //			if(gameData.charAt(1) == 'R') {
 //				auto = new GoBalance("right");
 //			}
 //			else {
-				auto = new SidesGoSwitch("right");
+				//auto = new SidesGoSwitch("right");
+			auto = new AutoForward(110);
 			//}
 		}
 	}
-	//Scheduler.getInstance().run();
-	//if(autoChooser.getSelected() != null) {
-	//	auto = new CommandGroupAuto(autoChooser.getSelected());
-	//	auto.start(); 
-	//}
-	autoPitch.start(); //Fold down roller claw
+	Scheduler.getInstance().run();
+//	//if(autoChooser.getSelected() != null) {
+//	//	auto = new CommandGroupAuto(autoChooser.getSelected());
+	//auto.start(); 
+//	//}
+//	
+//	autoPitch.start(); //Fold down roller claw
 	auto.start();
 	//autoMove.start();
 

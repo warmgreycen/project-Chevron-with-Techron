@@ -17,9 +17,9 @@ public class subsystemElevator extends Subsystem {
 	public VictorSP elevatorMotor = new VictorSP(Constants.PWM_ELEVATOR);
 	
 	public subsystemElevator() {
-		elevatorEncoder = new Encoder(7, 8, false, Encoder.EncodingType.k4X);
-		distancePerPulse = (1.5 * Math.PI) / 90;
-		elevatorEncoder.setDistancePerPulse(distancePerPulse);
+//		elevatorEncoder = new Encoder(7, 8, false, Encoder.EncodingType.k4X);
+//		distancePerPulse = (1.5 * Math.PI) / 90;
+//		elevatorEncoder.setDistancePerPulse(distancePerPulse);
 	}
 	
 	public void initDefaultCommand() {
@@ -39,11 +39,11 @@ public class subsystemElevator extends Subsystem {
 		elevatorMotor.stopMotor();
 	}
 	
-	public double getElevatorDistance() {
-		return elevatorEncoder.getDistance();
-	}
+//	public double getElevatorDistance() {
+//		//return elevatorEncoder.getDistance();
+//	}
 	
 	public void resetElevatorEncoder() {
-		elevatorEncoder.reset();
+		//elevatorEncoder.reset();
 	}
 }

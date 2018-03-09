@@ -14,7 +14,7 @@ public class AutoPitch extends Command {
     protected void initialize() {
     }
     protected void execute() {
-    	Robot.SUB_PITCH.spit(1);
+    	Robot.SUB_PITCH.spit(0.6);
     }
     protected boolean isFinished() {
         return isTimedOut();

@@ -28,6 +28,9 @@ public class commandRoller extends Command {
     	else if(OI.OPERATOR.getRawAxis(3) > 0.15){
     		speed = -OI.OPERATOR.getRawAxis(3);
     	}
+    	else if(Robot.pdp.getCurrent(10) >= 40 || Robot.pdp.getCurrent(11) >= 40) {
+    		speed = 0;
+    	}
     	
     	else{
     		speed = 0;
@@ -39,6 +42,7 @@ public class commandRoller extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	
         return false;
     }
 

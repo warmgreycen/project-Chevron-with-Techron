@@ -34,6 +34,8 @@ public class Constants {
 	
 	//CLIMBER PWM
 		PWM_CLIMBER = 3,
+	//RAMP
+		PWM_DEPLOY = 4,
 		//DIO PORTS
 				CLIMBER_BOTTOM_SWITCH = 5,
 				CLIMBER_TOP_SWITCH = 6,
@@ -61,8 +63,10 @@ public class Constants {
 		public static final double
 		//Elevator/Roller Claw/Pitch Constants
 			PITCH_TIMEOUT = 0.6, //in seconds
-			ELEVATOR_HEIGHT_SWITCH = 30, //in inches
-			ELEVATOR_HEIGHT_BAL = 11, //in inches
+//			ELEVATOR_HEIGHT_SWITCH = 30, //in inches
+//			ELEVATOR_HEIGHT_BAL = 11, //in inches
+			ELEVATOR_HEIGHT_SWITCH = 1, //in inches
+			ELEVATOR_HEIGHT_BAL = 2, //in inches
 			ROLLER_CLAW_TIMEOUT = 5, //in seconds
 		
 		//GoBalance (in inches)
