@@ -61,8 +61,8 @@ public class Constants {
 		public static final double
 		//Elevator/Roller Claw/Pitch Constants
 			PITCH_TIMEOUT = 0.5,
-			ELEVATOR_TIMEOUT_SWITCH = 2.5,
-			ELEVATOR_TIMEOUT_BAL = 8,
+			ELEVATOR_HEIGHT_SWITCH = 30,
+			ELEVATOR_HEIGHT_BAL = 11,
 			ROLLER_CLAW_TIMEOUT = 5,
 		
 		//GoBalance
