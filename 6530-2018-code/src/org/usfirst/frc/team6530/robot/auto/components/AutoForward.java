@@ -53,10 +53,12 @@ public class AutoForward extends Command implements PIDOutput{
     		slowZone = finalDistance * .2;
     		
     		if (Math.abs(finalDistance) == finalDistance) {
-    			magnitude = .5;
+    			//magnitude = .5;
+    			magnitude = .7;
     		}
     		else {
-    			magnitude = -.5;
+    			//magnitude = -.5;
+    			magnitude = -.7;
     		}
     }
 

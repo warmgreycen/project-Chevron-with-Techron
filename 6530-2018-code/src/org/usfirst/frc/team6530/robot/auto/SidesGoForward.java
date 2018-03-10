@@ -22,12 +22,13 @@ public class SidesGoForward extends CommandGroup {
 
     public SidesGoForward(String side) {
     		
-    		addSequential(new AutoForward(37) );
-    		addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "up") );
+    		//addSequential(new AutoForward(37) );
+    	addSequential(new AutoForward(Constants.SGF_FORWARD1) );	
+    	addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "up") );
     		
     		if(side == "left") {
     			addSequential(new AutoTurn(Constants.SGF_ANGLE) );
-    			addSequential(new AutoForward(10) );
+    			addSequential(new AutoForward(Constants.SGF_FORWARD2) );
     			addSequential(new AutoPitch() );
     			addSequential(new AutoRoller("spit") );
 //    			addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "down") );
@@ -35,7 +36,7 @@ public class SidesGoForward extends CommandGroup {
     		}
     		else {
     			addSequential(new AutoTurn(-Constants.SGF_ANGLE) );
-    			addSequential(new AutoForward(10) );
+    			addSequential(new AutoForward(Constants.SGF_FORWARD2) );
     			addSequential(new AutoPitch() );
     			addSequential(new AutoRoller("spit") );
 //    			addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "down") );
