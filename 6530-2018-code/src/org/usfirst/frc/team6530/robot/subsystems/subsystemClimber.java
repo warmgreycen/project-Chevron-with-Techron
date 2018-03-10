@@ -32,6 +32,7 @@ public class subsystemClimber extends Subsystem {
 	{
 		return top_switch.get();
 	}
+	
 //	public void setMotor(double move) {
 //		setMotor(move);
 //	}

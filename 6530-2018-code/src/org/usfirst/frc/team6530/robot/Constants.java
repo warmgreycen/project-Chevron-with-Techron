@@ -90,8 +90,10 @@ public class Constants {
 			SGS_FORWARD2 = (24.06-2.5) + 132.88,
 			SGS_FORWARD3 = 18 - (13 + 2),
 		//SidesGoForward (in inches)
-			SGF_FORWARD1 = 196 - 36.5,
+			//SGF_FORWARD1 = 196 - 36.5,
+			SGF_FORWARD1 = 37,
 			SGF_ANGLE = 90,
-			SGF_FORWARD2 = 15;
+			//SGF_FORWARD2 = 15;
+			SGF_FORWARD2 = 10;
 
 }

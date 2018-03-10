@@ -20,13 +20,17 @@ public class commandClimber extends Command {
 		 * goes the other direction
 		 */
 
-		if (move < 0.0 && Robot.SUB_CLIMBER.getBottomSwitch())
+		//if (move < 0.0 && Robot.SUB_CLIMBER.getBottomSwitch())
+		if (move < 0.25 && Robot.SUB_CLIMBER.getBottomSwitch())
 		{
-			move = 0.0;
+			//move = 0.0;
+			move = 0.25;
 		}
-		if (move > 0.0 && Robot.SUB_CLIMBER.getTopSwitch())
+		//if (move > 0.0 && Robot.SUB_CLIMBER.getTopSwitch())
+		if (move > 0.25 && Robot.SUB_CLIMBER.getTopSwitch())
 		{
-			move = 0.0;
+			//move = 0.0;
+			move = 0.25;
 		}
 
 		Robot.SUB_CLIMBER.moveClimber(move);
