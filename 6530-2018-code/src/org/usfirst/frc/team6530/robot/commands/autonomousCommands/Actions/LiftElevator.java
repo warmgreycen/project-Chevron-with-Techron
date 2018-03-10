@@ -30,9 +30,10 @@ public class LiftElevator extends Command {
 //    			Robot.SUB_ELEVATOR.brake();
 //    			isFinished = true;
     		//}
-    		Robot.SUB_ELEVATOR.up();
+    		Robot.SUB_ELEVATOR.moveElevator(0.7);
     	}
-//    	else {
+    	else {
+    		Robot.SUB_ELEVATOR.moveElevator(-0.7);
 //    		if(Robot.SUB_ELEVATOR.getElevatorDistance() > height) {
 //    			Robot.SUB_ELEVATOR.down();
 //    		}
@@ -40,7 +41,7 @@ public class LiftElevator extends Command {
 //    			Robot.SUB_ELEVATOR.brake();
 //    			isFinished = true;
 //    		}
-//    	}
+    	}
     }
     protected boolean isFinished() {
         //return isFinished;

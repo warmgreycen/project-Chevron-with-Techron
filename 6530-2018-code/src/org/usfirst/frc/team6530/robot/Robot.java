@@ -2,6 +2,9 @@ package org.usfirst.frc.team6530.robot;
 
 //import org.usfirst.frc.team6530.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
+import org.usfirst.frc.team6530.robot.auto.components.AutoPitch;
+import org.usfirst.frc.team6530.robot.auto.components.AutoRoller;
+import org.usfirst.frc.team6530.robot.commands.commandDeploy;
 import org.usfirst.frc.team6530.robot.commands.autonomousCommands.Actions.LiftElevator;
 import org.usfirst.frc.team6530.robot.enumeration.Autonomous;
 //import org.usfirst.frc.team6530.robot.commands.autonomousCommands.DriveToCube;
@@ -44,7 +47,7 @@ public class Robot extends IterativeRobot {
 		public static subsystemElevator SUB_ELEVATOR;
 		public static subsystemPitch SUB_PITCH;
 		public static autoDriveTrain AUTO_DRIVE;
-		public static subsystemDeploy SUB_DEPLOY;
+		commandDeploy ramp = new commandDeploy(Constants.ramp);
 		public static OI oi;
 		public static Limelight LIMELIGHT;
 
@@ -52,7 +55,7 @@ public class Robot extends IterativeRobot {
 		
 	/** autonomous */
 		CommandGroup m_autoCommand;
-		Command autoPitch;
+		//Command autoPitch;
 		Command autoMove;
 		//Command autoVision;
 		Command auto;
@@ -75,7 +78,7 @@ public class Robot extends IterativeRobot {
 		SUB_ELEVATOR = new subsystemElevator();
 		SUB_PITCH = new subsystemPitch();
 		AUTO_DRIVE = new autoDriveTrain();
-		SUB_DEPLOY = new subsystemDeploy();
+
 //		vision = new Vision();
 		LIMELIGHT = new Limelight();
 		pdp = new PowerDistributionPanel();
@@ -98,7 +101,9 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		//autoMove = new AutoForward(110);
-		//autoMove = new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "up");
+		autoMove = new LiftElevator(Constants.ELEVATOR_HEIGHT_BAL, "up");
+		//auto = new AutoPitch();
+		//autoMove = new AutoRoller("spit");
 	/** instantiate cameras */
 		 //vision.startCameraThread();
 		 
@@ -122,7 +127,7 @@ public void disabledPeriodic() {
  * (near line 93), then uncomment autoMove.start() (line 162). */
 public void autonomousInit() {
 	
-	startPosition = SmartDashboard.getString("Starting Position (l, m, or r):", "m").charAt(0);
+	startPosition = SmartDashboard.getString("Starting Position (l, m, or r):", "r").charAt(0);
 	gameData = DriverStation.getInstance().getGameSpecificMessage(); //Scan the field management system for game data
 //	
 	if(startPosition == 'l') {//If robot starts on left side
@@ -132,13 +137,13 @@ public void autonomousInit() {
 		}
 		else {
 //			if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
-//				auto = new GoBalance("left");J J
-			
+//				auto = new GoBalance("left");
+//			
 //			}
 //			else {//Else, go to right of switch
 				//auto = new SidesGoSwitch("left");
-			auto = new AutoForward(110);
-			//}
+				auto = new AutoForward(37);
+//			}
 		}
 	}
 //	
@@ -162,8 +167,8 @@ public void autonomousInit() {
 //			}
 //			else {
 				//auto = new SidesGoSwitch("right");
-			auto = new AutoForward(110);
-			//}
+				auto = new AutoForward(37);
+//			}
 		}
 	}
 	Scheduler.getInstance().run();
@@ -214,6 +219,10 @@ public void teleopPeriodic() {
 	SmartDashboard.putNumber("Motor current draw 2", pdp.getCurrent(2));
 	SmartDashboard.putNumber("Motor current draw 1", pdp.getCurrent(1));
 	SmartDashboard.putNumber("Motor current draw 12", pdp.getCurrent(12));
+	SmartDashboard.putNumber("Motor current draw 13", pdp.getCurrent(13));
+	SmartDashboard.putNumber("Motor current draw 14", pdp.getCurrent(14));
+	SmartDashboard.putNumber("Motor current draw 15", pdp.getCurrent(15));
+		ramp.move(OI.OPERATOR);
 }
 
 

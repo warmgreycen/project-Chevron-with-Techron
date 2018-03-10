@@ -33,6 +33,12 @@ public class AutoTurn extends Command implements PIDOutput{
 
     public AutoTurn(double kTargetAngleDegrees) {
     	this.kTargetAngleDegrees = kTargetAngleDegrees;
+//    	if(Math.abs(kTargetAngleDegrees) == kTargetAngleDegrees) {
+//    		kTargetAngleDegrees += 15;
+//    	}
+//    	else {
+//    		kTargetAngleDegrees -= 15;
+//    	}
     	requires(Robot.SUB_DRIVE);
     	requires(Robot.SUB_GYRO);
     	

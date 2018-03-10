@@ -21,7 +21,7 @@ public class GoBalance extends CommandGroup {
     public GoBalance(String side) {
     	//addSequential(new AutoForward(Constants.GB_FORWARD1) );
     	addSequential(new AutoForward(110) );
-    	//addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_BAL, "up") );
+    	addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_BAL, "up") );
     	
 		if(side == "left") {
 			
@@ -32,8 +32,8 @@ public class GoBalance extends CommandGroup {
 			addSequential(new AutoTurn(-Constants.GB_ANGLE) );
 		}
 		//addSequential(new AutoForward(Constants.GB_FORWARD2) );
-		//addSequential(new AutoPitch() );
-		//addSequential(new AutoRoller("spit") );
+		addSequential(new AutoPitch() );
+		addSequential(new AutoRoller("spit") );
 		
 		//addSequential(new TransitionToLimelight("balance") );
     }

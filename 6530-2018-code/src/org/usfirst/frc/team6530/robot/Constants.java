@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6530.robot;
 
+import edu.wpi.first.wpilibj.Servo;
+
 /** where all the static final variables get set */
 public class Constants {
 	
@@ -13,6 +15,9 @@ public class Constants {
 //				  -REAR-
 	
 //	
+	public static final Servo ramp = new Servo(5);
+	//bull servo
+	
 	public static final int
 	//PROTO PWM
 	PROTO_LEFT = 0,
@@ -35,7 +40,7 @@ public class Constants {
 	//CLIMBER PWM
 		PWM_CLIMBER = 3,
 	//RAMP
-		PWM_DEPLOY = 4,
+		PWM_DEPLOY = 5,
 		//DIO PORTS
 				CLIMBER_BOTTOM_SWITCH = 5,
 				CLIMBER_TOP_SWITCH = 6,
@@ -65,9 +70,9 @@ public class Constants {
 			PITCH_TIMEOUT = 0.6, //in seconds
 //			ELEVATOR_HEIGHT_SWITCH = 30, //in inches
 //			ELEVATOR_HEIGHT_BAL = 11, //in inches
-			ELEVATOR_HEIGHT_SWITCH = 1, //in inches
-			ELEVATOR_HEIGHT_BAL = 2, //in inches
-			ROLLER_CLAW_TIMEOUT = 5, //in seconds
+			ELEVATOR_HEIGHT_SWITCH = 2, //in sec
+			ELEVATOR_HEIGHT_BAL = 8.5, //in sec
+			ROLLER_CLAW_TIMEOUT = 3, //in seconds
 		
 		//GoBalance (in inches)
 			GB_FORWARD1 = 299.65 + 20,

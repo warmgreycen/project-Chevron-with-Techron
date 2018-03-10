@@ -1,6 +1,6 @@
 package org.usfirst.frc.team6530.robot;
 
-import org.usfirst.frc.team6530.robot.commands.commandDeploy;
+//import org.usfirst.frc.team6530.robot.commands.commandDeploy;
 
 //import org.usfirst.frc.team6530.robot.commands.ButtonCommandEat;
 //import org.usfirst.frc.team6530.robot.commands.ButtonCommandSpit;
@@ -20,7 +20,7 @@ public class OI {
 	public static final Button DEPLOY = new JoystickButton(OPERATOR, 5);
 	
 	public OI() {
-		DEPLOY.whenPressed(new commandDeploy() );
+//		DEPLOY.whenPressed(new commandDeploy() );
 	}
 	public double getLeftInput() { //Retrieves joystick input used
 		return DRIVER.getRawAxis(1);
@@ -29,9 +29,9 @@ public class OI {
 	public double getRightInput() { //Retrieves speed needed for right drive
 		return DRIVER.getRawAxis(5);
 	}
-	public double getRightInputOperator() { //Retrieves speed needed for right drive
-		return OPERATOR.getRawAxis(5);
-	}
+//	public double getRightInputOperator() { //Retrieves speed needed for right drive
+//		return OPERATOR.getRawAxis(5);
+//	}
 
 	}
 

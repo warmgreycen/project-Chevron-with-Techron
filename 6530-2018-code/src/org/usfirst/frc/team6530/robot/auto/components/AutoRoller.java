@@ -25,11 +25,11 @@ public class AutoRoller extends Command {
     			isFinished = true;
     		}
     		else {
-    			Robot.SUB_ROLLER.intake();
+    			Robot.SUB_ROLLER.MoveRoller(0.6);
     		}
     	}
     	else {
-    		Robot.SUB_ROLLER.spit();
+    		Robot.SUB_ROLLER.MoveRoller(-0.6);
     	}
     }
     protected boolean isFinished() {
