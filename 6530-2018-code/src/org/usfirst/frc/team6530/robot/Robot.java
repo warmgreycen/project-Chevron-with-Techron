@@ -136,14 +136,14 @@ public void autonomousInit() {
 			//auto = new GoBalance("left");
 		}
 		else {
-//			if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
-//				auto = new GoBalance("left");
-//			
-//			}
-//			else {//Else, go to right of switch
+			if(gameData.charAt(1) == 'L') {//If left of balance is ours, go there
+				auto = new GoBalance("left");
+			
+			}
+			else {//Else, go to right of switch
 				//auto = new SidesGoSwitch("left");
 				auto = new AutoForward(37);
-//			}
+			}
 		}
 	}
 //	
@@ -162,13 +162,13 @@ public void autonomousInit() {
 			//auto = new GoBalance("right");
 		}
 		else {
-//			if(gameData.charAt(1) == 'R') {
-//				auto = new GoBalance("right");
-//			}
-//			else {
+			if(gameData.charAt(1) == 'R') {
+				auto = new GoBalance("right");
+			}
+			else {
 				//auto = new SidesGoSwitch("right");
 				auto = new AutoForward(37);
-//			}
+			}
 		}
 	}
 	Scheduler.getInstance().run();
@@ -195,9 +195,9 @@ public void autonomousPeriodic() {
 
 /** runs when teleop starts*/
 public void teleopInit() {
-//	if (auto != null)
-//		auto.cancel(); 
-	
+	if (auto != null) {
+		auto.cancel(); 
+	}
 	LIMELIGHT.setLEDs(Limelight.LIMELIGHT_LED_OFF);
     LIMELIGHT.setPipeline(0);
 

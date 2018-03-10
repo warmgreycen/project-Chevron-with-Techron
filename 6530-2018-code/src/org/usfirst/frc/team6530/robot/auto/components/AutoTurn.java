@@ -54,7 +54,7 @@ public class AutoTurn extends Command implements PIDOutput{
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.SUB_GYRO.reset();
+    	//Robot.SUB_GYRO.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run

@@ -20,16 +20,16 @@ public class GoBalance extends CommandGroup {
 
     public GoBalance(String side) {
     	//addSequential(new AutoForward(Constants.GB_FORWARD1) );
-    	addSequential(new AutoForward(110) );
+    	addSequential(new AutoForward(106) );
     	addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_BAL, "up") );
     	
 		if(side == "left") {
 			
-			addSequential(new AutoTurn(Constants.GB_ANGLE) );
+			addSequential(new AutoTurn(80) );
 		}
 		else {
 			//addSequential(new AutoForward(Constants.GB_FORWARD1) );
-			addSequential(new AutoTurn(-Constants.GB_ANGLE) );
+			addSequential(new AutoTurn(-80) );
 		}
 		//addSequential(new AutoForward(Constants.GB_FORWARD2) );
 		addSequential(new AutoPitch() );

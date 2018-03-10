@@ -53,12 +53,12 @@ public class AutoForward extends Command implements PIDOutput{
     		slowZone = finalDistance * .2;
     		
     		if (Math.abs(finalDistance) == finalDistance) {
-    			//magnitude = .5;
-    			magnitude = .7;
+    			magnitude = .5;
+    			//magnitude = .7;
     		}
     		else {
-    			//magnitude = -.5;
-    			magnitude = -.7;
+    			magnitude = -.5;
+    			//magnitude = -.7;
     		}
     }
 
@@ -106,7 +106,7 @@ public class AutoForward extends Command implements PIDOutput{
     // Called once after isFinished returns true
     protected void end() {
     		Robot.SUB_DRIVE.brake();
-    		Robot.SUB_ENCODERS.encoderReset();
+    		//Robot.SUB_ENCODERS.encoderReset();
     }
 
     // Called when another command which requires one or more of the same

@@ -30,10 +30,10 @@ public class LiftElevator extends Command {
 //    			Robot.SUB_ELEVATOR.brake();
 //    			isFinished = true;
     		//}
-    		Robot.SUB_ELEVATOR.moveElevator(0.7);
+    		Robot.SUB_ELEVATOR.moveElevator(1);
     	}
     	else {
-    		Robot.SUB_ELEVATOR.moveElevator(-0.7);
+    		Robot.SUB_ELEVATOR.moveElevator(-1);
 //    		if(Robot.SUB_ELEVATOR.getElevatorDistance() > height) {
 //    			Robot.SUB_ELEVATOR.down();
 //    		}
