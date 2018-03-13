@@ -1,12 +1,12 @@
 ## Our 2018 season has now concluded and this is the final code
-## We placed 8th alliance overall due to mechanical issues that were unavoidable.
-## To next years programming team,
-#                               This code should be mostly adjustable for 
-#                               whatever the game is in 2019. Text me for help
-#                               or questions.
+ We placed 8th alliance overall due to mechanical issues that were unavoidable.
+To next years programming team,
+                               This code should be mostly adjustable for 
+                               whatever the game is in 2019. Text me for help
+                               or questions.
 
-## signing off for what is *maybe* the last time, 
-##                ~Grey
+ signing off for what is *maybe* the last time, 
+ ~Grey
 
 
 
