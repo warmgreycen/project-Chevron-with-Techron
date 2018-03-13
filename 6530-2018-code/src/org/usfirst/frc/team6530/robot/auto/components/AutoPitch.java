@@ -4,6 +4,10 @@ import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
+/**Pitches the roller claw down about 75% of the way. Just turns on motor
+ * for a short period, turns it off.
+ *
+ */
 
 public class AutoPitch extends Command {
 

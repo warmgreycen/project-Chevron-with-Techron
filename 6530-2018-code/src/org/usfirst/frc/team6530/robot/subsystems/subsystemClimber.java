@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-
+/**
+ * Subsystem containing methods for using the climber
+ */
 public class subsystemClimber extends Subsystem {
 	DigitalInput bottom_switch = new DigitalInput(Constants.CLIMBER_BOTTOM_SWITCH);
 	DigitalInput top_switch = new DigitalInput(Constants.CLIMBER_TOP_SWITCH);

@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * Subsystem containing methods for using the climber
  */
 public class subsystemPitch extends Subsystem {
 
@@ -25,14 +25,6 @@ public class subsystemPitch extends Subsystem {
     }
     
     public void initDefaultCommand() {
-
-//    	if(DriverStation.getInstance().isAutonomous() ) {
-//    		setDefaultCommand(new AutoPitch() );
-//    	}
-//    	else if(DriverStation.getInstance().isOperatorControl() ){
     		setDefaultCommand(new commandPitch() );
     	}
     }
-
-
-

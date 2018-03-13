@@ -12,9 +12,10 @@ import org.usfirst.frc.team6530.robot.commands.autonomousCommands.Actions.LiftEl
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *If robot is in L or R position, and switch on our side is ours on the right,
- *drive forward past switch, turn right, drive to right side, turn to face switch, then
- *lift elevator, drive forward, and spit out cube
+ *If in left position, drive forward, turn right, go to other side of switch,
+ *put cube on switch.
+ *If in right position, drive forward, turn left, put cube on balancego to other side of switch,
+ *put cube on switch.
  */
 public class SidesGoSwitch extends CommandGroup {
 

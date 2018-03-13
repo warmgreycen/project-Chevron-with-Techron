@@ -1,13 +1,15 @@
 
 package org.usfirst.frc.team6530.robot.subsystems;
 
-import org.usfirst.frc.team6530.robot.commands.getNavX;
-
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
+/**
+ * Subsystem containing methods for using the gyro
+ */
 
 public class subsystemGyro extends Subsystem {
 	
@@ -108,9 +110,6 @@ public class subsystemGyro extends Subsystem {
 	}
 
 	@Override
-	protected void initDefaultCommand() {
-		//setDefaultCommand(new getNavX());
-		
-	}
+	protected void initDefaultCommand() {}
 	
 }

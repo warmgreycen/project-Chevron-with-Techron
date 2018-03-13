@@ -15,32 +15,27 @@ import org.usfirst.frc.team6530.robot.commands.autonomousCommands.Actions.LiftEl
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *If in left position, given 'L _ _' for gameData, go put cube in 
- *left-hand side of switch
+ *If in left position, drive forward, turn right, put cube on switch
+ *If in right position, drive forward, turn left, put cube on switch
  */
 public class SidesGoForward extends CommandGroup {
 
     public SidesGoForward(String side) {
     		
-    		//addSequential(new AutoForward(37) );
     	addSequential(new AutoForward(Constants.SGF_FORWARD1) );	
     	addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "up") );
     		
     		if(side == "left") {
-    			addSequential(new AutoTurn(Constants.SGF_ANGLE) );
+    			addSequential(new AutoTurn(80) );
     			addSequential(new AutoForward(Constants.SGF_FORWARD2) );
     			addSequential(new AutoPitch() );
     			addSequential(new AutoRoller("spit") );
-//    			addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "down") );
-    			//addSequential(new TransitionToLimelight("switch left") );
     		}
     		else {
-    			addSequential(new AutoTurn(-Constants.SGF_ANGLE) );
-    			addSequential(new AutoForward(Constants.SGF_FORWARD2) );
+    			addSequential(new AutoTurn(-80) );
+    			addSequential(new AutoForward(39.5) );
     			addSequential(new AutoPitch() );
     			addSequential(new AutoRoller("spit") );
-//    			addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_SWITCH, "down") );
-    			//addSequential(new TransitionToLimelight("switch right") );
     		}
     		
     }

@@ -4,10 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team6530.robot.OI;
 import org.usfirst.frc.team6530.robot.Robot;
-import edu.wpi.first.wpilibj.Joystick;
 
 /**
- * An example command.  You can replace me with your own command.
+ * Starts up teleop drive, runs throughout all of teleop
  */
 public class ManualCommandDrive extends Command {
 	public ManualCommandDrive() {
@@ -25,7 +24,7 @@ public class ManualCommandDrive extends Command {
 		 *  									turn in place with left joystick
 		**/
 		
-		Robot.SUB_DRIVE.DriveWithJoystick(OI.DRIVER);  		
+		Robot.SUB_DRIVE.driveRLTank(OI.DRIVER);  		
 	}
 	protected boolean isFinished() {
 		return false;

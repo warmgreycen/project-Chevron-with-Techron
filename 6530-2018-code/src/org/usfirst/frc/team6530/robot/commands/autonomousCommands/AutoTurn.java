@@ -5,7 +5,7 @@
 //import edu.wpi.first.wpilibj.command.Command;
 //
 ///**
-// *
+// *Greycen's version of autonomous turning; not used in final code
 // */
 //public class AutoTurn extends Command {
 //	private final double degrees, rate;

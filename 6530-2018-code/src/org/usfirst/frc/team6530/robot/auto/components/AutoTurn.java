@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ *Turns robot to specified angle, stops it.
  */
 public class AutoTurn extends Command implements PIDOutput{
 	
@@ -33,29 +33,19 @@ public class AutoTurn extends Command implements PIDOutput{
 
     public AutoTurn(double kTargetAngleDegrees) {
     	this.kTargetAngleDegrees = kTargetAngleDegrees;
-//    	if(Math.abs(kTargetAngleDegrees) == kTargetAngleDegrees) {
-//    		kTargetAngleDegrees += 15;
-//    	}
-//    	else {
-//    		kTargetAngleDegrees -= 15;
-//    	}
     	requires(Robot.SUB_DRIVE);
     	requires(Robot.SUB_GYRO);
     	
     	turnController = new PIDController(kP, kI, kD, kF, Robot.SUB_GYRO.getAHRS(), this);
         turnController.setInputRange(-180.0f,  180.0f);
-        //turnController.setOutputRange(-1.0, 1.0);
         turnController.setOutputRange(-0.30, 0.30);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
         turnController.setContinuous(true);
-        //turnController.setContinuous(false);
         turnController.disable();
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
-    	//Robot.SUB_GYRO.reset();
-    }
+    protected void initialize() {}
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
@@ -74,10 +64,6 @@ public class AutoTurn extends Command implements PIDOutput{
 		rightValue = -rotateToAngleRate;
 		Robot.SUB_DRIVE.setDriveValue(leftValue,  rightValue);
 		
-//		if(rotateToAngleRate >= -0.2 && rotateToAngleRate <= 0.2) {
-//    		turnController.disable();
-//    		isStopped = true;
-//    	}
 		Timer.delay(0.005);
     }
 

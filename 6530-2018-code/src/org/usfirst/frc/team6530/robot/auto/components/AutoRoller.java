@@ -4,7 +4,11 @@ import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
-
+/**
+ * Spits out or sucks in cube (only ever used spit-out) from roller claw.
+ * If sucking in, waits for motor current to get high, stops rollers
+ * If spitting, just turns on for short period of time, then shuts off.
+ */
 public class AutoRoller extends Command {
 	String mode;
 	boolean isFinished;

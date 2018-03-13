@@ -13,28 +13,23 @@ import org.usfirst.frc.team6530.robot.commands.autonomousCommands.Actions.LiftEl
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *If in left position, given 'R L _' for gameData, go to put cube 
- *in left-hand balance
+ *If in left position, drive forward, turn right, put cube on balance
+ *If in right position, drive forward, turn left, put cube on balance
  */
 public class GoBalance extends CommandGroup {
 
     public GoBalance(String side) {
-    	//addSequential(new AutoForward(Constants.GB_FORWARD1) );
     	addSequential(new AutoForward(106) );
     	addSequential(new LiftElevator(Constants.ELEVATOR_HEIGHT_BAL, "up") );
     	
 		if(side == "left") {
 			
-			addSequential(new AutoTurn(80) );
+			addSequential(new AutoTurn(72) );
 		}
 		else {
-			//addSequential(new AutoForward(Constants.GB_FORWARD1) );
-			addSequential(new AutoTurn(-80) );
+			addSequential(new AutoTurn(-72) );
 		}
-		//addSequential(new AutoForward(Constants.GB_FORWARD2) );
 		addSequential(new AutoPitch() );
 		addSequential(new AutoRoller("spit") );
-		
-		//addSequential(new TransitionToLimelight("balance") );
     }
 }

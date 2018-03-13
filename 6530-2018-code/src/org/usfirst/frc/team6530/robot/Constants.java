@@ -68,8 +68,6 @@ public class Constants {
 		public static final double
 		//Elevator/Roller Claw/Pitch Constants
 			PITCH_TIMEOUT = 0.6, //in seconds
-//			ELEVATOR_HEIGHT_SWITCH = 30, //in inches
-//			ELEVATOR_HEIGHT_BAL = 11, //in inches
 			ELEVATOR_HEIGHT_SWITCH= 0.5, //in sec
 			ELEVATOR_HEIGHT_BAL = 3, //in sec
 			ROLLER_CLAW_TIMEOUT = 3, //in seconds
@@ -90,10 +88,8 @@ public class Constants {
 			SGS_FORWARD2 = (24.06-2.5) + 132.88,
 			SGS_FORWARD3 = 18 - (13 + 2),
 		//SidesGoForward (in inches)
-			//SGF_FORWARD1 = 196 - 36.5,
 			SGF_FORWARD1 = 38,
 			SGF_ANGLE = 90,
-			//SGF_FORWARD2 = 15;
 			SGF_FORWARD2 = 10;
 
 }

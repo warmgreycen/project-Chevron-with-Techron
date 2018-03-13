@@ -1,7 +1,6 @@
 package org.usfirst.frc.team6530.robot.subsystems;
 
 import org.usfirst.frc.team6530.robot.Constants;
-import org.usfirst.frc.team6530.robot.Robot;
 import org.usfirst.frc.team6530.robot.commands.ManualCommandDrive;
 import org.usfirst.frc.team6530.robot.util.Xbox;
 
@@ -9,9 +8,12 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Victor;
+//import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+/**
+ * Subsystem containing methods for using the climber
+ */
 
 /**    
  *		WPI doesn't support 6 cim tank drive or TalonSRX, so this is all custom	
@@ -34,16 +36,10 @@ public class subsystemDrive extends Subsystem {
     TalonSRX rightMotor1 = new TalonSRX(Constants.RIGHT_SLAVE1);
     TalonSRX rightMotor2 = new TalonSRX(Constants.RIGHT_SLAVE2);
     TalonSRX rightMotor3 = new TalonSRX(Constants.RIGHT_MASTER);
-//    Victor leftMotor = new Victor(0);
+//    Victor leftMotor = new Victor(0); //for protobot speed controllers
 //    Victor rightMotor= new Victor(1);
     
-	public subsystemDrive() {
-//		super("Drive", 1, 0, 0);
-//		SmartDashboard.putNumber("kP", kP);
-//		SmartDashboard.putNumber("kI", kI);
-//		SmartDashboard.putNumber("kD", kD);
-//		SmartDashboard.putNumber("deadZone", deadZoneDrive);
-	}
+	public subsystemDrive() {}
 	/** Create constant to apply left motor invert */
     public static final double leftify(double left) {
 		return left * (Constants.LEFT_MOTOR_INVERT ? -1.0 : 1.0);
@@ -83,8 +79,8 @@ public class subsystemDrive extends Subsystem {
 	 /** simple rocket league drive code; independent rotation and acceleration */
     public void driveRLTank(Joystick joy) {
     	double adder = Xbox.RT(joy) - Xbox.LT(joy);
-    	double left = adder + (Xbox.LEFT_X(joy) / 1.333333);
-    	double right = adder - (Xbox.LEFT_X(joy) / 1.333333);
+    	double right = adder + (Xbox.LEFT_X(joy) / 1.333333);
+    	double left = adder - (Xbox.LEFT_X(joy) / 1.333333);
     	
     	//Quick Truncate
     	left = (left > 1.0 ? 1.0 : (left < -1.0 ? -1.0 : left));
@@ -133,79 +129,22 @@ public class subsystemDrive extends Subsystem {
 			leftMotor2.set(ControlMode.PercentOutput, -LeftVal);
 				leftMotor3.set(ControlMode.PercentOutput, -LeftVal);
 		
-//		leftMotor.set(-LeftVal);
+//		leftMotor.set(-LeftVal); //for protobot
 //		rightMotor.set(RightVal);
-	}
-
-	/** drive based on the gyro input */
-	public void gyroMove(double speed, double angle){
-		System.out.println("Gyro offset:"+Robot.SUB_GYRO.getYaw());
-		setDriveValue(speed - .01*(Robot.SUB_GYRO.getYaw() - angle), speed + .01*(Robot.SUB_GYRO.getYaw() - angle));
-		setDriveValue(speed, speed);
-		//System.out.println(speed);
-	}
-	
-	/**drive mode in code based auton */
-	public boolean autoDrive(double distance, double lastDistance, double finalDistance, double speed) {
-		targetSpeed = pidCalc(distance, lastDistance, finalDistance, speed);
-		setDriveValue(targetSpeed, targetSpeed);
-		if(targetSpeed == 0) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 	
 	public double getLeftMotorSpeed() {
-		//return leftMotor.get();
+		//return leftMotor.get(); //for protobot
 		return leftMotor1.getMotorOutputPercent();
 	}
 	
-	//public boolean autoRotate(double currentAngle, double lastAngle, double finalAngle, double turnSpeed) {
-	//	targetSpeed = pidCalc(currentAngle);
-	//}
-	
-	public double pidCalc(double currentVal, double lastVal, double finalVal, double speed) {
-		kPDrive = 1;
-		kIDrive = 0.1;
-		kDDrive = 0;
-		deadZoneDrive = 24;
-		
-		error = finalVal - currentVal;
-		lastError = finalVal - lastVal;
-	//Total Error Calculations	
-		if(error < deadZoneDrive && error != 0) {//Left motors
-			totalError += error;
-		}
-		else if(error != 0){
-			totalError = 0;
-		}
-		else {
-			isStopped = true;
-		}
-
-	//P, I, and D Calculations
-		proportion = error * kPDrive;
-		integral = totalError * kIDrive;
-		deriv = (error-lastError) * kDDrive;
-		
-		speed += proportion + integral + deriv;
-		speed /= 200;
-		System.out.println("Adjusted speed:"+speed);
-		return speed;
-	}
-	
 	public void brake() {
-
-		        leftMotor1.set(ControlMode.PercentOutput, 0);
-		        leftMotor2.set(ControlMode.PercentOutput, 0);
-		        leftMotor3.set(ControlMode.PercentOutput, 0);
-		       rightMotor1.set(ControlMode.PercentOutput, 0);
-		       rightMotor2.set(ControlMode.PercentOutput, 0);
-		       rightMotor3.set(ControlMode.PercentOutput, 0);
-		 
+	    leftMotor1.set(ControlMode.PercentOutput, 0);
+	    leftMotor2.set(ControlMode.PercentOutput, 0);
+	    leftMotor3.set(ControlMode.PercentOutput, 0);
+	    rightMotor1.set(ControlMode.PercentOutput, 0);
+	    rightMotor2.set(ControlMode.PercentOutput, 0);
+	    rightMotor3.set(ControlMode.PercentOutput, 0);
 	}
 
 }
-

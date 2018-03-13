@@ -1,8 +1,6 @@
 
 package org.usfirst.frc.team6530.robot.commands;
 
-import org.usfirst.frc.team6530.robot.OI;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Servo;
 

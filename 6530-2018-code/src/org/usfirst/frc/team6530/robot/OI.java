@@ -19,9 +19,6 @@ public class OI {
 	public static final Joystick OPERATOR = new Joystick(1);
 	public static final Button DEPLOY = new JoystickButton(OPERATOR, 5);
 	
-	public OI() {
-//		DEPLOY.whenPressed(new commandDeploy() );
-	}
 	public double getLeftInput() { //Retrieves joystick input used
 		return DRIVER.getRawAxis(1);
 	}
@@ -29,9 +26,6 @@ public class OI {
 	public double getRightInput() { //Retrieves speed needed for right drive
 		return DRIVER.getRawAxis(5);
 	}
-//	public double getRightInputOperator() { //Retrieves speed needed for right drive
-//		return OPERATOR.getRawAxis(5);
-//	}
 
-	}
+}
 

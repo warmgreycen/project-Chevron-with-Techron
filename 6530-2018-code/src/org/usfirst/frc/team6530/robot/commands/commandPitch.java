@@ -14,21 +14,21 @@ public class commandPitch extends Command {
     protected void initialize() {
     }
     protected void execute() {    
-    	//sets the triggers on driver controller to control the pitch motor
-double speed = OI.DRIVER.getRawAxis(5);
+    	//sets the triggers on OPERATOR controller to control the pitch motor
+double speed = OI.OPERATOR.getRawAxis(5);
     	
-    	if(OI.DRIVER.getRawAxis(2) > 0.15){
-    		speed = OI.DRIVER.getRawAxis(2);
+    	if(OI.OPERATOR.getRawAxis(2) > 0.15){
+    		speed = OI.OPERATOR.getRawAxis(2);
     	}
     	
-    	else if(OI.DRIVER.getRawAxis(3) > 0.15){
-    		speed = -OI.DRIVER.getRawAxis(3);
+    	else if(OI.OPERATOR.getRawAxis(3) > 0.15){
+    		speed = -OI.OPERATOR.getRawAxis(3);
     	}
     	
     	else{
     		speed = 0;
     	}
-    	
+    										//REPLACED OPERATOR WITH OPERATOR FOR ASSEMBLY TODAY
     	Robot.SUB_PITCH.intake(speed);
     }
     protected boolean isFinished() {

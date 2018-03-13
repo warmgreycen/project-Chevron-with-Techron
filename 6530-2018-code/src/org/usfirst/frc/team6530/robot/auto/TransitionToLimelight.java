@@ -1,6 +1,5 @@
 package org.usfirst.frc.team6530.robot.auto;
 
-import org.usfirst.frc.team6530.robot.Constants;
 import org.usfirst.frc.team6530.robot.auto.components.AutoForward;
 import org.usfirst.frc.team6530.robot.auto.components.AutoTurn;
 import org.usfirst.frc.team6530.robot.commands.autonomousCommands.DriveToCube;
@@ -9,7 +8,8 @@ import org.usfirst.frc.team6530.robot.commands.autonomousCommands.Actions.LiftEl
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ *Not used; would have backed robot up after scoring 1st cube to make cubes
+ *visible for the limelight camera
  */
 public class TransitionToLimelight extends CommandGroup {
 

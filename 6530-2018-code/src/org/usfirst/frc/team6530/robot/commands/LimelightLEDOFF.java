@@ -1,6 +1,5 @@
 package org.usfirst.frc.team6530.robot.commands;
 
-import org.usfirst.frc.team6530.robot.OI;
 import org.usfirst.frc.team6530.robot.Robot;
 import org.usfirst.frc.team6530.robot.subsystems.Limelight;
 

@@ -3,11 +3,13 @@ package org.usfirst.frc.team6530.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
 import org.usfirst.frc.team6530.robot.Robot;
 import org.usfirst.frc.team6530.robot.Constants;
-//import org.usfirst.frc.team6530.robot.commands.drive.Drive;
+
+/**Some more of Greycen's auton code for driving. Not used in final code, but
+ * maybe would have worked better. Uses PID control
+ */
+
 
 /**
  * The drivetrain subsystem. Contains methods for controlling the robot drivetrain.
@@ -17,11 +19,11 @@ import org.usfirst.frc.team6530.robot.Constants;
 public class autoDriveTrain extends PIDSubsystem { //
    
     private TalonSRX driveLeftMaster;  
-    private TalonSRX driveLeftFollowOne; 
-    private TalonSRX driveLeftFollowTwo;
+//    private TalonSRX driveLeftFollowOne; 
+//    private TalonSRX driveLeftFollowTwo;
     private TalonSRX driveRightMaster;
-    private TalonSRX driveRightFollowOne;
-    private TalonSRX driveRightFollowTwo;
+//    private TalonSRX driveRightFollowOne;
+//    private TalonSRX driveRightFollowTwo;
     private boolean teleop;
     public double pidTune;
 
@@ -56,7 +58,7 @@ public class autoDriveTrain extends PIDSubsystem { //
     protected void initDefaultCommand() {
     	/**we will never beusing the autoDriveTrain to drive,
     	 * so we will not have a default command for it.
-    	 * impelement Subsystem will yell at me if i don't 
+    	 * implement Subsystem will yell at me if i don't 
     	 * have the void in the class though.
     	 */
     }

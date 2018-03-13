@@ -40,7 +40,6 @@ public class AutoForward extends Command implements PIDOutput{
     		requires(Robot.SUB_ENCODERS);
     		turnController = new PIDController(kP, kI, kD, kF, Robot.SUB_GYRO.getAHRS(), this);
         turnController.setInputRange(-180.0f,  180.0f);
-        //turnController.setOutputRange(-1.0, 1.0);
         turnController.setOutputRange(-1, 1);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
         turnController.setContinuous(true);
@@ -54,11 +53,9 @@ public class AutoForward extends Command implements PIDOutput{
     		
     		if (Math.abs(finalDistance) == finalDistance) {
     			magnitude = .5;
-    			//magnitude = .7;
     		}
     		else {
     			magnitude = -.5;
-    			//magnitude = -.7;
     		}
     }
 
@@ -77,12 +74,6 @@ public class AutoForward extends Command implements PIDOutput{
 		}
     	
     		if(turnController.isEnabled() ) {
-//    			if(difference <= slowZone) {
-//    				magnitude = Robot.SUB_DRIVE.getLeftMotorSpeed() * 0.999;
-//    			}
-//    			else {
-//    				magnitude = .6;
-//    			}
     			leftValue = magnitude + rotateToAngleRate;
     			rightValue = magnitude - rotateToAngleRate;
     			Robot.SUB_DRIVE.setDriveValue(leftValue,  rightValue);
@@ -106,7 +97,6 @@ public class AutoForward extends Command implements PIDOutput{
     // Called once after isFinished returns true
     protected void end() {
     		Robot.SUB_DRIVE.brake();
-    		//Robot.SUB_ENCODERS.encoderReset();
     }
 
     // Called when another command which requires one or more of the same
@@ -120,4 +110,3 @@ public class AutoForward extends Command implements PIDOutput{
 		rotateToAngleRate = output;
 	}
 }
-

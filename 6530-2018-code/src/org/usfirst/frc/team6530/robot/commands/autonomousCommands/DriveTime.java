@@ -3,6 +3,10 @@ import org.usfirst.frc.team6530.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Not sure wtf this is. Seems like an implementation of arcade drive; not used
+ * in final code.
+ */
 public class DriveTime extends Command {
 	private double m_speed, m_rotate, m_time;
 

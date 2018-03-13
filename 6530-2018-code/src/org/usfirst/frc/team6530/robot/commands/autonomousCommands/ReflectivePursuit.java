@@ -4,10 +4,11 @@ package org.usfirst.frc.team6530.robot.commands.autonomousCommands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6530.robot.Robot;
-import org.usfirst.frc.team6530.robot.subsystems.Limelight;
 
 /**
- * Auton program to chase Power Cubes (or whatever is in pipeline one.)
+ * Auton program to chase strips on sides of switch and scale
+ *  (or whatever is in pipeline one.)using
+ * limelight camera (not used in final code).
  */
 public class ReflectivePursuit extends Command {
     private double lastTX;

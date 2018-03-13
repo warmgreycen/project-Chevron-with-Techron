@@ -8,7 +8,8 @@ import org.usfirst.frc.team6530.robot.subsystems.Limelight;
 import static org.usfirst.frc.team6530.robot.Robot.LIMELIGHT;
 
 /**
- * Auton program to chase Power Cubes (or whatever is in pipeline two.)
+ * Auton program to chase Power Cubes (or whatever is in pipeline two.) using
+ * limelight camera (not used in final code).
  */
 public class DriveToCube extends Command {
     private double lastTX;

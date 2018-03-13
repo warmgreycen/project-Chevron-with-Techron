@@ -26,12 +26,10 @@ public class subsystemEncoders extends Subsystem {
 	}
 	
 	public double getRightEncoderDistance() { //Retrieves how far the right encoder has seen the right wheels go
-		//System.out.print("RDistance:"+rightEncoder.getDistance() );
 		return rightEncoder.getDistance();
 	}
 	
 	public double getLeftEncoderDistance() { //Retrieves how far the left encoder has seen the left wheels go
-		//System.out.print("LDistance:"+leftEncoder.getDistance() );
 		return leftEncoder.getDistance();
 	}
 	
@@ -77,19 +75,7 @@ public class subsystemEncoders extends Subsystem {
 			return (rightEncoder.getDistance() + (-1 * leftEncoder.getDistance()))/2;
 		}
 	}
-/*	
-	public double getAngleError() { //Tells how far off (in degrees) robot is from a perfectly straight heading
-		return gyro.getAngle();
-	}
-	
-	public void resetGyro(){
-		gyro.reset();
-	}
-	
-	public double getCorrectionSpeed(double angleError) { //Converts angle error into a the additional speed we need to correct it
-		return (angleError / 760);
-	}
-	*/
+
     public void initDefaultCommand() {}
 }
 

@@ -1,6 +1,6 @@
 package org.usfirst.frc.team6530.robot.enumeration;
 
-/** the possible autonomous modes */
+/** the possible autonomous modes (not used in final code) */
 public enum Autonomous {
 	NOTHING("Do Nothing"),
 	RUN_FOR_IT("Run straight forward"),
